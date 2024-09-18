@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Navheader = () => {
+const NavHeader = () => {
   return (
-    <div>Navheader</div>
+    <div className='text-white'>NavHeader</div>
   )
 }
 
-export default Navheader
+export default NavHeader

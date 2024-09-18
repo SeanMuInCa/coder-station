@@ -1,13 +1,21 @@
-import Navheader from "./components/Navheader";
-import Pagefooter from "./components/Pagefooter";
+import NavHeader from "./components/NavHeader";
+import PageFooter from "./components/PageFooter";
 import { Layout } from "antd";
+const { Header, Footer, Content } = Layout;
 function App() {
+  
 	return (
-		<>
-			<Navheader />
-			<h1 className="text-3xl underline">Hello world!</h1>
-			<Pagefooter />
-		</>
+		<div className="App">
+      <Header>
+        <NavHeader />
+      </Header>
+      <Content>
+        <div>hello</div>
+      </Content>
+      <Footer>
+        <PageFooter />
+      </Footer>
+		</div>
 	);
 }
 
