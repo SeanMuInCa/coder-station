@@ -1,12 +1,12 @@
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-
+import Navheader from "./components/Navheader";
+import Pagefooter from "./components/Pagefooter";
+import { Layout } from "antd";
 function App() {
 	return (
 		<>
-			<Header />
+			<Navheader />
 			<h1 className="text-3xl underline">Hello world!</h1>
-			<Footer />
+			<Pagefooter />
 		</>
 	);
 }
