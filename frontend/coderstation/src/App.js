@@ -1,6 +1,7 @@
 import NavHeader from "./components/NavHeader";
 import PageFooter from "./components/PageFooter";
 import { Layout } from "antd";
+import RouteConfig from "./router";
 const { Header, Footer, Content } = Layout;
 function App() {
   
@@ -10,7 +11,7 @@ function App() {
         <NavHeader />
       </Header>
       <Content>
-        <div>hello</div>
+        <RouteConfig />
       </Content>
       <Footer>
         <PageFooter />
