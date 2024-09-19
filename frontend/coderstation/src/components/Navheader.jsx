@@ -49,7 +49,6 @@ const NavHeader = () => {
 			</div>
 			<div className=" w-40 flex justify-center items-center">
         <LoginOrAvatar />
-				
 			</div>
 		</div>
 	);
