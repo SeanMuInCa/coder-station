@@ -1,20 +1,16 @@
 import React from "react";
-import { DownOutlined } from "@ant-design/icons";
 import { Button, Select, Input, Space } from "antd";
 import { NavLink } from "react-router-dom";
 const items = [
 	{
-		label: "Q and A",
+		label: "Issues",
 		key: "1",
 	},
 	{
-		label: "books",
+		label: "Books",
 		key: "2",
 	},
 ];
-const menuProps = {
-	items,
-};
 const NavHeader = () => {
 	return (
 		<div className="flex h-full box-border w-3/4 mx-auto justify-between ">
@@ -22,7 +18,7 @@ const NavHeader = () => {
 				<img src="/logo1.png" alt="" />
 			</div>
 			<div className="text-white flex justify-evenly w-1/4">
-				<NavLink to={"/"}>Questions</NavLink>
+				<NavLink to={"/"}>Issues</NavLink>
 				<NavLink to={"/books"}>Books</NavLink>
 				<NavLink to={"/interviews"}>Interviews</NavLink>
 				<a href="https://www.youtube.com" target="_blank" rel="noreferrer">
@@ -47,7 +43,7 @@ const NavHeader = () => {
 			<div>
 				<Space.Compact>
 					<Select defaultValue={items[0].label} options={items} />
-					<Input placeholder="Search" className="outline-none"/>
+					<Input.Search placeholder="Enter to search" className="outline-none" allowClear enterButton/>
 				</Space.Compact>
 			</div>
 			<div className=" w-40 flex justify-center items-center">
