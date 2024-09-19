@@ -1,6 +1,7 @@
 import React from "react";
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Dropdown, message, Space, Tooltip } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Space } from "antd";
+import { NavLink } from 'react-router-dom'
 const items = [
 	{
 		label: "Q and A",
@@ -20,13 +21,11 @@ const NavHeader = () => {
 			<div className="w-60">
 				<img src="/logo1.png" alt="" />
 			</div>
-			<div className="text-white">
-				<ul className="flex justify-evenly w-60">
-					<li>aaa</li>
-					<li>bbb</li>
-					<li>ccc</li>
-					<li>ddd</li>
-				</ul>
+			<div className="text-white flex justify-evenly w-1/4">
+				<NavLink to={'/'}>Questions</NavLink>
+				<NavLink to={'/books'}>Books</NavLink>
+				<NavLink to={'/interviews'}>Interviews</NavLink>
+				<a href='https://www.youtube.com' >Videos</a>
 			</div>
 			<div className="w-2/5 flex items-center justify-center h-full leading-1 ">
 				<div className=" w-1/4 outline-none rounded-none my-0 h-full box-border p-0 m-0 border-collapse border-none">
