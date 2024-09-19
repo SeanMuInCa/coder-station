@@ -25,7 +25,7 @@ const NavHeader = () => {
 				<NavLink to={'/'}>Questions</NavLink>
 				<NavLink to={'/books'}>Books</NavLink>
 				<NavLink to={'/interviews'}>Interviews</NavLink>
-				<a href='https://www.youtube.com' >Videos</a>
+				<a href='https://www.youtube.com' target="_blank" rel="noreferrer">Videos</a>
 			</div>
 			<div className="w-2/5 flex items-center justify-center h-full leading-1 ">
 				<div className=" w-1/4 outline-none rounded-none my-0 h-full box-border p-0 m-0 border-collapse border-none">
