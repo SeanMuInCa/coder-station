@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Select, Input, Space } from "antd";
 import { NavLink } from "react-router-dom";
+import LoginOrAvatar from "./LoginOrAvatar";
 const items = [
 	{
 		label: "Issues",
@@ -47,9 +48,8 @@ const NavHeader = () => {
 				</Space.Compact>
 			</div>
 			<div className=" w-40 flex justify-center items-center">
-				<Button type="primary" size="large">
-					Login / Register
-				</Button>
+        <LoginOrAvatar />
+				
 			</div>
 		</div>
 	);
