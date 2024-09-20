@@ -26,7 +26,7 @@ const LoginOrAvatar = () => {
 			</Button>
 		);
 	}
-	return <div>{loginStatus}</div>;
+	return <div>{ loginStatus }</div>;
 };
 
 export default LoginOrAvatar;
