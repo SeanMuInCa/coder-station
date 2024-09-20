@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, List, Popover } from "antd";
 import { useSelector } from "react-redux";
-const LoginOrAvatar = () => {
+const LoginOrAvatar = (props) => {
 	const user = useSelector((state) => state.user);
 	let loginStatus = null;
 	const content = (
@@ -21,7 +21,7 @@ const LoginOrAvatar = () => {
 		);
 	} else {
 		loginStatus = (
-			<Button type="primary" size="large">
+			<Button type="primary" size="large" onClick={props.loginHandle}>
 				Login / Register
 			</Button>
 		);
