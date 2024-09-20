@@ -9,7 +9,7 @@ const LoginOrAvatar = () => {
 			dataSource={["Profile", "Logout"]}
 			size="large"
 			renderItem={(item) => {
-				return <List.Item className="cursor-pointer">{item}</List.Item>;
+				return <List.Item className="cursor-pointer hover:text-blue-400">{item}</List.Item>;
 			}}
 		/>
 	);
