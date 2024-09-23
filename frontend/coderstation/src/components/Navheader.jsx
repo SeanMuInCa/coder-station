@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Select, Input, Space } from "antd";
+import { Select, Input, Space, Button } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import LoginOrAvatar from "./LoginOrAvatar";
 import LoginForm from "./LoginForm";
@@ -35,13 +36,9 @@ const NavHeader = () => {
 				</div>
 				<div>
 					<Space.Compact>
-						<Select defaultValue={items[0].label} options={items} />
-						<Input.Search
-							placeholder="Enter to search"
-							className="outline-none"
-							allowClear
-							enterButton
-						/>
+						<Select defaultValue={items[0].label} options={items} size="large"/>
+						<Input placeholder="Enter to search" size="large" />
+						<Button type="primary" size="large"><SearchOutlined /></Button>
 					</Space.Compact>
 				</div>
 				<div className=" w-40 flex justify-center items-center">
