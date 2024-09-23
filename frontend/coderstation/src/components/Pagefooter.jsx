@@ -7,7 +7,7 @@ const PageFooter = () => {
         <p>&copy; 2023 Coder Station. All rights reserved.</p>
       </footer>
     </div>
-  )
+  );
 }
 
 export default PageFooter
