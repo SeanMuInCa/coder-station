@@ -175,6 +175,17 @@ const LoginForm = (props) => {
 					/>
 				</Form.Item>
 
+        <Form.Item
+					label="Nickname"
+					name="nickname"
+				>
+					<Input
+						placeholder="Nickname by default is UserXXX"
+						value={regInfo.nickname}
+						onChange={(e) => updateUserInfo(regInfo, e.target.value, "nickname", setRegInfo)}
+					/>
+				</Form.Item>
+        
 				<Form.Item
 					name="captcha"
 					label="Captcha"
