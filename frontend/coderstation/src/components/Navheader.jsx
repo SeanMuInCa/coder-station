@@ -15,10 +15,14 @@ const items = [
 	},
 ];
 const NavHeader = () => {
-  const [openForm, setOpenForm] = useState(false);
+	const [openForm, setOpenForm] = useState(false);
 	const loginHandle = () => {
 		console.log("from header");
-    setOpenForm(true);
+		setOpenForm(true);
+	};
+	
+	const closeForm = () => {
+		setOpenForm(false);
 	};
 	return (
 		<>
@@ -36,16 +40,18 @@ const NavHeader = () => {
 				</div>
 				<div>
 					<Space.Compact>
-						<Select defaultValue={items[0].label} options={items} size="large"/>
+						<Select defaultValue={items[0].label} options={items} size="large" />
 						<Input placeholder="Enter to search" size="large" />
-						<Button type="primary" size="large"><SearchOutlined /></Button>
+						<Button type="primary" size="large">
+							<SearchOutlined />
+						</Button>
 					</Space.Compact>
 				</div>
 				<div className=" w-40 flex justify-center items-center">
 					<LoginOrAvatar loginHandle={loginHandle} />
 				</div>
 			</div>
-			<LoginForm openForm={openForm} setOpenForm={setOpenForm}/>
+			<LoginForm openForm={openForm} closeForm={closeForm} />
 		</>
 	);
 };

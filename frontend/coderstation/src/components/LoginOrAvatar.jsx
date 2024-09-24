@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 const LoginOrAvatar = (props) => {
 	const user = useSelector((state) => state.user);
 	let loginStatus = null;
+	let userLogo = '/icon1.png';
 	const content = (
 		<List
 			dataSource={["Profile", "Logout"]}
@@ -16,7 +17,7 @@ const LoginOrAvatar = (props) => {
 	if (user.isLogin) {
 		loginStatus = (
 			<Popover placement="bottom" content={content}>
-				<img src="/icon1.png" alt="avatar" className="rounded-full w-12 h-12"/>
+				<img src={userLogo} alt="avatar" className="rounded-full w-12 h-12"/>
 			</Popover>
 		);
 	} else {
