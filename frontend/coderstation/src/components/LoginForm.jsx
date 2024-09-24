@@ -20,12 +20,18 @@ const LoginForm = (props) => {
 		rememberMe: false,
 		captcha: "",
 	});
+  const [regInfo, setRegInfo] = useState({
+    username: '',
+    captcha:'',
+    nickname:''
+  })
 	const loginFormRef = useRef();
-	const updateUserInfo = (info, value, key) => {
+  const regFormRef = useRef();
+	const updateUserInfo = (info, value, key, setInfo) => {
 		info[key] = value;
 		console.log(info);
 
-		// setLoginInfo(info);
+		// setInfo(info);
 	};
 	const confirmHandle = () => {
 		// TODO: login or register logic
@@ -61,7 +67,7 @@ const LoginForm = (props) => {
 					<Input
 						placeholder="Please input your username!"
 						value={loginInfo.username}
-						onChange={(e) => updateUserInfo(loginInfo, e.target.value, "username")}
+						onChange={(e) => updateUserInfo(loginInfo, e.target.value, "username", setLoginInfo)}
 					/>
 				</Form.Item>
 
@@ -78,7 +84,7 @@ const LoginForm = (props) => {
 					<Input.Password
 						placeholder="Please input your password!"
 						value={loginInfo.password}
-						onChange={(e) => updateUserInfo(loginInfo, e.target.value, "password")}
+						onChange={(e) => updateUserInfo(loginInfo, e.target.value, "password", setLoginInfo)}
 					/>
 				</Form.Item>
 				<Form.Item
@@ -95,10 +101,10 @@ const LoginForm = (props) => {
 					{/* <Row align="middle">
 						<Col span={16}> */}
 							<Input
-              className="w-1/3"
-								placeholder="please input the captcha"
+              className="w-1/2"
+								placeholder="captcha"
 								value={loginInfo.captcha}
-								onChange={(e) => updateUserInfo(loginInfo, e.target.value, "captcha")}
+								onChange={(e) => updateUserInfo(loginInfo, e.target.value, "captcha", setLoginInfo)}
 							/>
 						{/* </Col>
 						<Col span={6}>
@@ -119,7 +125,7 @@ const LoginForm = (props) => {
 				>
 					<Checkbox
 						onChange={(e) =>
-							updateUserInfo(loginInfo, e.target.checked, "rememberMe")
+							updateUserInfo(loginInfo, e.target.checked, "rememberMe", setLoginInfo)
 						}
 					>
 						Remember me
@@ -140,7 +146,78 @@ const LoginForm = (props) => {
 				</Form.Item>
 			</Form>
 		) : (
-			<Form></Form>
+			<Form
+				name="register"
+				autoComplete="off"
+				onFinish={confirmHandle}
+				labelCol={{
+					span: 7,
+				}}
+				wrapperCol={{
+					span: 14,
+				}}
+				ref={regFormRef}
+			>
+				<Form.Item
+					label="Username"
+					name="username"
+					rules={[
+						{
+							required: true,
+							message: "Please input your username!",
+						},
+					]}
+				>
+					<Input
+						placeholder="Please input your username!"
+						value={regInfo.username}
+						onChange={(e) => updateUserInfo(regInfo, e.target.value, "username", setRegInfo)}
+					/>
+				</Form.Item>
+
+				<Form.Item
+					name="captcha"
+					label="Captcha"
+					rules={[
+						{
+							required: true,
+							message: "Please input the captcha",
+						},
+					]}
+				>
+          {/* 我没找到这里问题在哪 */}
+					{/* <Row align="middle">
+						<Col span={16}> */}
+							<Input
+              className="w-1/2"
+								placeholder="captcha"
+								value={regInfo.captcha}
+								onChange={(e) => updateUserInfo(regInfo, e.target.value, "captcha", setRegInfo)}
+							/>
+						{/* </Col>
+						<Col span={6}>
+							<div
+							// onClick={captchaClickHandle}
+							// dangerouslySetInnerHTML={{ __html: captcha }}
+							></div>
+						</Col>
+					</Row> */}
+				</Form.Item>
+				
+				<Form.Item
+					wrapperCol={{
+						offset: 8,
+						span: 16,
+					}}
+				>
+					<Button type="primary" htmlType="submit" style={{ marginRight: 20 }}>
+						Register
+					</Button>
+					<Button type="primary" htmlType="submit">
+						Reset
+					</Button>
+				</Form.Item>
+			</Form>
 		);
 	return (
 		<Modal
