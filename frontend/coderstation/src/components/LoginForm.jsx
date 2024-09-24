@@ -1,5 +1,15 @@
 import { useRef, useState } from "react";
-import { Flex, Form, Modal, Radio, Input, Checkbox,Row, Col } from "antd";
+import {
+	Flex,
+	Form,
+	Modal,
+	Radio,
+	Input,
+	Checkbox,
+	Row,
+	Col,
+	Button,
+} from "antd";
 
 const LoginForm = (props) => {
 	const [formType, setFormType] = useState(1);
@@ -81,23 +91,23 @@ const LoginForm = (props) => {
 						},
 					]}
 				>
-					<Row align="middle">
-						<Col span={16}>
+          {/* 我没找到这里问题在哪 */}
+					{/* <Row align="middle">
+						<Col span={16}> */}
 							<Input
+              className="w-1/3"
 								placeholder="please input the captcha"
 								value={loginInfo.captcha}
-								onChange={(e) =>
-									updateUserInfo(loginInfo, e.target.value, "captcha")
-								}
+								onChange={(e) => updateUserInfo(loginInfo, e.target.value, "captcha")}
 							/>
-						</Col>
+						{/* </Col>
 						<Col span={6}>
 							<div
-								// onClick={captchaClickHandle}
-								// dangerouslySetInnerHTML={{ __html: captcha }}
+							// onClick={captchaClickHandle}
+							// dangerouslySetInnerHTML={{ __html: captcha }}
 							></div>
 						</Col>
-					</Row>
+					</Row> */}
 				</Form.Item>
 				<Form.Item
 					name="rememberMe"
@@ -114,6 +124,19 @@ const LoginForm = (props) => {
 					>
 						Remember me
 					</Checkbox>
+				</Form.Item>
+				<Form.Item
+					wrapperCol={{
+						offset: 8,
+						span: 16,
+					}}
+				>
+					<Button type="primary" htmlType="submit" style={{ marginRight: 20 }}>
+						Login
+					</Button>
+					<Button type="primary" htmlType="submit">
+						Reset
+					</Button>
 				</Form.Item>
 			</Form>
 		) : (
