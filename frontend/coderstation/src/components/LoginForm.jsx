@@ -32,7 +32,7 @@ const LoginForm = (props) => {
   const fetchCaptcha = async() => {
     const res = await getCaptcha();
     setCaptcha(res);
-  }
+  };
 	useEffect(() => {
 		fetchCaptcha();
 	}, [props.openForm]);// listen openForm changes , refetch the captcha 
