@@ -137,7 +137,6 @@ const LoginForm = (props) => {
 					<Row align="middle">
 						<Col span={16}>
 							<Input
-								// className="w-1/2"
 								placeholder="captcha"
 								value={loginInfo.captcha}
 								onChange={(e) =>
@@ -236,7 +235,6 @@ const LoginForm = (props) => {
 						},
 					]}
 				>
-					{/* 我没找到这里问题在哪 */}
 					<Row align="middle">
 						<Col span={16}>
 					<Input
