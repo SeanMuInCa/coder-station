@@ -33,10 +33,16 @@ const LoginForm = (props) => {
 
 		// setInfo(info);
 	};
-	const confirmHandle = () => {
+	const loginConfirmHandle = () => {
 		// TODO: login or register logic
+    console.log('login confirm handle');
+    
 		props.closeForm();
 	};
+  const regConfirmHandle = () => {
+    console.log('reg confirm handle');
+    props.closeForm();
+  }
 	const changeType = (e) => {
 		setFormType(e.target.value);
 	};
@@ -45,7 +51,7 @@ const LoginForm = (props) => {
 			<Form
 				name="login"
 				autoComplete="off"
-				onFinish={confirmHandle}
+				onFinish={loginConfirmHandle}
 				labelCol={{
 					span: 7,
 				}}
@@ -149,7 +155,7 @@ const LoginForm = (props) => {
 			<Form
 				name="register"
 				autoComplete="off"
-				onFinish={confirmHandle}
+				onFinish={regConfirmHandle}
 				labelCol={{
 					span: 7,
 				}}
@@ -232,9 +238,9 @@ const LoginForm = (props) => {
 		);
 	return (
 		<Modal
+      footer={null}
 			title="Login / Register"
 			open={props.openForm}
-			onOk={confirmHandle}
 			onCancel={props.closeForm}
 		>
 			<Flex vertical gap="middle" className="my-5">
