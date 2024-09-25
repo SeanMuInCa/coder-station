@@ -29,13 +29,13 @@ const LoginForm = (props) => {
 	const loginFormRef = useRef();
 	const regFormRef = useRef();
 
+  const fetchCaptcha = async() => {
+    const res = await getCaptcha();
+    setCaptcha(res);
+  }
 	useEffect(() => {
-		async function fetchCaptcha() {
-			const res = await getCaptcha();
-			setCaptcha(res);
-		}
 		fetchCaptcha();
-	}, []);
+	}, [props.openForm]);// listen openForm changes , refetch the captcha 
 	const updateUserInfo = (info, value, key, setInfo) => {
 		setInfo({
 			...info,
@@ -55,6 +55,7 @@ const LoginForm = (props) => {
 		props.closeForm();
 	};
 	const changeType = (e) => {
+    fetchCaptcha();
 		setFormType(e.target.value);
 	};
 
@@ -133,7 +134,6 @@ const LoginForm = (props) => {
 						},
 					]}
 				>
-					{/* 我没找到这里问题在哪 */}
 					<Row align="middle">
 						<Col span={16}>
 							<Input
@@ -147,7 +147,8 @@ const LoginForm = (props) => {
 						</Col>
 						<Col span={6}>
 							<div
-								// onClick={captchaClickHandle}
+                className="cursor-pointer"
+								onClick={fetchCaptcha}
 								dangerouslySetInnerHTML={{ __html: captcha }}
 							></div>
 						</Col>
@@ -236,24 +237,23 @@ const LoginForm = (props) => {
 					]}
 				>
 					{/* 我没找到这里问题在哪 */}
-					{/* <Row align="middle">
-						<Col span={16}> */}
+					<Row align="middle">
+						<Col span={16}>
 					<Input
-						className="w-1/2"
 						placeholder="captcha"
 						value={regInfo.captcha}
 						onChange={(e) =>
 							updateUserInfo(regInfo, e.target.value, "captcha", setRegInfo)
 						}
 					/>
-					{/* </Col>
+					</Col>
 						<Col span={6}>
 							<div
-							// onClick={captchaClickHandle}
-							// dangerouslySetInnerHTML={{ __html: captcha }}
+							onClick={fetchCaptcha}
+							dangerouslySetInnerHTML={{ __html: captcha }}
 							></div>
 						</Col>
-					</Row> */}
+					</Row>
 				</Form.Item>
 
 				<Form.Item
