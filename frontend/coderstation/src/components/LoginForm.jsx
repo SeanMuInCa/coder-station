@@ -37,10 +37,12 @@ const LoginForm = (props) => {
 		fetchCaptcha();
 	}, []);
 	const updateUserInfo = (info, value, key, setInfo) => {
-		info[key] = value;
-		console.log(info);
-
-		// setInfo(info);
+		setInfo({
+			...info,
+			[key]: value,
+		});
+    console.log("login info", info);
+    
 	};
 	const loginConfirmHandle = () => {
 		// TODO: login or register logic
@@ -63,11 +65,11 @@ const LoginForm = (props) => {
 			rememberMe: false,
 			captcha: "",
 		});
-    setRegInfo({
-		username: "",
-		captcha: "",
-		nickname: "",
-	});
+		setRegInfo({
+			username: "",
+			captcha: "",
+			nickname: "",
+		});
 		props.closeForm();
 	};
 	let container =
@@ -135,7 +137,7 @@ const LoginForm = (props) => {
 					<Row align="middle">
 						<Col span={16}>
 							<Input
-								className="w-1/2"
+								// className="w-1/2"
 								placeholder="captcha"
 								value={loginInfo.captcha}
 								onChange={(e) =>
