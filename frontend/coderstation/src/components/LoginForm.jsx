@@ -59,12 +59,9 @@ const LoginForm = (props) => {
 		setFormType(e.target.value);
 	};
 
-  const checkExistingUsername = async (username)=>{
-	console.log(username);
-	
-    const res = await checkExists(username.field);
+  const checkExistingUsername = async ()=>{
+    const res = await checkExists(regInfo.username);
     console.log(res);
-    
   }
 	const closeModal = () => {
 		setLoginInfo({
