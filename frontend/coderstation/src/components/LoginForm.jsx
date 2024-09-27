@@ -29,20 +29,19 @@ const LoginForm = (props) => {
 	const loginFormRef = useRef();
 	const regFormRef = useRef();
 
-  const fetchCaptcha = async() => {
-    const res = await getCaptcha();
-    setCaptcha(res);
-  };
+	const fetchCaptcha = async () => {
+		const res = await getCaptcha();
+		setCaptcha(res);
+	};
 	useEffect(() => {
 		fetchCaptcha();
-	}, [props.openForm]);// listen openForm changes , refetch the captcha 
+	}, [props.openForm]); // listen openForm changes , refetch the captcha
 	const updateUserInfo = (info, value, key, setInfo) => {
 		setInfo({
 			...info,
 			[key]: value,
 		});
-    console.log("login info", info);
-    
+		console.log("login info", info);
 	};
 	const loginConfirmHandle = () => {
 		// TODO: login or register logic
@@ -55,14 +54,15 @@ const LoginForm = (props) => {
 		props.closeForm();
 	};
 	const changeType = (e) => {
-    fetchCaptcha();
+		fetchCaptcha();
 		setFormType(e.target.value);
 	};
 
-  const checkExistingUsername = async ()=>{
-    const res = await checkExists(regInfo.username);
-    console.log(res);
-  }
+	const checkExistingUsername = async () => {
+		const res = await checkExists(regInfo.username);
+		//true means existing
+		return res.data ?  Promise.reject('username already exists') : Promise.resolve();
+	};
 	const closeModal = () => {
 		setLoginInfo({
 			username: "",
@@ -150,7 +150,7 @@ const LoginForm = (props) => {
 						</Col>
 						<Col span={6}>
 							<div
-                className="cursor-pointer"
+								className="cursor-pointer"
 								onClick={fetchCaptcha}
 								dangerouslySetInnerHTML={{ __html: captcha }}
 							></div>
@@ -208,9 +208,9 @@ const LoginForm = (props) => {
 							required: true,
 							message: "Please input your username!",
 						},
-            { validator: checkExistingUsername }
+						{ validator: checkExistingUsername },
 					]}
-          validateTrigger='onBlur'
+					validateTrigger="onBlur"
 				>
 					<Input
 						placeholder="Please input your username!"
@@ -243,18 +243,18 @@ const LoginForm = (props) => {
 				>
 					<Row align="middle">
 						<Col span={16}>
-					<Input
-						placeholder="captcha"
-						value={regInfo.captcha}
-						onChange={(e) =>
-							updateUserInfo(regInfo, e.target.value, "captcha", setRegInfo)
-						}
-					/>
-					</Col>
+							<Input
+								placeholder="captcha"
+								value={regInfo.captcha}
+								onChange={(e) =>
+									updateUserInfo(regInfo, e.target.value, "captcha", setRegInfo)
+								}
+							/>
+						</Col>
 						<Col span={6}>
 							<div
-							onClick={fetchCaptcha}
-							dangerouslySetInnerHTML={{ __html: captcha }}
+								onClick={fetchCaptcha}
+								dangerouslySetInnerHTML={{ __html: captcha }}
 							></div>
 						</Col>
 					</Row>
