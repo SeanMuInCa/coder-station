@@ -52,13 +52,17 @@ const LoginForm = (props) => {
 	useEffect(() => {
 		fetchCaptcha();
 	}, [props.openForm]); // listen openForm changes , refetch the captcha
-	const updateUserInfo = (info, value, key, setInfo) => {
-		setInfo({
+	const updateLoginInfo = (info, value, key) => {
+		setLoginInfo({
 			...info,
 			[key]: value,
 		});
-		console.log('info', info,value,key,setInfo);
-		
+	};
+	const updateRegInfo = (info, value, key) => {
+		setRegInfo({
+			...info,
+			[key]: value,
+		});
 	};
 	const loginConfirmHandle = () => {
 		// TODO: login or register logic
@@ -125,7 +129,7 @@ const LoginForm = (props) => {
 						placeholder="Please input your username!"
 						value={loginInfo.loginId}
 						onChange={(e) =>
-							updateUserInfo(loginInfo, e.target.value, "loginId", setLoginInfo)
+							updateLoginInfo(loginInfo, e.target.value, "loginId")
 						}
 					/>
 				</Form.Item>
@@ -144,7 +148,7 @@ const LoginForm = (props) => {
 						placeholder="Please input your password!"
 						value={loginInfo.password}
 						onChange={(e) =>
-							updateUserInfo(loginInfo, e.target.value, "password", setLoginInfo)
+							updateLoginInfo(loginInfo, e.target.value, "password")
 						}
 					/>
 				</Form.Item>
@@ -164,7 +168,7 @@ const LoginForm = (props) => {
 								placeholder="captcha"
 								value={loginInfo.captcha}
 								onChange={(e) =>
-									updateUserInfo(loginInfo, e.target.value, "captcha", setLoginInfo)
+									updateLoginInfo(loginInfo, e.target.value, "captcha")
 								}
 							/>
 						</Col>
@@ -187,7 +191,7 @@ const LoginForm = (props) => {
 				>
 					<Checkbox
 						onChange={(e) =>
-							updateUserInfo(loginInfo, e.target.checked, "rememberMe", setLoginInfo)
+							updateLoginInfo(loginInfo, e.target.checked, "rememberMe")
 						}
 					>
 						Remember me
@@ -222,7 +226,8 @@ const LoginForm = (props) => {
 			>
 				<Form.Item
 					label="Username"
-					name="loginId"
+					// how???
+					name="regId"
 					rules={[
 						{
 							required: true,
@@ -230,13 +235,13 @@ const LoginForm = (props) => {
 						},
 						{ validator: checkExistingUsername },
 					]}
-					// validateTrigger="onBlur"
+					validateTrigger="onBlur"
 				>
 					<Input
 						placeholder="Please input your username!"
 						value={regInfo.loginId}
 						onChange={(e) =>
-							updateUserInfo(regInfo, e.target.value, "loginId", setRegInfo)
+							updateRegInfo(regInfo, e.target.value, "loginId")
 						}
 					/>
 				</Form.Item>
@@ -246,7 +251,7 @@ const LoginForm = (props) => {
 						placeholder="Nickname by default is UserXXX"
 						value={regInfo.nickname}
 						onChange={(e) =>
-							updateUserInfo(regInfo, e.target.value, "nickname", setRegInfo)
+							updateRegInfo(regInfo, e.target.value, "nickname")
 						}
 					/>
 				</Form.Item>
@@ -267,7 +272,7 @@ const LoginForm = (props) => {
 								placeholder="captcha"
 								value={regInfo.captcha}
 								onChange={(e) =>
-									updateUserInfo(regInfo, e.target.value, "captcha", setRegInfo)
+									updateRegInfo(regInfo, e.target.value, "captcha")
 								}
 							/>
 						</Col>
