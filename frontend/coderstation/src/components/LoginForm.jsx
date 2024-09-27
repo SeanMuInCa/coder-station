@@ -59,6 +59,9 @@ const LoginForm = (props) => {
 		setFormType(e.target.value);
 	};
 
+  const checkExistingUsername = ()=>{
+    
+  }
 	const closeModal = () => {
 		setLoginInfo({
 			username: "",
@@ -204,7 +207,9 @@ const LoginForm = (props) => {
 							required: true,
 							message: "Please input your username!",
 						},
+            { validator: checkExistingUsername }
 					]}
+          validateTrigger='onBlur'
 				>
 					<Input
 						placeholder="Please input your username!"
