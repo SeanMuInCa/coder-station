@@ -9,6 +9,7 @@ import {
 	Row,
 	Col,
 	Button,
+	message
 } from "antd";
 import { getCaptcha, checkExists, register } from "../api/user";
 
@@ -72,16 +73,18 @@ const LoginForm = (props) => {
 	};
 	const regConfirmHandle = async() => {
 		console.log("reg confirm handle");
-		console.log(regInfo,'regInfo');
+		console.log(regInfo,'regInfo'); 
 		console.log(loginInfo,'loginInfo');
 		
 		const res = await register(regInfo)
 		//failed
 		if(res.code === 406){
 			fetchCaptcha();
+			message.error('wrong captcha')
 		}else{
 			props.closeForm();
 			clearRegInfo();
+			message.success('register success');
 		}
 		console.log(res);
 	};
