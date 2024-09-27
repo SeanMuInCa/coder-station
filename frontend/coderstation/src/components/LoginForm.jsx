@@ -9,7 +9,7 @@ import {
 	Row,
 	Col,
 	Button,
-	message
+	message,
 } from "antd";
 import { getCaptcha, checkExists, register } from "../api/user";
 import { useDispatch } from "react-redux";
@@ -35,13 +35,19 @@ const LoginForm = (props) => {
 	const regFormRef = useRef();
 
 	const clearRegInfo = () => {
+		console.log('clear reg info');
+		
 		setRegInfo({
-			regId: "",
+			loginId: "",
 			captcha: "",
 			nickname: "",
 		});
+		console.log(regInfo.nickname);
+		console.log(loginInfo);
 	};
 	const clearLoginInfo = () => {
+		console.log('clear login info');
+
 		setLoginInfo({
 			loginId: "",
 			password: "",
@@ -74,20 +80,20 @@ const LoginForm = (props) => {
 
 		props.closeForm();
 	};
-	const regConfirmHandle = async() => {
+	const regConfirmHandle = async () => {
 		console.log("reg confirm handle");
-		console.log(regInfo,'regInfo'); 
-		console.log(loginInfo,'loginInfo');
-		
-		const res = await register(regInfo)
+		console.log(regInfo, "regInfo");
+		console.log(loginInfo, "loginInfo");
+
+		const res = await register(regInfo);
 		//failed
-		if(res.code === 406){
-			message.error('wrong captcha');
+		if (res.code === 406) {
+			message.error("wrong captcha");
 			fetchCaptcha();
-		}else{
+		} else {
 			props.closeForm();
 			clearRegInfo();
-			message.success('register success, default password is 123456');
+			message.success("register success, default password is 123456");
 			//save data to redux
 			dispatch(initUserInfo(res.data));
 			//change login status
@@ -100,10 +106,11 @@ const LoginForm = (props) => {
 	};
 
 	const checkExistingUsername = async () => {
-		if(regInfo.loginId.trim() === "") return;
-		const res = await checkExists(regInfo.loginId);
-		//true means existing
-		return res.data && Promise.reject("username already exists");
+		if (regInfo.loginId) {
+			const res = await checkExists(regInfo.loginId);
+			//true means existing
+			return res.data && Promise.reject("username already exists");
+		}
 	};
 	const closeModal = () => {
 		clearLoginInfo();
@@ -137,9 +144,7 @@ const LoginForm = (props) => {
 					<Input
 						placeholder="Please input your username!"
 						value={loginInfo.loginId}
-						onChange={(e) =>
-							updateLoginInfo(loginInfo, e.target.value, "loginId")
-						}
+						onChange={(e) => updateLoginInfo(loginInfo, e.target.value, "loginId")}
 					/>
 				</Form.Item>
 
@@ -156,9 +161,7 @@ const LoginForm = (props) => {
 					<Input.Password
 						placeholder="Please input your password!"
 						value={loginInfo.password}
-						onChange={(e) =>
-							updateLoginInfo(loginInfo, e.target.value, "password")
-						}
+						onChange={(e) => updateLoginInfo(loginInfo, e.target.value, "password")}
 					/>
 				</Form.Item>
 				<Form.Item
@@ -176,9 +179,7 @@ const LoginForm = (props) => {
 							<Input
 								placeholder="captcha"
 								value={loginInfo.captcha}
-								onChange={(e) =>
-									updateLoginInfo(loginInfo, e.target.value, "captcha")
-								}
+								onChange={(e) => updateLoginInfo(loginInfo, e.target.value, "captcha")}
 							/>
 						</Col>
 						<Col span={6}>
@@ -249,9 +250,7 @@ const LoginForm = (props) => {
 					<Input
 						placeholder="Please input your username!"
 						value={regInfo.loginId}
-						onChange={(e) =>
-							updateRegInfo(regInfo, e.target.value, "loginId")
-						}
+						onChange={(e) => updateRegInfo(regInfo, e.target.value, "loginId")}
 					/>
 				</Form.Item>
 
@@ -259,9 +258,7 @@ const LoginForm = (props) => {
 					<Input
 						placeholder="Nickname by default is UserXXX"
 						value={regInfo.nickname}
-						onChange={(e) =>
-							updateRegInfo(regInfo, e.target.value, "nickname")
-						}
+						onChange={(e) => updateRegInfo(regInfo, e.target.value, "nickname")}
 					/>
 				</Form.Item>
 
@@ -280,9 +277,7 @@ const LoginForm = (props) => {
 							<Input
 								placeholder="captcha"
 								value={regInfo.captcha}
-								onChange={(e) =>
-									updateRegInfo(regInfo, e.target.value, "captcha")
-								}
+								onChange={(e) => updateRegInfo(regInfo, e.target.value, "captcha")}
 							/>
 						</Col>
 						<Col span={6}>
