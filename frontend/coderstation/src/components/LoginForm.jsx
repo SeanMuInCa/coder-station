@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { getCaptcha, checkExists, register } from "../api/user";
 
+// TODO: the loginid share in login and register
 const LoginForm = (props) => {
 	const [formType, setFormType] = useState(1);
 	const [captcha, setCaptcha] = useState(null);
@@ -56,7 +57,8 @@ const LoginForm = (props) => {
 			...info,
 			[key]: value,
 		});
-		console.log("login info", info);
+		console.log('info', info,value,key,setInfo);
+		
 	};
 	const loginConfirmHandle = () => {
 		// TODO: login or register logic
@@ -66,7 +68,8 @@ const LoginForm = (props) => {
 	};
 	const regConfirmHandle = async() => {
 		console.log("reg confirm handle");
-		console.log(regInfo);
+		console.log(regInfo,'regInfo');
+		console.log(loginInfo,'loginInfo');
 		
 		const res = await register(regInfo)
 		//failed
@@ -84,6 +87,7 @@ const LoginForm = (props) => {
 	};
 
 	const checkExistingUsername = async () => {
+		if(regInfo.loginId.trim() === "") return;
 		const res = await checkExists(regInfo.loginId);
 		//true means existing
 		return res.data && Promise.reject("username already exists");
@@ -230,7 +234,7 @@ const LoginForm = (props) => {
 				>
 					<Input
 						placeholder="Please input your username!"
-						value={regInfo.username}
+						value={regInfo.loginId}
 						onChange={(e) =>
 							updateUserInfo(regInfo, e.target.value, "loginId", setRegInfo)
 						}
