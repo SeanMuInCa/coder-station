@@ -13,3 +13,11 @@ export const checkExists = (username) => {
 		method: "get",
 	});
 };
+
+export const register = (data) => {
+	return request({
+		url: "/api/user/",
+		method: "post",
+		data,
+	});
+};

@@ -10,25 +10,40 @@ import {
 	Col,
 	Button,
 } from "antd";
-import { getCaptcha, checkExists } from "../api/user";
+import { getCaptcha, checkExists, register } from "../api/user";
 
 const LoginForm = (props) => {
 	const [formType, setFormType] = useState(1);
 	const [captcha, setCaptcha] = useState(null);
 	const [loginInfo, setLoginInfo] = useState({
-		username: "",
+		loginId: "",
 		password: "",
 		rememberMe: false,
 		captcha: "",
 	});
 	const [regInfo, setRegInfo] = useState({
-		username: "",
+		loginId: "",
 		captcha: "",
 		nickname: "",
 	});
 	const loginFormRef = useRef();
 	const regFormRef = useRef();
 
+	const clearRegInfo = () => {
+		setRegInfo({
+			loginId: "",
+			captcha: "",
+			nickname: "",
+		});
+	};
+	const clearLoginInfo = () => {
+		setLoginInfo({
+			loginId: "",
+			password: "",
+			rememberMe: false,
+			captcha: "",
+		});
+	};
 	const fetchCaptcha = async () => {
 		const res = await getCaptcha();
 		setCaptcha(res);
@@ -49,9 +64,19 @@ const LoginForm = (props) => {
 
 		props.closeForm();
 	};
-	const regConfirmHandle = () => {
+	const regConfirmHandle = async() => {
 		console.log("reg confirm handle");
-		props.closeForm();
+		console.log(regInfo);
+		
+		const res = await register(regInfo)
+		//failed
+		if(res.code === 406){
+			fetchCaptcha();
+		}else{
+			props.closeForm();
+			clearRegInfo();
+		}
+		console.log(res);
 	};
 	const changeType = (e) => {
 		fetchCaptcha();
@@ -59,22 +84,13 @@ const LoginForm = (props) => {
 	};
 
 	const checkExistingUsername = async () => {
-		const res = await checkExists(regInfo.username);
+		const res = await checkExists(regInfo.loginId);
 		//true means existing
-		return res.data ?  Promise.reject('username already exists') : Promise.resolve();
+		return res.data && Promise.reject("username already exists");
 	};
 	const closeModal = () => {
-		setLoginInfo({
-			username: "",
-			password: "",
-			rememberMe: false,
-			captcha: "",
-		});
-		setRegInfo({
-			username: "",
-			captcha: "",
-			nickname: "",
-		});
+		clearLoginInfo();
+		clearRegInfo();
 		props.closeForm();
 	};
 	let container =
@@ -93,7 +109,7 @@ const LoginForm = (props) => {
 			>
 				<Form.Item
 					label="Username"
-					name="username"
+					name="loginId"
 					rules={[
 						{
 							required: true,
@@ -103,9 +119,9 @@ const LoginForm = (props) => {
 				>
 					<Input
 						placeholder="Please input your username!"
-						value={loginInfo.username}
+						value={loginInfo.loginId}
 						onChange={(e) =>
-							updateUserInfo(loginInfo, e.target.value, "username", setLoginInfo)
+							updateUserInfo(loginInfo, e.target.value, "loginId", setLoginInfo)
 						}
 					/>
 				</Form.Item>
@@ -202,7 +218,7 @@ const LoginForm = (props) => {
 			>
 				<Form.Item
 					label="Username"
-					name="username"
+					name="loginId"
 					rules={[
 						{
 							required: true,
@@ -210,13 +226,13 @@ const LoginForm = (props) => {
 						},
 						{ validator: checkExistingUsername },
 					]}
-					validateTrigger="onBlur"
+					// validateTrigger="onBlur"
 				>
 					<Input
 						placeholder="Please input your username!"
 						value={regInfo.username}
 						onChange={(e) =>
-							updateUserInfo(regInfo, e.target.value, "username", setRegInfo)
+							updateUserInfo(regInfo, e.target.value, "loginId", setRegInfo)
 						}
 					/>
 				</Form.Item>
@@ -253,6 +269,7 @@ const LoginForm = (props) => {
 						</Col>
 						<Col span={6}>
 							<div
+								className="cursor-pointer"
 								onClick={fetchCaptcha}
 								dangerouslySetInnerHTML={{ __html: captcha }}
 							></div>
