@@ -10,7 +10,7 @@ import {
 	Col,
 	Button,
 } from "antd";
-import { getCaptcha } from "../api/user";
+import { getCaptcha, checkExists } from "../api/user";
 
 const LoginForm = (props) => {
 	const [formType, setFormType] = useState(1);
@@ -59,7 +59,9 @@ const LoginForm = (props) => {
 		setFormType(e.target.value);
 	};
 
-  const checkExistingUsername = ()=>{
+  const checkExistingUsername = async (username)=>{
+    const res = await checkExists(username);
+    console.log(res);
     
   }
 	const closeModal = () => {

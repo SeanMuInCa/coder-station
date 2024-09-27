@@ -6,3 +6,10 @@ export const getCaptcha = () => {
 		method: "get",
 	});
 };
+
+export const checkExists = (username) => {
+	return request({
+		url: "/res/api/user/userIsExist/" + username,
+		method: "get",
+	});
+};
