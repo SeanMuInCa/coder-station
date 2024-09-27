@@ -15,6 +15,7 @@ const LoginOrAvatar = (props) => {
 		/>
 	);
 	if (user.isLogin) {
+		userLogo = user.userInfo.avatar;
 		loginStatus = (
 			<Popover placement="bottom" content={content}>
 				<img src={userLogo} alt="avatar" className="rounded-full w-12 h-12"/>

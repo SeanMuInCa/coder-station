@@ -10,11 +10,11 @@ const userSlice = createSlice({
         initUserInfo: (state, action) => {
             state.userInfo = action.payload
         },
-        updateUserInfo: (state, action) => {
-            state.userInfo = action.payload
+        updateLoginStatus: (state, action) => {
+            state.isLogin = action.payload
         }
     }
 });
 
-export const {initUserInfo} = userSlice.actions
+export const {initUserInfo, updateLoginStatus} = userSlice.actions
 export default userSlice.reducer

@@ -13,7 +13,7 @@ import {
 } from "antd";
 import { getCaptcha, checkExists, register } from "../api/user";
 import { useDispatch } from "react-redux";
-import { initUserInfo } from "../redux/userSlice";
+import { initUserInfo, updateLoginStatus } from "../redux/userSlice";
 
 // TODO: the loginid share in login and register
 const LoginForm = (props) => {
@@ -36,7 +36,7 @@ const LoginForm = (props) => {
 
 	const clearRegInfo = () => {
 		setRegInfo({
-			loginId: "",
+			regId: "",
 			captcha: "",
 			nickname: "",
 		});
@@ -90,6 +90,8 @@ const LoginForm = (props) => {
 			message.success('register success, default password is 123456');
 			//save data to redux
 			dispatch(initUserInfo(res.data));
+			//change login status
+			dispatch(updateLoginStatus(true));
 		}
 	};
 	const changeType = (e) => {
