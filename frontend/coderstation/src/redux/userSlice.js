@@ -9,9 +9,12 @@ const userSlice = createSlice({
     reducers:{
         initUserInfo: (state, action) => {
             state.userInfo = action.payload
+        },
+        updateUserInfo: (state, action) => {
+            state.userInfo = action.payload
         }
     }
 });
 
-const {initUserInfo} = userSlice.actions
+export const {initUserInfo} = userSlice.actions
 export default userSlice.reducer

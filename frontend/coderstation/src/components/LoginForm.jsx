@@ -12,11 +12,14 @@ import {
 	message
 } from "antd";
 import { getCaptcha, checkExists, register } from "../api/user";
+import { useDispatch } from "react-redux";
+import { initUserInfo } from "../redux/userSlice";
 
 // TODO: the loginid share in login and register
 const LoginForm = (props) => {
 	const [formType, setFormType] = useState(1);
 	const [captcha, setCaptcha] = useState(null);
+	const dispatch = useDispatch();
 	const [loginInfo, setLoginInfo] = useState({
 		loginId: "",
 		password: "",
@@ -79,14 +82,15 @@ const LoginForm = (props) => {
 		const res = await register(regInfo)
 		//failed
 		if(res.code === 406){
+			message.error('wrong captcha');
 			fetchCaptcha();
-			message.error('wrong captcha')
 		}else{
 			props.closeForm();
 			clearRegInfo();
-			message.success('register success');
+			message.success('register success, default password is 123456');
+			//save data to redux
+			dispatch(initUserInfo(res.data));
 		}
-		console.log(res);
 	};
 	const changeType = (e) => {
 		fetchCaptcha();
