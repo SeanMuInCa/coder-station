@@ -9,7 +9,7 @@ export const getCaptcha = () => {
 
 export const checkExists = (username) => {
 	return request({
-		url: "/res/api/user/userIsExist/" + username,
+		url: "/api/user/userIsExist/" + username,
 		method: "get",
 	});
 };

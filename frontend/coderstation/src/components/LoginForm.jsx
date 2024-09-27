@@ -60,7 +60,9 @@ const LoginForm = (props) => {
 	};
 
   const checkExistingUsername = async (username)=>{
-    const res = await checkExists(username);
+	console.log(username);
+	
+    const res = await checkExists(username.field);
     console.log(res);
     
   }
