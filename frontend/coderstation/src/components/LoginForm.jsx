@@ -11,7 +11,7 @@ import {
 	Button,
 	message,
 } from "antd";
-import { getCaptcha, checkExists, register } from "../api/user";
+import { getCaptcha, checkExists, register, login } from "../api/user";
 import { useDispatch } from "react-redux";
 import { initUserInfo, updateLoginStatus } from "../redux/userSlice";
 
@@ -74,11 +74,13 @@ const LoginForm = (props) => {
 			[key]: value,
 		});
 	};
-	const loginConfirmHandle = () => {
+	const loginConfirmHandle = async() => {
 		// TODO: login or register logic
 		console.log("login confirm handle");
-
-		props.closeForm();
+		const res = await login(loginInfo);
+		console.log(res);
+		
+		// props.closeForm();
 	};
 	const regConfirmHandle = async () => {
 		console.log("reg confirm handle");
