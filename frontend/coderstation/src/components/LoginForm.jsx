@@ -35,8 +35,8 @@ const LoginForm = (props) => {
 	const regFormRef = useRef();
 
 	const clearRegInfo = () => {
-		console.log('clear reg info');
-		
+		console.log("clear reg info");
+
 		setRegInfo({
 			loginId: "",
 			captcha: "",
@@ -46,7 +46,7 @@ const LoginForm = (props) => {
 		console.log(loginInfo);
 	};
 	const clearLoginInfo = () => {
-		console.log('clear login info');
+		console.log("clear login info");
 
 		setLoginInfo({
 			loginId: "",
@@ -91,13 +91,13 @@ const LoginForm = (props) => {
 			message.error("wrong captcha");
 			fetchCaptcha();
 		} else {
-			props.closeForm();
 			clearRegInfo();
 			message.success("register success, default password is 123456");
 			//save data to redux
 			dispatch(initUserInfo(res.data));
 			//change login status
 			dispatch(updateLoginStatus(true));
+			props.closeForm();
 		}
 	};
 	const changeType = (e) => {
@@ -141,11 +141,15 @@ const LoginForm = (props) => {
 						},
 					]}
 				>
-					<Input
-						placeholder="Please input your username!"
-						value={loginInfo.loginId}
-						onChange={(e) => updateLoginInfo(loginInfo, e.target.value, "loginId")}
-					/>
+					<Row>
+						<Col>
+							<Input
+								placeholder="Please input your username!"
+								value={loginInfo.loginId}
+								onChange={(e) => updateLoginInfo(loginInfo, e.target.value, "loginId")}
+							/>
+						</Col>
+					</Row>
 				</Form.Item>
 
 				<Form.Item
@@ -158,11 +162,15 @@ const LoginForm = (props) => {
 						},
 					]}
 				>
-					<Input.Password
-						placeholder="Please input your password!"
-						value={loginInfo.password}
-						onChange={(e) => updateLoginInfo(loginInfo, e.target.value, "password")}
-					/>
+					<Row>
+						<Col>
+							<Input.Password
+								placeholder="Please input your password!"
+								value={loginInfo.password}
+								onChange={(e) => updateLoginInfo(loginInfo, e.target.value, "password")}
+							/>
+						</Col>
+					</Row>
 				</Form.Item>
 				<Form.Item
 					name="captcha"
@@ -247,19 +255,27 @@ const LoginForm = (props) => {
 					]}
 					validateTrigger="onBlur"
 				>
-					<Input
-						placeholder="Please input your username!"
-						value={regInfo.loginId}
-						onChange={(e) => updateRegInfo(regInfo, e.target.value, "loginId")}
-					/>
+					<Row>
+						<Col>
+							<Input
+								placeholder="Please input your username!"
+								value={regInfo.loginId}
+								onChange={(e) => updateRegInfo(regInfo, e.target.value, "loginId")}
+							/>
+						</Col>
+					</Row>
 				</Form.Item>
 
 				<Form.Item label="Nickname" name="nickname">
-					<Input
-						placeholder="Nickname by default is UserXXX"
-						value={regInfo.nickname}
-						onChange={(e) => updateRegInfo(regInfo, e.target.value, "nickname")}
-					/>
+					<Row>
+						<Col>
+							<Input
+								placeholder="Nickname by default is UserXXX"
+								value={regInfo.nickname}
+								onChange={(e) => updateRegInfo(regInfo, e.target.value, "nickname")}
+							/>
+						</Col>
+					</Row>
 				</Form.Item>
 
 				<Form.Item
