@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import LoginOrAvatar from "./LoginOrAvatar";
 import LoginForm from "./LoginForm";
 import { useDispatch } from "react-redux";
-import { initUserInfo, updateLoginStatus } from "../redux/userSlice";
+import { resetUserInfo, updateLoginStatus } from "../redux/userSlice";
 const items = [
 	{
 		label: "Issues",
@@ -30,7 +30,7 @@ const NavHeader = () => {
 	const logoutHandle = () => {
 		console.log("logout");
 		localStorage.removeItem('userToken');
-		dispatch(initUserInfo({}));
+		dispatch(resetUserInfo());
 		dispatch(updateLoginStatus(false));
 	};
 	const profileHandle = () => {
