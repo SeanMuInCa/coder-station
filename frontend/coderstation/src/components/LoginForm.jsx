@@ -74,11 +74,7 @@ const LoginForm = (props) => {
 			[key]: value,
 		});
 	}; 
-	// get user info
-	const getInfo = async (id)=>{
-		const res = await getUserInfo(id);
-		return res.data;
-	}
+
 	const loginConfirmHandle = async() => {
 		// login logic
 		loginInfo.loginPwd = loginInfo.password;
@@ -95,8 +91,8 @@ const LoginForm = (props) => {
 				fetchCaptcha();
 			}else{
 				localStorage.userToken = data.token;
-				const res = await getInfo(data.data._id);
-				dispatch(initUserInfo(res));
+				const res = await getUserInfo(data.data._id);
+				dispatch(initUserInfo(res.data));
 				dispatch(updateLoginStatus(true));
 				props.closeForm();
 			}
@@ -120,7 +116,7 @@ const LoginForm = (props) => {
 			dispatch(initUserInfo(res.data));
 			//change login status
 			dispatch(updateLoginStatus(true));
-			props.closeForm();
+			closeModal();
 		}
 	};
 	const changeType = (e) => {
