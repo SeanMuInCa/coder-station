@@ -73,35 +73,38 @@ const LoginForm = (props) => {
 			...info,
 			[key]: value,
 		});
-	};
+	}; 
+	// get user info
 	const getInfo = async (id)=>{
 		const res = await getUserInfo(id);
-		dispatch(initUserInfo(res.data));
+		return res.data;
+		
 	}
 	const loginConfirmHandle = async() => {
-		// TODO: login logic
+		// login logic
 		loginInfo.loginPwd = loginInfo.password;
 		const res = await login(loginInfo);
 		console.log(res);
-		switch (res.code) {
-			case 0:
-				if(res.data?.data){
-					// dispatch(initUserInfo(res.data));
-					getInfo(res.data.data._id);
-					dispatch(updateLoginStatus(true));
-					message.success('login success')
-					props.closeForm();
-				}else{
-					message.error('login failed');
-					fetchCaptcha();
-				}
-				break;
-			case 406:
-				message.error("wrong captcha");
+		if(res.data){
+			//wrong pwd, frozen account, normal
+			const data = res.data
+			if(!data.data){
+				message.error("wrong account or password");
 				fetchCaptcha();
-				break;
-			default:
- 		}
+			}else if (!data.data.enabled){
+				message.error('your account is disabled')
+				fetchCaptcha();
+			}else{
+				localStorage.userToken = data.token;
+				const res = getInfo(data.data._id);
+				dispatch(initUserInfo(res));
+				dispatch(updateLoginStatus(true));
+				props.closeForm();
+			}
+		}else{
+			message.error('wrong captcha');
+			fetchCaptcha();
+		}
 	};
 	const regConfirmHandle = async () => {
 		//register logic
