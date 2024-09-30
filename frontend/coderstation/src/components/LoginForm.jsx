@@ -78,7 +78,6 @@ const LoginForm = (props) => {
 	const getInfo = async (id)=>{
 		const res = await getUserInfo(id);
 		return res.data;
-		
 	}
 	const loginConfirmHandle = async() => {
 		// login logic
@@ -96,7 +95,7 @@ const LoginForm = (props) => {
 				fetchCaptcha();
 			}else{
 				localStorage.userToken = data.token;
-				const res = getInfo(data.data._id);
+				const res = await getInfo(data.data._id);
 				dispatch(initUserInfo(res));
 				dispatch(updateLoginStatus(true));
 				props.closeForm();
