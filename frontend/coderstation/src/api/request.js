@@ -6,7 +6,10 @@ const request = axios.create({
 
 request.interceptors.request.use(config => {
     //一般是添加token
-    config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('userToken')
+    const token = localStorage.getItem('userToken');
+    if(token){
+        config.headers.Authorization = `Bearer ${token}`
+    }
     return config
 }, error => {
     return Promise.reject(error)
