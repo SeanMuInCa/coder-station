@@ -6,6 +6,7 @@ import LoginOrAvatar from "./LoginOrAvatar";
 import LoginForm from "./LoginForm";
 import { useDispatch } from "react-redux";
 import { resetUserInfo, updateLoginStatus } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 const items = [
 	{
 		label: "Issues",
@@ -19,6 +20,7 @@ const items = [
 const NavHeader = () => {
 	const [openForm, setOpenForm] = useState(false);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const loginHandle = () => {
 		console.log("from header");
 		setOpenForm(true);
@@ -32,6 +34,7 @@ const NavHeader = () => {
 		localStorage.removeItem('userToken');
 		dispatch(resetUserInfo());
 		dispatch(updateLoginStatus(false));
+		navigate('/');
 	};
 	const profileHandle = () => {
 		console.log("profile");

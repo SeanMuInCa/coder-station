@@ -136,6 +136,7 @@ const LoginForm = (props) => {
 		clearRegInfo();
 		props.closeForm();
 	};
+
 	let container =
 		formType === 1 ? (
 			<Form
@@ -243,7 +244,7 @@ const LoginForm = (props) => {
 					<Button type="primary" htmlType="submit" style={{ marginRight: 20 }}>
 						Login
 					</Button>
-					<Button type="primary" htmlType="submit">
+					<Button type="primary" onClick={clearLoginInfo}>
 						Reset
 					</Button>
 				</Form.Item>
@@ -334,7 +335,7 @@ const LoginForm = (props) => {
 					<Button type="primary" htmlType="submit" style={{ marginRight: 20 }}>
 						Register
 					</Button>
-					<Button type="primary" htmlType="submit">
+					<Button type="primary" onClick={clearRegInfo}>
 						Reset
 					</Button>
 				</Form.Item>
