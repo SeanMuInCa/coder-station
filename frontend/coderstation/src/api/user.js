@@ -36,3 +36,10 @@ export const getUserInfo = (id) => {
 		method: "get",
 	});
 };
+
+export const keepStatus = ()=>{
+	return request({
+		url: "/api/user/whoami",
+		method: "get",
+	});
+}
