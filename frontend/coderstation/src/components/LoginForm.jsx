@@ -75,7 +75,7 @@ const LoginForm = (props) => {
 		});
 	};
 	const loginConfirmHandle = async() => {
-		// TODO: login or register logic
+		// TODO: login logic
 		console.log("login confirm handle");
 		const res = await login(loginInfo);
 		console.log(res);
@@ -83,10 +83,8 @@ const LoginForm = (props) => {
 		// props.closeForm();
 	};
 	const regConfirmHandle = async () => {
+		//register logic
 		console.log("reg confirm handle");
-		console.log(regInfo, "regInfo");
-		console.log(loginInfo, "loginInfo");
-
 		const res = await register(regInfo);
 		//failed
 		if (res.code === 406) {
