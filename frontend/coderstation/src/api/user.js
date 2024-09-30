@@ -29,3 +29,10 @@ export const login = (data) => {
 		data,
 	});
 };
+
+export const getUserInfo = (id) => {
+	return request({
+		url: "/api/user/" + id,
+		method: "get",
+	});
+};
