@@ -4,6 +4,8 @@ import { SearchOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import LoginOrAvatar from "./LoginOrAvatar";
 import LoginForm from "./LoginForm";
+import { useDispatch } from "react-redux";
+import { initUserInfo, updateLoginStatus } from "../redux/userSlice";
 const items = [
 	{
 		label: "Issues",
@@ -16,6 +18,7 @@ const items = [
 ];
 const NavHeader = () => {
 	const [openForm, setOpenForm] = useState(false);
+	const dispatch = useDispatch();
 	const loginHandle = () => {
 		console.log("from header");
 		setOpenForm(true);
@@ -23,6 +26,15 @@ const NavHeader = () => {
 	
 	const closeForm = () => {
 		setOpenForm(false);
+	};
+	const logoutHandle = () => {
+		console.log("logout");
+		localStorage.removeItem('userToken');
+		dispatch(initUserInfo({}));
+		dispatch(updateLoginStatus(false));
+	};
+	const profileHandle = () => {
+		console.log("profile");
 	};
 	return (
 		<>
@@ -48,7 +60,7 @@ const NavHeader = () => {
 					</Space.Compact>
 				</div>
 				<div className=" w-40 flex justify-center items-center">
-					<LoginOrAvatar loginHandle={loginHandle} />
+					<LoginOrAvatar loginHandle={loginHandle} logoutHandle={logoutHandle} profileHandle={profileHandle} />
 				</div>
 			</div>
 			<LoginForm openForm={openForm} closeForm={closeForm} />
