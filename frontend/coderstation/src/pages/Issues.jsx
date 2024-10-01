@@ -3,7 +3,11 @@ import PageHeader from '../components/PageHeader'
 import { getIssueListApi } from '../api/issue'
 const Issues = () => {
   const [issueList, setIssueList] = useState([]);
-  
+  const [pageInfo, setPageInfo] = useState({
+    current:1,
+    pageSize:20,
+    total: 0
+  })
   useEffect(() => {
     getIssueList();
   }, [])
