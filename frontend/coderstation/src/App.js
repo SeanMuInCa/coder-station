@@ -31,7 +31,7 @@ function App() {
 			<Header>
 				<NavHeader />
 			</Header>
-			<Content>
+			<Content className="bg-gray-200">
 				<RouteConfig />
 			</Content>
 			<Footer>
