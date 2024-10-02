@@ -34,7 +34,7 @@ function App() {
 			<Content className="bg-gray-200">
 				<RouteConfig />
 			</Content>
-			<Footer>
+			<Footer className="pt-5">
 				<PageFooter />
 			</Footer>
 		</div>
