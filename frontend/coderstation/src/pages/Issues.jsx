@@ -7,10 +7,10 @@ const Issues = () => {
     current:1,
     pageSize:20,
     total: 0
-  })
+  });
   useEffect(() => {
     getIssueList();
-  }, [])
+  }, []);
   const getIssueList = async () => {
     const res = await getIssueListApi()
     console.log(res)
@@ -18,7 +18,7 @@ const Issues = () => {
       const arr = res.data.data.filter(item=> item.issueStatus === true)
       setIssueList(arr)
     }
-  }
+  };
   return (
     <div className='max-w-7xl mx-auto bg-slate-50'>
       <PageHeader title="Issue List" />
