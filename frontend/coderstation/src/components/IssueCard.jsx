@@ -12,6 +12,10 @@ const IssueCard = (props) => {
         }
         getName();
     },[info.userId])
+
+    useEffect(()=>{
+        
+    },[])
   return (
     <div className='mx-16 py-5 flex border-b-2'>
         <div className='flex-0.5 flex p-5'>
