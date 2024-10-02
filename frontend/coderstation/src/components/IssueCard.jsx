@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tag } from 'antd'
+import { getUserInfo } from '../api/user'
 const IssueCard = (props) => {
-    const info = props.info
+    const [nickname, setNickname] = useState('');
+    const info = props.info;
+    useEffect(()=>{
+        const getName = async ()=>{
+            const res = await getUserInfo(info.userId);
+            console.log(res);
+            setNickname(res.data.nickname)
+        }
+        getName();
+    },[info.userId])
   return (
     <div className='mx-16 py-5 flex border-b-2'>
         <div className='flex-0.5 flex p-5'>
@@ -21,7 +31,7 @@ const IssueCard = (props) => {
                     <Tag color="green">123</Tag>
                 </div>
                 <div>
-                    <Tag color="blue">456</Tag>
+                    <Tag color="blue">{nickname}</Tag>
                     <span>{info.issueDate}</span>
                 </div>
             </div>
