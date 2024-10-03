@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import { getRandomHexColor } from '../utils/tools';
 const typeSlice = createSlice({
     name: 'type',
     initialState: {
@@ -7,7 +7,13 @@ const typeSlice = createSlice({
     },
     reducers:{
         initTypeInfo: (state, action) => {
-            state.type = action.payload
+            let arr = action.payload
+            arr.forEach(element => {
+                element.color = getRandomHexColor()
+            });
+            console.log(arr);
+            
+            state.type = arr
         },
     }
 });

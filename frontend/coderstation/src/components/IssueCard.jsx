@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { format } from 'date-fns'
 const IssueCard = (props) => {
     const [nickname, setNickname] = useState('');
+    const [color, setColor] = useState('')
     const [type, setType] = useState('');
     const info = props.info;
     const typeInfo = useSelector(state=>state.type);
@@ -25,6 +26,7 @@ const IssueCard = (props) => {
         typeInfo.type.map(item => {
             if(item._id === info.typeId){
                 setType(item.typeName)
+                setColor(item.color)
             }
         })
     },[info.typeId, typeInfo.type])
@@ -44,7 +46,7 @@ const IssueCard = (props) => {
             <p className='text-black'>{info.issueTitle}</p>
             <div className='pb-2 mt-8 flex justify-between'>
                 <div>
-                    <Tag color="green">{type}</Tag>
+                    <Tag color={color}>{type}</Tag>
                 </div>
                 <div>
                     <Tag color="blue">{nickname}</Tag>
