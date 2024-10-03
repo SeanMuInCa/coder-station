@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Tag } from 'antd'
+import { Tag  } from 'antd'
 import { getUserInfo } from '../api/user'
 import { useSelector } from 'react-redux'
 import { format } from 'date-fns'
