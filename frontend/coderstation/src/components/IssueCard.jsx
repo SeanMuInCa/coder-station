@@ -21,10 +21,15 @@ const IssueCard = (props) => {
     useEffect(()=>{
         // setType(typeInfo.type.filter(item => item._id === info.typeId ))
         //todo: render types
-    },[])
+        typeInfo.type.map(item => {
+            if(item._id === info.typeId){
+                setType(item.typeName)
+            }
+        })
+    },[info.typeId, typeInfo.type])
   return (
     <div className='mx-16 py-5 flex border-b-2'>
-        <div className='flex-0.5 flex p-5'>
+        <div className='flex-0.5 flex p-5 text-gray-400'>
             <div className='mr-16 flex flex-col justify-between'>
                 <p className='text-center'>{info.commentNumber}</p>
                 <p>Comments</p>
