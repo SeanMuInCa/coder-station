@@ -1,18 +1,19 @@
 import { Tag, Flex } from "antd";
-
+import { useSelector } from "react-redux";
 import React from "react";
 
 const Category = (props) => {
+    const  {type}  = useSelector((state) => state.type);
+    console.log(type);
 	return (
 		<Flex
 			gap="4px 0"
 			wrap
 			className="flex items-end justify-start my-auto cursor-pointer"
 		>
-			<Tag color="#f50">#f50</Tag>
-			<Tag color="#2db7f5">#2db7f5</Tag>
-			<Tag color="#87d068">#87d068</Tag>
-			<Tag color="#108ee9">#108ee9</Tag>
+			{type.map((item)=>{
+                return <Tag color={item.color} key={item._id}>{item.typeName}</Tag>
+            })}
 		</Flex>
 	);
 };
