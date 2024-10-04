@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Tag  } from 'antd'
 import { getUserInfo } from '../api/user'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { format } from 'date-fns'
+import { getTypeList } from '../redux/typeSlice'
 const IssueCard = (props) => {
     const [nickname, setNickname] = useState('');
     const [color, setColor] = useState('')
     const [type, setType] = useState('');
     const info = props.info;
     const typeInfo = useSelector(state=>state.type);
-    
+    const dispatch = useDispatch();
     
     useEffect(()=>{
         const getName = async ()=>{
@@ -23,13 +24,17 @@ const IssueCard = (props) => {
     useEffect(()=>{
         // setType(typeInfo.type.filter(item => item._id === info.typeId ))
         //todo: render types
-        typeInfo.type.map(item => {
-            if(item._id === info.typeId){
-                setType(item.typeName)
-                setColor(item.color)
-            }
-        })
-    },[info.typeId, typeInfo.type])
+        if(typeInfo.type.length > 0){
+            typeInfo.type.map(item => {
+                if(item._id === info.typeId){
+                    setType(item.typeName)
+                    setColor(item.color)
+                }
+            })
+        }else{
+            dispatch(getTypeList())
+        }
+    },[dispatch, typeInfo.type, info.typeId])
   return (
     <div className='mx-16 pt-5 pb-2 flex border-b-2'>
         <div className='flex-0.5 flex py-6 px-5 text-gray-400'>

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { keepStatus, getUserInfo } from "./api/user";
 import { useDispatch } from "react-redux";
 import { initUserInfo, updateLoginStatus } from "./redux/userSlice";
-import { initTypeInfo } from "./redux/typeSlice";
+import { initTypeInfo, updateLoadingStatus } from "./redux/typeSlice";
 import { getTypeListApi } from "./api/type";
 const { Header, Footer, Content } = Layout;
 function App() {
@@ -29,14 +29,15 @@ function App() {
 		keepLoginStatus();
 	}, []);
 	
-	useEffect(()=>{
-		const getTypeList = async ()=>{
-			const res = await getTypeListApi();
-			console.log(res,'type');
-			dispatch(initTypeInfo(res.data))
-		}
-		getTypeList();
-	},[])
+	// useEffect(()=>{
+	// 	const getTypeList = async ()=>{
+	// 		const res = await getTypeListApi();
+	// 		console.log(res,'type');
+	// 		dispatch(initTypeInfo(res.data))
+	// 		dispatch(updateLoadingStatus(true))
+	// 	}
+	// 	getTypeList();
+	// },[])
 	
 	return (
 		<div className="App">
