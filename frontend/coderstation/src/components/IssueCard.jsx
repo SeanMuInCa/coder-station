@@ -4,14 +4,17 @@ import { getUserInfo } from '../api/user'
 import { useSelector, useDispatch } from 'react-redux'
 import { format } from 'date-fns'
 import { getTypeList } from '../redux/typeSlice'
+import { getRandomHexColor } from '../utils/tools'
 const IssueCard = (props) => {
     const [nickname, setNickname] = useState('');
-    const [color, setColor] = useState('')
-    const [type, setType] = useState('');
+    const [type, setType] = useState({});
     const info = props.info;
     const typeInfo = useSelector(state=>state.type);
     const dispatch = useDispatch();
-    
+    const colors = [];
+    for (let index = 0; index < 30; index++) {
+        colors.push(getRandomHexColor())
+    }
     useEffect(()=>{
         const getName = async ()=>{
             const res = await getUserInfo(info.userId);
@@ -24,17 +27,19 @@ const IssueCard = (props) => {
     useEffect(()=>{
         // setType(typeInfo.type.filter(item => item._id === info.typeId ))
         //todo: render types
-        if(typeInfo.type.length > 0){
+        if(typeInfo.type.length){
             typeInfo.type.map(item => {
+                
                 if(item._id === info.typeId){
-                    setType(item.typeName)
-                    setColor(item.color)
+                    setType(item)
                 }
             })
         }else{
             dispatch(getTypeList())
         }
     },[dispatch, typeInfo.type, info.typeId])
+
+
   return (
     <div className='mx-16 pt-5 pb-2 flex border-b-2'>
         <div className='flex-0.5 flex py-6 px-5 text-gray-400'>
@@ -51,7 +56,7 @@ const IssueCard = (props) => {
             <p className='text-black'>{info.issueTitle}</p>
             <div className='pb-2 mt-8 flex justify-between'>
                 <div>
-                    <Tag color={color}>{type}</Tag>
+                    <Tag color={colors[typeInfo.type.indexOf(type)]}>{type.typeName}</Tag>
                 </div>
                 <div>
                     <Tag color="blue">{nickname}</Tag>
