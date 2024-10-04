@@ -11,8 +11,7 @@ const IssueCard = (props) => {
     const info = props.info;
     const typeInfo = useSelector(state=>state.type);
     const dispatch = useDispatch();
-    const colors = ['purple', 'red', '#f40', '#ff4500', '#ff6347', '#ffa500', '#ffd700', '#ffff00', '#9acd32', '#90ee90', '#00ff7f', '#00ff00', '#008000', '#006400', '#008080', '#00ffff', '#00bfff', '#0000ff', '#4b0082', '#8a2be2', '#9932cc', '#8fbc8f', '#ffc0cb',];
-    
+    const colors = ['#f50','#2db7f5','#87d068','#108ee9','#ff6600','#00cc66','#cc00cc','#ccff00','#ffcc00','#cc0000']
     useEffect(()=>{
         const getName = async ()=>{
             const res = await getUserInfo(info.userId);
