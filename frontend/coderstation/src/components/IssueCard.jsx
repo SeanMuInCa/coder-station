@@ -4,17 +4,15 @@ import { getUserInfo } from '../api/user'
 import { useSelector, useDispatch } from 'react-redux'
 import { format } from 'date-fns'
 import { getTypeList } from '../redux/typeSlice'
-import { getRandomHexColor } from '../utils/tools'
+
 const IssueCard = (props) => {
     const [nickname, setNickname] = useState('');
     const [type, setType] = useState({});
     const info = props.info;
     const typeInfo = useSelector(state=>state.type);
     const dispatch = useDispatch();
-    const colors = [];
-    for (let index = 0; index < 30; index++) {
-        colors.push(getRandomHexColor())
-    }
+    const colors = ['purple', 'red', '#f40', '#ff4500', '#ff6347', '#ffa500', '#ffd700', '#ffff00', '#9acd32', '#90ee90', '#00ff7f', '#00ff00', '#008000', '#006400', '#008080', '#00ffff', '#00bfff', '#0000ff', '#4b0082', '#8a2be2', '#9932cc', '#8fbc8f', '#ffc0cb',];
+    
     useEffect(()=>{
         const getName = async ()=>{
             const res = await getUserInfo(info.userId);
