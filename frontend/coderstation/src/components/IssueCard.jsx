@@ -15,7 +15,6 @@ const IssueCard = (props) => {
     useEffect(()=>{
         const getName = async ()=>{
             const res = await getUserInfo(info.userId);
-            // console.log(res);
             setNickname(res.data.nickname)
         }
         getName();
@@ -26,7 +25,6 @@ const IssueCard = (props) => {
         //todo: render types
         if(typeInfo.type.length){
             typeInfo.type.map(item => {
-                
                 if(item._id === info.typeId){
                     setType(item)
                 }
