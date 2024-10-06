@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { Tag  } from 'antd'
-import { getUserInfo } from '../api/user'
-import { useSelector, useDispatch } from 'react-redux'
-import { format } from 'date-fns'
-import { getTypeList } from '../redux/typeSlice'
+import React, { useEffect, useState } from 'react';
+import { Tag  } from 'antd';
+import { getUserInfo } from '../api/user';
+import { useSelector, useDispatch } from 'react-redux';
+import { format } from 'date-fns';
+import { getTypeList } from '../redux/typeSlice';
 
 const IssueCard = (props) => {
     const [nickname, setNickname] = useState('');
@@ -18,7 +18,7 @@ const IssueCard = (props) => {
             setNickname(res.data.nickname)
         }
         getName();
-    },[info.userId])
+    },[info.userId]);
 
     useEffect(()=>{
         // setType(typeInfo.type.filter(item => item._id === info.typeId ))
@@ -26,13 +26,13 @@ const IssueCard = (props) => {
         if(typeInfo.type.length){
             typeInfo.type.map(item => {
                 if(item._id === info.typeId){
-                    setType(item)
+                    setType(item);
                 }
             })
         }else{
-            dispatch(getTypeList())
+            dispatch(getTypeList());
         }
-    },[dispatch, typeInfo.type, info.typeId])
+    },[dispatch, typeInfo.type, info.typeId]);
 
 
   return (
