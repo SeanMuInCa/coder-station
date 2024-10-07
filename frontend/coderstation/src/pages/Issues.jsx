@@ -17,29 +17,24 @@ const Issues = () => {
       pageSize: pageInfo.pageSize,
       issueStatus: true
     })
-    console.log(res,'res')
     setIssueList(res.data.data);
     setPageInfo({
       current: res.data.currentPage,
       pageSize: res.data.eachPage,
       total: res.data.count
     })
-    // if(res.code === 0){
-    //   const arr = res.data.data.filter(item=> item.issueStatus === true)
-    //   setIssueList(arr)
-    // }
   };
   useEffect(() => {
     
     getIssueList();
-  }, [ pageInfo.pageSize, pageInfo.current])
+  }, [pageInfo.pageSize, pageInfo.current])
   
   let list = issueList.map(item => (
     <IssueCard info={item} key={item._id}/>
   ))
   return (
     <div className='max-w-7xl mx-auto bg-slate-50'>
-      <PageHeader title="Issue List" />
+      <PageHeader title="Issue List" issueList={issueList} setIssueList={setIssueList}/>
       {/* body */}
       <div>
         {/* left list */}

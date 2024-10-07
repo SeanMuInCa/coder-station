@@ -1,7 +1,9 @@
 import { Tag, Flex } from "antd";
+import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-
-const Category = () => {
+import { deepCopy } from "../utils/tools";
+import { getIssueListApi } from "../api/issue";
+const Category = (props) => {
     const  {type}  = useSelector((state) => state.type);
     const tagList = [{typeName:'All'},...type]
 	const colors = [
@@ -11,11 +13,17 @@ const Category = () => {
 		"#FFD633", "#33FFB8", "#5733FF", "#FF3366", "#33B8FF", "#A8FF33",
 		"#FFA833", "#33FF66", "#8CFF33", "#FF33C7", "#33FFCC", "#B833FF"
 	  ];
-		  
-	  const handleFilter = (item) => {
-		console.log(item);
-		console.log(tagList);
-	  };
+	  useEffect(()=>{
+		const fetchData = async () => {
+			const res = await getIssueListApi()
+			console.log(res,'Category')
+		}
+		fetchData();
+	  },[])
+	const handleClick = (e) => {
+		console.log(e.target.innerText);
+		
+	}
 	return (
 		<Flex
 			gap="4px 0"
@@ -23,7 +31,7 @@ const Category = () => {
 			className="flex items-end justify-start my-auto cursor-pointer"
 		>
 			{tagList.map((item,index)=>{
-                return <Tag color={colors[type.indexOf(item)]} key={index} onClick={()=>handleFilter(item)}>{item.typeName}</Tag>
+                return <Tag color={colors[type.indexOf(item)]} key={index} onClick={handleClick}>{item.typeName}</Tag>
             })}
 		</Flex>
 	);
