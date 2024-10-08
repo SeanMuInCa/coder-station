@@ -4,13 +4,14 @@ import { getUserInfo } from '../api/user';
 import { useSelector, useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import { getTypeList } from '../redux/typeSlice';
-import { getIssueApi } from '../api/issue';
+import { useNavigate } from "react-router-dom";
 const IssueCard = (props) => {
     const [nickname, setNickname] = useState('');
     const [type, setType] = useState({});
     const info = props.info;
     const typeInfo = useSelector(state=>state.type);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     // 30 colors as an array
     const colors = [
         "#FF5733", "#33FF57", "#3357FF", "#FF33A8", "#A833FF", "#33FFF1",
@@ -43,10 +44,10 @@ const IssueCard = (props) => {
     },[dispatch, typeInfo.type, info.typeId]);
     
     const handleIssue = async(issue)=>{
-        console.log(issue);
-        const res = await getIssueApi(issue._id)
-        console.log(res);
-        
+        // console.log(issue);
+        // const res = await getIssueApi(issue._id)
+        // console.log(res);
+        navigate(issue._id)
     }
 
   return (
