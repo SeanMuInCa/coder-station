@@ -1,14 +1,18 @@
 import React from 'react'
 import { Button,message } from 'antd'
-const AskButton = (props) => {
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+const AskButton = () => {
+    const userInfo = useSelector(state => state.user)
+    const navigate = useNavigate()
     const handleClick = ()=>{
-        if(props.isLogin){
+        if(userInfo.isLogin){
             //router
         }else message.warning('Please login first')
     }
   return (
-    <div >
-        <Button type='primary' className='w-full h-20 text-3xl' onClick={handleClick}>Ask Question</Button>
+    <div className='mb-5'>
+        <Button type='primary' className='w-full text-lg font-bold' size='large' onClick={handleClick}>I want to Ask...</Button>
     </div>
   )
 }

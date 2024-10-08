@@ -4,7 +4,9 @@ import { getIssueListApi } from '../api/issue'
 import IssueCard from '../components/IssueCard'
 import { Pagination  } from 'antd'
 import AskButton from '../components/AskButton'
-import { useSelector } from 'react-redux'
+import Recommendation from '../components/Recommendation'
+
+
 
 const Issues = () => {
   const [issueList, setIssueList] = useState([]);
@@ -13,7 +15,7 @@ const Issues = () => {
     pageSize:10,// how many in one page
     total: 0//total amount
   });
-  const userInfo = useSelector(state => state.user)
+  
   const getIssueList = async () => {
     const res = await getIssueListApi({
       current: pageInfo.current,
@@ -46,8 +48,9 @@ const Issues = () => {
           {list.length >= pageInfo.pageSize && <Pagination align="center" defaultCurrent={pageInfo.current} total={pageInfo.total} onChange={(currentPage)=>setPageInfo({...pageInfo,current:currentPage})}/>}
         </div>
         {/* right side */}
-        <div className='max-w-xl bg-yellow-400 flex-1 mr-10 text-center'>
-        <AskButton isLogin={userInfo.isLogin}/>
+        <div className='max-w-80 bg-yellow-400 flex-1 mr-10 text-center'>
+        <AskButton />
+        <Recommendation />
         </div>
       </div>
     </div>
