@@ -4,7 +4,7 @@ import { getUserInfo } from '../api/user';
 import { useSelector, useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import { getTypeList } from '../redux/typeSlice';
-
+import { getIssueApi } from '../api/issue';
 const IssueCard = (props) => {
     const [nickname, setNickname] = useState('');
     const [type, setType] = useState({});
@@ -41,7 +41,13 @@ const IssueCard = (props) => {
             dispatch(getTypeList());
         }
     },[dispatch, typeInfo.type, info.typeId]);
-
+    
+    const handleIssue = async(issue)=>{
+        console.log(issue);
+        const res = await getIssueApi(issue._id)
+        console.log(res);
+        
+    }
 
   return (
     <div className='mx-16 pt-5 pb-2 flex border-b-2'>
@@ -55,8 +61,8 @@ const IssueCard = (props) => {
                 <p>Views</p>
             </div>
         </div>
-        <div className='flex-1 pt-3 px-5'>
-            <p className='text-black'>{info.issueTitle}</p>
+        <div className='flex-1 pt-3 px-5 cursor-pointer' onClick={()=>handleIssue(info)}>
+            <p className='text-black '>{info.issueTitle}</p>
             <div className='pb-2 mt-8 flex justify-between'>
                 <div>
                     <Tag color={colors[typeInfo.type.indexOf(type)]}>{type.typeName}</Tag>

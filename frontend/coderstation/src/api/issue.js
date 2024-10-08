@@ -7,3 +7,10 @@ export const getIssueListApi = (params) => {
         params: { ...params }
 	});
 };
+
+export const getIssueApi = (id) => {
+	return request({
+		url: '/api/issue/'+id,
+		method: "get"
+	});
+};
