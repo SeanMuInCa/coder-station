@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { getTypeList } from '../redux/typeSlice';
 import { useNavigate } from "react-router-dom";
 const IssueCard = (props) => {
-    const [nickname, setNickname] = useState('');
+    const [userInfo, setUserInfo] = useState([]);
     const [type, setType] = useState({});
     const info = props.info;
     const typeInfo = useSelector(state=>state.type);
@@ -24,9 +24,10 @@ const IssueCard = (props) => {
     useEffect(()=>{
         const getName = async ()=>{
             const res = await getUserInfo(info.userId);
-            setNickname(res.data.nickname)
+            setUserInfo(res.data)
         }
         getName();
+        
     },[info.userId]);
 
     useEffect(()=>{
@@ -44,9 +45,6 @@ const IssueCard = (props) => {
     },[dispatch, typeInfo.type, info.typeId]);
     
     const handleIssue = async(issue)=>{
-        // console.log(issue);
-        // const res = await getIssueApi(issue._id)
-        // console.log(res);
         navigate(issue._id)
     }
 
@@ -69,7 +67,7 @@ const IssueCard = (props) => {
                     <Tag color={colors[typeInfo.type.indexOf(type)]}>{type.typeName}</Tag>
                 </div>
                 <div>
-                    <Tag color="blue">{nickname}</Tag>
+                    <Tag color="blue">{userInfo.nickname}</Tag>
                     <span>{format(new Date(parseFloat(info.issueDate)), 'yyyy-MM-dd')}</span>
                 </div>
             </div>
