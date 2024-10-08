@@ -48,7 +48,7 @@ const Category = (props) => {
 	}, []);
 	const handleClick = (tagName) => {
 		if (tagName.typeName === "All") {
-			props.setIssueList(tempList.data);
+			props.backToPage();
 		} else {
 			const temp = tempList.data.filter((item) => item.typeId === tagName._id);
 			console.log(temp);

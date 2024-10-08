@@ -34,13 +34,13 @@ const Issues = () => {
   ))
   return (
     <div className='max-w-7xl mx-auto bg-slate-50'>
-      <PageHeader title="Issue List" setIssueList={setIssueList}/>
+      <PageHeader title="Issue List" setIssueList={setIssueList} backToPage={getIssueList}/>
       {/* body */}
       <div>
         {/* left list */}
         <div>
           {list}
-          {pageInfo.total > 10 && <Pagination align="center" defaultCurrent={pageInfo.current} total={pageInfo.total} onChange={(currentPage)=>setPageInfo({...pageInfo,current:currentPage})}/>}
+          {list.length >= pageInfo.pageSize && <Pagination align="center" defaultCurrent={pageInfo.current} total={pageInfo.total} onChange={(currentPage)=>setPageInfo({...pageInfo,current:currentPage})}/>}
         </div>
         {/* right side */}
         <div></div>
