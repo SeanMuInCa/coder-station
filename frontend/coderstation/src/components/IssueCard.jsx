@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { getTypeList } from '../redux/typeSlice';
 import { useNavigate } from "react-router-dom";
 const IssueCard = (props) => {
-    const [userInfo, setUserInfo] = useState([]);
+    const [userInfo, setUserInfo] = useState({});
     const [type, setType] = useState({});
     const info = props.info;
     const typeInfo = useSelector(state=>state.type);
@@ -67,7 +67,7 @@ const IssueCard = (props) => {
                     <Tag color={colors[typeInfo.type.indexOf(type)]}>{type.typeName}</Tag>
                 </div>
                 <div>
-                    <Tag color="blue">{userInfo.nickname}</Tag>
+                    <Tag color="volcano">{userInfo.nickname}</Tag>
                     <span>{format(new Date(parseFloat(info.issueDate)), 'yyyy-MM-dd')}</span>
                 </div>
             </div>
