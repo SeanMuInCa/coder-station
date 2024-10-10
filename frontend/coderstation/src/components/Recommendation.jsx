@@ -35,21 +35,21 @@ function Recommendation(props) {
 				recommendInfo={{
 					num: 1,
 					title: "How to learn React in 3 days",
-					href: "https://segmentfault.com/a/1190000042661646",
+					href: "https://www.youtube.com",
 				}}
 			/>
 			<RecommendItem
 				recommendInfo={{
 					num: 2,
 					title: "The answer is you CAN NOT",
-					href: "https://segmentfault.com/a/1190000042531062",
+					href: "https://www.youtube.com",
 				}}
 			/>
 			<RecommendItem
 				recommendInfo={{
 					num: 3,
 					title: "It's just for fun",
-					href: "https://segmentfault.com/a/1190000042539876",
+					href: "https://www.youtube.com",
 				}}
 			/>
 		</Card>

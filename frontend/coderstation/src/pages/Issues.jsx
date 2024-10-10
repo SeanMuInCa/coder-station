@@ -5,7 +5,7 @@ import IssueCard from '../components/IssueCard'
 import { Pagination  } from 'antd'
 import AskButton from '../components/AskButton'
 import Recommendation from '../components/Recommendation'
-
+import TopTen from '../components/TopTen'
 
 
 const Issues = () => {
@@ -51,6 +51,7 @@ const Issues = () => {
         <div className='max-w-80 flex-1 mr-10 text-center'>
         <AskButton />
         <Recommendation />
+        <TopTen />
         </div>
       </div>
     </div>

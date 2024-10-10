@@ -43,3 +43,10 @@ export const keepStatus = ()=>{
 		method: "get",
 	});
 }
+
+export const getTopTenUserApi = ()=>{
+	return request({
+		url: "/api/user/pointsrank",
+		method: "get",
+	});
+}
