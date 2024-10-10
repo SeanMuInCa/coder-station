@@ -11,7 +11,7 @@ const AskButton = () => {
         }else message.warning('Please login first')
     }
   return (
-    <div className='mb-5'>
+    <div className='mb-10'>
         <Button type='primary' className='w-full text-lg font-bold' size='large' onClick={handleClick}>I want to Ask...</Button>
     </div>
   )

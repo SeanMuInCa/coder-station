@@ -48,7 +48,7 @@ const Issues = () => {
           {list.length >= pageInfo.pageSize && <Pagination align="center" defaultCurrent={pageInfo.current} total={pageInfo.total} onChange={(currentPage)=>setPageInfo({...pageInfo,current:currentPage})}/>}
         </div>
         {/* right side */}
-        <div className='max-w-80 bg-yellow-400 flex-1 mr-10 text-center'>
+        <div className='max-w-80 flex-1 mr-10 text-center'>
         <AskButton />
         <Recommendation />
         </div>
