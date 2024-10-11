@@ -7,7 +7,7 @@ const AskButton = () => {
     const navigate = useNavigate()
     const handleClick = ()=>{
         if(userInfo.isLogin){
-            //router
+            navigate('/issues/add')
         }else message.warning('Please login first')
     }
   return (
