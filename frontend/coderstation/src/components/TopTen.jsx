@@ -13,6 +13,7 @@ const TopTen = () => {
     }, [])
   return (
     <Card
+        className='mt-10'
         title="Top 10 Users"
     >
       {topTen.map((item, index) =>{

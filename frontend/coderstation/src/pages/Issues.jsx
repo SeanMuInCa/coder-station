@@ -38,7 +38,7 @@ const Issues = () => {
     <IssueCard info={item} key={item._id}/>
   ))
   return (
-    <div className='max-w-7xl mx-auto bg-slate-50'>
+    <div className='max-w-7xl mx-auto bg-slate-50 pb-10'>
       <PageHeader title="Issue List" setIssueList={setIssueList} backToPage={getIssueList}/>
       {/* body */}
       <div className='flex'>
