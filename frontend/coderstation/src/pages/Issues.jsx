@@ -8,6 +8,7 @@ import Recommendation from '../components/Recommendation'
 import TopTen from '../components/TopTen'
 
 
+
 const Issues = () => {
   const [issueList, setIssueList] = useState([]);
   const [pageInfo, setPageInfo] = useState({
@@ -43,8 +44,8 @@ const Issues = () => {
       {/* body */}
       <div className='flex'>
         {/* left list */}
-        <div className='max-w-5xl min-w-60'>
-          {list}
+        <div className='max-w-5xl flex-1'>
+          {list.length ? list : <div className='text-center text-2xl text-gray-400 mx-auto'>No issue found</div>}
           {list.length >= pageInfo.pageSize && <Pagination align="center" defaultCurrent={pageInfo.current} total={pageInfo.total} onChange={(currentPage)=>setPageInfo({...pageInfo,current:currentPage})}/>}
         </div>
         {/* right side */}

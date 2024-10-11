@@ -14,3 +14,11 @@ export const getIssueApi = (id) => {
 		method: "get"
 	});
 };
+
+export const addIssueApi = (data) =>{
+	return request({
+		url: '/api/issue/',
+		method: "post",
+		data
+	});
+}

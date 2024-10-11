@@ -6,8 +6,6 @@ import { useEffect } from "react";
 import { keepStatus, getUserInfo } from "./api/user";
 import { useDispatch } from "react-redux";
 import { initUserInfo, updateLoginStatus } from "./redux/userSlice";
-import { initTypeInfo, updateLoadingStatus } from "./redux/typeSlice";
-import { getTypeListApi } from "./api/type";
 const { Header, Footer, Content } = Layout;
 function App() {
 	const dispatch = useDispatch();
