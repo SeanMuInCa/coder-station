@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Form, Input } from "antd";
+import { Button, Card, Form, Input } from "antd";
 import TextArea from "antd/es/input/TextArea";
 const AskQuestion = () => {
     const [question, setQuestion] = useState({
@@ -8,9 +8,12 @@ const AskQuestion = () => {
         userId:'',
         typeId:''
     })
+    const handleClick = ()=>{
+        console.log(question)
+    }
 	return (
 		<Card className="max-w-7xl mx-auto bg-slate-50 pb-10">
-			<Form>
+			<Form onFinish={handleClick}>
 				<Form.Item
 					name={"title"}
 					label="Question Title"
@@ -21,7 +24,7 @@ const AskQuestion = () => {
 						},
 					]}
 				>
-					<Input placeholder="Ask a public question" value={question.issueTitle}/>
+					<Input placeholder="Ask a public question" value={question.issueTitle} onChange={(e)=>setQuestion({...question,issueTitle:e.target.value})}/>
 				</Form.Item>
 				<Form.Item
 					name={"content"}
@@ -37,13 +40,18 @@ const AskQuestion = () => {
 						showCount
                         value={question.issueContent}
 						maxLength={100}
-						//   onChange={onChange}
+						onChange={(e)=>setQuestion({...question,issueContent:e.target.value})}
 						style={{
 							height: 120,
 							resize: "none",
 						}}
 					/>
 				</Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                </Form.Item>
 			</Form>
 		</Card>
 	);
