@@ -1,7 +1,6 @@
 import { Tag, Flex } from "antd";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { deepCopy } from "../utils/tools";
 import { getIssueListApi } from "../api/issue";
 const Category = (props) => {
 	const { type } = useSelector((state) => state.type);

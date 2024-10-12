@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 import { Button, Card, Form, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { useSelector } from "react-redux";
 const AskQuestion = () => {
+    const types = useSelector((state) => state.type);
+    const {userInfo} = useSelector((state) => state.user);
+    console.log(userInfo);
+    
+    
 	const [question, setQuestion] = useState({
 		issueTitle: "",
 		issueContent: "",
 		userId: "",
 		typeId: "",
 	});
-	const handleClick = () => {
+	const handleClick = async() => {
+        await setQuestion({
+			...question,
+			userId: userInfo._id,
+		});
 		console.log(question);
 	};
 	return (
@@ -40,8 +50,10 @@ const AskQuestion = () => {
 					]}
                     className="w-1/5"
 				>
-					<Select>
-						<Select.Option value="rmb">RMB</Select.Option>
+					<Select onChange={(value) => setQuestion({ ...question, typeId: value })}>
+						{types.type.map((item)=>{
+                            return <Select.Option key={item._id} value={item._id}>{item.typeName}</Select.Option>
+                        })}
 					</Select>
 				</Form.Item>
 				<Form.Item
