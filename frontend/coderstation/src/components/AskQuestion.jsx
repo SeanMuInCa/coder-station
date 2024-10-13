@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Form, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useSelector } from "react-redux";
 const AskQuestion = () => {
-    const {type} = useSelector((state) => state.type);
+    
+    const [types, setTypes] = useState([]);
     const {userInfo} = useSelector((state) => state.user);
     console.log(userInfo);
-    
-    
+    const {type} = useSelector((state) => state.type);
+    useEffect(()=>{
+        const fetch = ()=>{
+            setTypes(type)
+        }
+        fetch();
+    },[])
 	const [question, setQuestion] = useState({
 		issueTitle: "",
 		issueContent: "",
@@ -51,7 +57,7 @@ const AskQuestion = () => {
                     className="w-1/5"
 				>
 					<Select onChange={(value) => setQuestion({ ...question, typeId: value })}>
-						{type.map((item)=>{
+						{types.map((item)=>{
                             return <Select.Option key={item._id} value={item._id}>{item.typeName}</Select.Option>
                         })}
 					</Select>
