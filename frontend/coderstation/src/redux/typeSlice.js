@@ -13,9 +13,7 @@ const typeSlice = createSlice({
 	initialState: {
 		type: [],
 	},
-	reducers: {
-		
-	},
+	reducers: {},
     //for async
     extraReducers:(builder)=>{
         builder.addCase(getTypeList.fulfilled,(state,action)=>{
@@ -24,5 +22,5 @@ const typeSlice = createSlice({
     }
 });
 
-export const { initTypeInfo, updateLoadingStatus } = typeSlice.actions;
+// export const { initTypeInfo, updateLoadingStatus } = typeSlice.actions;
 export default typeSlice.reducer;

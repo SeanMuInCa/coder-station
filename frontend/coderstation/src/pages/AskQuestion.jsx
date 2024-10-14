@@ -2,26 +2,33 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Form, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useSelector, useDispatch } from "react-redux";
-import { getTypeListApi } from "../api/type";
+import { getTypeList } from "../redux/typeSlice";
 const AskQuestion = () => {
     const {userInfo} = useSelector((state) => state.user);
     const {type} = useSelector((state) => state.type);
     const dispatch = useDispatch();
-     
-    const tagList = [{ typeName: "All" }, ...type];
-    console.log(tagList);
+    const [userId, setUserId] = useState("");
 	const [question, setQuestion] = useState({
 		issueTitle: "",
 		issueContent: "",
 		userId: userInfo._id || "",
 		typeId: "",
 	});
+	useEffect(()=>{
+        if(!type.length){
+            // 派发 action 来发送请求，获取到数据填充到状态仓库
+            dispatch(getTypeList());
+        }
+		if(userInfo){
+			setUserId(userInfo._id);
+		}
+    },[])
 	const handleClick = async() => {
         await setQuestion({
 			...question,
-			userId: userInfo._id,
+			userId: userId,
 		});
-		console.log(question);
+		console.log(userId);
 	};
 	return (
 		<Card className="max-w-7xl mx-auto bg-slate-50 pb-10">
