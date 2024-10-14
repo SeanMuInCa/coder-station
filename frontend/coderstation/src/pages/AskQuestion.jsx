@@ -3,6 +3,8 @@ import { Button, Card, Form, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useSelector, useDispatch } from "react-redux";
 import { getTypeList } from "../redux/typeSlice";
+import '@toast-ui/editor/dist/toastui-editor.css'
+import { Editor } from '@toast-ui/react-editor'
 const AskQuestion = () => {
     const {userInfo} = useSelector((state) => state.user);
     const {type} = useSelector((state) => state.type);
@@ -28,7 +30,7 @@ const AskQuestion = () => {
 			...question,
 			userId: userId,
 		});
-		console.log(userId);
+		console.log(question);
 	};
 	return (
 		<Card className="max-w-7xl mx-auto bg-slate-50 pb-10">
@@ -75,7 +77,7 @@ const AskQuestion = () => {
 						},
 					]}
 				>
-					<TextArea
+					{/* <TextArea
 						showCount
 						value={question.issueContent}
 						maxLength={100}
@@ -86,6 +88,14 @@ const AskQuestion = () => {
 							height: 120,
 							resize: "none",
 						}}
+					/> */}
+					<Editor
+						previewStyle="vertical"
+						initialValue='type your question content here'
+						height="600px"
+						initialEditType="markdown"
+						useCommandShortcut={true}
+						hideModeSwitch={true}
 					/>
 				</Form.Item>
 				<Form.Item>
