@@ -20,19 +20,18 @@ const AskQuestion = () => {
 	});
 	useEffect(()=>{
         if(!type.length){
-            // 派发 action 来发送请求，获取到数据填充到状态仓库
+            // not api
             dispatch(getTypeList());
         }
     },[])
 	const handleClick = async() => {
 		const content = editorRef.current.getInstance().getHTML();
-        await setQuestion({
-			issueTitle: question.issueTitle,
-			issueContent: content,
-			userId: userInfo._id,
-			typeId: question.typeId,
-		});
-		console.log(question);
+        // await setQuestion({
+		// 	issueTitle: question.issueTitle,
+		// 	issueContent: content,
+		// 	userId: userInfo._id,
+		// 	typeId: question.typeId,
+		// });
 		const res = await addIssueApi({
 			issueTitle:question.issueTitle,
 			issueContent: content,
@@ -59,6 +58,7 @@ const AskQuestion = () => {
 					]}
 				>
 					<Input
+					className="ml-6"
 						placeholder="Ask a public question"
 						value={question.issueTitle}
 						onChange={(e) => setQuestion({ ...question, issueTitle: e.target.value })}
@@ -74,7 +74,7 @@ const AskQuestion = () => {
 					]}
                     className="w-1/5"
 				>
-					<Select onChange={(value) => setQuestion({ ...question, typeId: value })}>
+					<Select className="ml-5" onChange={(value) => setQuestion({ ...question, typeId: value })}>
 						{type.map((item)=>{
                             return <Select.Option key={item._id} value={item._id}>{item.typeName}</Select.Option>
                         })}
