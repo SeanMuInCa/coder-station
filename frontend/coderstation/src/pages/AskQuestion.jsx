@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Button, Card, Form, Input, Select } from "antd";
-import TextArea from "antd/es/input/TextArea";
+import React, { useEffect, useState, useRef } from "react";
+import { Button, Card, Form, Input, message, Select } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { getTypeList } from "../redux/typeSlice";
 import '@toast-ui/editor/dist/toastui-editor.css'
 import { Editor } from '@toast-ui/react-editor'
+import { addIssueApi } from "../api/issue";
 const AskQuestion = () => {
+	const editorRef = useRef();
     const {userInfo} = useSelector((state) => state.user);
     const {type} = useSelector((state) => state.type);
     const dispatch = useDispatch();
-    const [userId, setUserId] = useState("");
 	const [question, setQuestion] = useState({
 		issueTitle: "",
 		issueContent: "",
@@ -21,16 +21,21 @@ const AskQuestion = () => {
             // 派发 action 来发送请求，获取到数据填充到状态仓库
             dispatch(getTypeList());
         }
-		if(userInfo){
-			setUserId(userInfo._id);
-		}
     },[])
 	const handleClick = async() => {
+		const content = editorRef.current.getInstance().getHTML();
         await setQuestion({
-			...question,
-			userId: userId,
+			issueTitle: question.issueTitle,
+			issueContent: content,
+			userId: userInfo._id,
+			typeId: question.typeId,
 		});
 		console.log(question);
+		const res = await addIssueApi(question);
+		if(res.code == 0){
+			message.success("new question created, thank you!");
+		}
+		
 	};
 	return (
 		<Card className="max-w-7xl mx-auto bg-slate-50 pb-10">
@@ -95,7 +100,7 @@ const AskQuestion = () => {
 						height="600px"
 						initialEditType="markdown"
 						useCommandShortcut={true}
-						hideModeSwitch={true}
+						ref={editorRef}
 					/>
 				</Form.Item>
 				<Form.Item>
