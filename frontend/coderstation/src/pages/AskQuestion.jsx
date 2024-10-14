@@ -5,11 +5,13 @@ import { getTypeList } from "../redux/typeSlice";
 import '@toast-ui/editor/dist/toastui-editor.css'
 import { Editor } from '@toast-ui/react-editor'
 import { addIssueApi } from "../api/issue";
+import { useNavigate } from "react-router-dom";
 const AskQuestion = () => {
 	const editorRef = useRef();
     const {userInfo} = useSelector((state) => state.user);
     const {type} = useSelector((state) => state.type);
     const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [question, setQuestion] = useState({
 		issueTitle: "",
 		issueContent: "",
@@ -31,9 +33,15 @@ const AskQuestion = () => {
 			typeId: question.typeId,
 		});
 		console.log(question);
-		const res = await addIssueApi(question);
-		if(res.code == 0){
+		const res = await addIssueApi({
+			issueTitle:question.issueTitle,
+			issueContent: content,
+			typeId: question.typeId,
+			userId: userInfo._id
+		});
+		if(res.code === 0){
 			message.success("new question created, thank you!");
+			navigate('/')
 		}
 		
 	};
