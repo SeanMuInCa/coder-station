@@ -1,9 +1,9 @@
+import { Navigate, Routes, Route } from "react-router-dom";
 import Issues from "../pages/Issues";
 import Books from "../pages/Books";
 import Interviews from "../pages/Interviews";
 import IssueDetail from "../pages/IssueDetail";
-import { Navigate, Routes, Route } from "react-router-dom";
-import AskQuestion from "../components/AskQuestion";
+import AskQuestion from "../pages/AskQuestion";
 export default function RouteConfig(){
     return (
         <Routes>

@@ -7,11 +7,6 @@ export const getTypeList = createAsyncThunk(
         const res = await getTypeListApi();
         return res.data;
     }
-    // reducer thunk
-	// async (_, trunkApi) => {
-	// 	const res = await getTypeListApi();
-    //     trunkApi.dispatch(initTypeInfo(res.data))
-	// }
 );
 const typeSlice = createSlice({
 	name: "type",
