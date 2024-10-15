@@ -41,6 +41,8 @@ const AskQuestion = () => {
 		if(res.code === 0){
 			message.success("new question created, thank you!");
 			navigate('/')
+		}else{
+			message.error(res.msg);
 		}
 		
 	};
