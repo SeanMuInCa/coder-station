@@ -104,14 +104,13 @@ const AskQuestion = () => {
 					/> */}
 					<Editor
 						previewStyle="vertical"
-						initialValue='type your question content here'
 						height="600px"
-						initialEditType="markdown"
+						initialEditType="wysiwyg"
 						useCommandShortcut={true}
 						ref={editorRef}
 					/>
 				</Form.Item>
-				<Form.Item>
+				<Form.Item className="text-center">
 					<Button type="primary" htmlType="submit">
 						Submit
 					</Button>
