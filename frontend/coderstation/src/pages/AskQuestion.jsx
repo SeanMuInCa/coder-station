@@ -26,12 +26,7 @@ const AskQuestion = () => {
     },[])
 	const handleClick = async() => {
 		const content = editorRef.current.getInstance().getHTML();
-        // await setQuestion({
-		// 	issueTitle: question.issueTitle,
-		// 	issueContent: content,
-		// 	userId: userInfo._id,
-		// 	typeId: question.typeId,
-		// });
+
 		const res = await addIssueApi({
 			issueTitle:question.issueTitle,
 			issueContent: content,
@@ -91,19 +86,7 @@ const AskQuestion = () => {
 							message: "Please input your content!",
 						},
 					]}
-				>
-					{/* <TextArea
-						showCount
-						value={question.issueContent}
-						maxLength={100}
-						onChange={(e) =>
-							setQuestion({ ...question, issueContent: e.target.value })
-						}
-						style={{
-							height: 120,
-							resize: "none",
-						}}
-					/> */}
+				> 
 					<Editor
 						previewStyle="vertical"
 						height="600px"

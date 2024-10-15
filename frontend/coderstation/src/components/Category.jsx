@@ -5,7 +5,6 @@ import { getIssueListApi } from "../api/issue";
 const Category = (props) => {
 	const { type } = useSelector((state) => state.type);
 	const tagList = [{ typeName: "All" }, ...type];
-	console.log(tagList);
 	
 	const colors = [
 		"#FF5733",
