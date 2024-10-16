@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { Avatar, Card } from 'antd';
 import { format } from 'date-fns';
 import { getUserInfo } from '../api/user';
+import PageHeader from '../components/PageHeader';
 const IssueDetail = () => {
     const {id} = useParams()
     const user = useSelector(state=>state.user);
@@ -42,9 +43,9 @@ const IssueDetail = () => {
       {/* body */}
       <div className='flex'>
         {/* left list */}
-        {issue.issueDate && <div className='max-w-5xl flex-1 p-10'>
-          <h2>Issue Detail:</h2>
-          <Card className=' mt-5' >
+        {issue.issueDate && <div className='max-w-5xl flex-1 '>
+          <PageHeader title='Issue Detail' hideCategory={true} />
+          <Card className=' mt-5 ml-10 mr-5' >
             <div className='text-2xl text-black font-bold p-2 my-2'>{issue.issueTitle}</div>
             <div className='flex justify-around w-2/3 items-center text-lg'>
               <Avatar src={publisher.avatar} />
@@ -53,12 +54,12 @@ const IssueDetail = () => {
               <p>{format(new Date(parseFloat(issue.issueDate)), 'yyyy-MM-dd EEEE')}</p>
             </div>
           </Card>
-          <Card className=' mt-1'>
+          <Card className='ml-10 mt-1 mr-5'>
             {<div dangerouslySetInnerHTML={{ __html: content }} />}
           </Card>
         </div>}
         {/* right side */}
-        <div className='max-w-80 flex-1 mr-10 text-center'>
+        <div className='max-w-80 flex-1 mr-10 text-center mt-10'>
         <Recommendation />
         <TopTen />
         </div>
