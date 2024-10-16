@@ -9,10 +9,12 @@ import { Avatar, Card } from 'antd';
 import { format } from 'date-fns';
 import { getUserInfo } from '../api/user';
 import PageHeader from '../components/PageHeader';
+import Comment from '../components/Comment';
 const IssueDetail = () => {
     const {id} = useParams()
     const user = useSelector(state=>state.user);
     const [publisher, setPublisher] = useState({})
+    const [commentList, setCommentList] = useState([]);
     const [issue, setIssue] = useState({
       commentNumber: 0,
       issueTitle: "",
@@ -33,6 +35,7 @@ const IssueDetail = () => {
             if(res.data.commentNumber > 0){
               const res = await getCommentsFromIssueApi(id)
               console.log(res,'comment detail');
+              setCommentList(res.data)
             }
         }
         fetchData();
@@ -57,6 +60,7 @@ const IssueDetail = () => {
           <Card className='ml-10 mt-1 mr-5'>
             {<div dangerouslySetInnerHTML={{ __html: content }} />}
           </Card>
+          <Comment commentList={commentList} />
         </div>}
         {/* right side */}
         <div className='max-w-80 flex-1 mr-10 text-center mt-10'>
