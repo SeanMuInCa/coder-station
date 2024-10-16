@@ -53,9 +53,9 @@ const IssueDetail = () => {
               <p>{format(new Date(parseFloat(issue.issueDate)), 'yyyy-MM-dd')}</p>
             </div>
           </Card>
-          <div className='bg-white rounded-lg shadow-lg p-5 mt-1'>
+          <Card className=' mt-1'>
             {<div dangerouslySetInnerHTML={{ __html: content }} />}
-          </div>
+          </Card>
         </div>}
         {/* right side */}
         <div className='max-w-80 flex-1 mr-10 text-center'>
