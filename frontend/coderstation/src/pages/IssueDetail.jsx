@@ -46,11 +46,11 @@ const IssueDetail = () => {
           <h2>Issue Detail:</h2>
           <Card className=' mt-5' >
             <div className='text-2xl text-black font-bold p-2 my-2'>{issue.issueTitle}</div>
-            <div className='flex justify-around w-1/2 items-center text-lg'>
+            <div className='flex justify-around w-2/3 items-center text-lg'>
               <Avatar src={publisher.avatar} />
               <p>{publisher.nickname}</p>
               <p>Published at : </p>
-              <p>{format(new Date(parseFloat(issue.issueDate)), 'yyyy-MM-dd')}</p>
+              <p>{format(new Date(parseFloat(issue.issueDate)), 'yyyy-MM-dd EEEE')}</p>
             </div>
           </Card>
           <Card className=' mt-1'>
