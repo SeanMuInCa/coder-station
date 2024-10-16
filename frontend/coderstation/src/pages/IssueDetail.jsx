@@ -54,7 +54,7 @@ const IssueDetail = () => {
             </div>
           </Card>
           <div className='bg-white rounded-lg shadow-lg p-5 mt-1'>
-            {content}
+            {<div dangerouslySetInnerHTML={{ __html: content }} />}
           </div>
         </div>}
         {/* right side */}
