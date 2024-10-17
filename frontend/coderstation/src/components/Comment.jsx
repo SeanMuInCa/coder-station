@@ -43,8 +43,10 @@ const Comment = (props) => {
 	};
 	useEffect(() => {
         const fetchData =  async () => {
-            const res = await getIssueApi(id)
-            console.log(res);
+            let res = null
+            if(props.commentType === 'issue'){
+                res = await getIssueApi(id)
+            }
             setNewComment({
                 ...newComment,
                 issueId:res.data._id,

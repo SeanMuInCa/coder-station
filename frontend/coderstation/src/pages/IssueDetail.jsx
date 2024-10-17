@@ -60,7 +60,7 @@ const IssueDetail = () => {
           <Card className='ml-10 mt-1 mr-5'>
             {<div dangerouslySetInnerHTML={{ __html: content }} />}
           </Card>
-          <Comment commentList={commentList} />
+          <Comment commentList={commentList} commentType='issue' />
         </div>}
         {/* right side */}
         <div className='max-w-80 flex-1 mr-10 text-center mt-10'>
