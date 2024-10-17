@@ -1,8 +1,17 @@
 import React from 'react'
-
-const BookCard = () => {
+import { Card } from 'antd'
+const BookCard = (props) => {
+    console.log(props.book);
+    
   return (
-    <div>BookCard</div>
+    <Card className='w-80' 
+        cover={
+            <img
+                alt={props.book.bookTitle}
+                src={props.book.bookPic}
+            />
+        }
+    >BookCard</Card>
   )
 }
 

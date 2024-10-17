@@ -26,7 +26,7 @@ const Books = () => {
 		};
 		fetchData();
 	}, [pageInfo.currentPage, pageInfo.pageSize]);
-  let list = bookList.data?.map((item)=> <BookCard key={item._id}/>)
+  let list = bookList.data?.map((item)=> <BookCard key={item._id} book={item}/>)
 	return (
     <>
     <PageHeader hideCategory={true} title="Book List" />
