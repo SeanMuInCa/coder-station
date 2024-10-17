@@ -25,6 +25,7 @@ const Comment = (props) => {
 						height="300px"
 						initialEditType="wysiwyg"
 						useCommandShortcut={true}
+                        hideModeSwitch={true}
 						ref={editorRef}
 					/>
                     <Button type="primary" className="mt-5">Comment Submit</Button>

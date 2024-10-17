@@ -93,6 +93,7 @@ const AskQuestion = () => {
 						initialEditType="wysiwyg"
 						useCommandShortcut={true}
 						ref={editorRef}
+						hideModeSwitch={true}
 					/>
 				</Form.Item>
 				<Form.Item className="text-center">
