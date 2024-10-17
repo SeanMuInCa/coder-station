@@ -6,3 +6,11 @@ export const getCommentsFromIssueApi = (id) => {
 		method: "get"
 	});
 };
+
+export const addCommentApi = (data) => {
+	return request({
+		url: '/api/comment',
+		method: "post",
+		data
+	});
+};

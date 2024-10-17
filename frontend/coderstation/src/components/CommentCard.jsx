@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Card, Avatar } from 'antd'
 import { getUserInfo } from '../api/user'
 import { format } from 'date-fns';
+
 const CommentCard = (props) => {
     const [publisher, setPublisher] = useState({})
+    
     useEffect(() => {
         const fetchData = async () => {
             const res = await getUserInfo(props.commentInfo.userId)

@@ -16,5 +16,13 @@ export function deepCopy(obj) {
     return copy;
   }
   
+  export function isEmptyHtml(htmlString) {
+    // 移除 <br>、<hr> 等空标签及空白字符
+    // 使用正则表达式移除所有 <br> 和空白字符
+    const cleanedString = htmlString.replace(/<(a|p|br)[^>]*>|<(\/p|\/a)>/g, '');
 
-  
+    // 判断是否为空
+    return cleanedString === '';
+}
+
+
