@@ -2,18 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
-import { Button, message } from "antd";
+import { Button, message, Pagination } from "antd";
 import CommentCard from "./CommentCard";
 import { useParams } from 'react-router-dom';
 import { getIssueApi } from "../api/issue";
 import { addCommentApi } from "../api/comment";
 import { isEmptyHtml } from '../utils/tools'
-console.log(isEmptyHtml('<p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p>'));
+
 const Comment = (props) => {
     const {id} = useParams()
 	const editorRef = useRef();
 	const user = useSelector((state) => state.user);
-    console.log(user);
     const [newComment, setNewComment]= useState({
         userId:'',
         typeId:'',
@@ -22,6 +21,11 @@ const Comment = (props) => {
         bookId:'',
         issueId:''
     })
+    const [pageInfo, setPageInfo] = useState({
+        current:1,//current page
+        pageSize:3,// how many in one page
+        // total: 0//total amount
+      });
     const handleClick = async () => {
         const commentContent = editorRef.current.getInstance().getHTML();
 		if(!isEmptyHtml(commentContent)){
@@ -49,11 +53,14 @@ const Comment = (props) => {
         }
         fetchData();
     }, []);
+    let list = props.commentList.data?.map((item)=> <CommentCard key={item._id} commentInfo={item}/>)
+    let showList = list?.slice(pageInfo.current - 1,pageInfo.current*pageInfo.pageSize)
 	return (
 		<div className=" ml-5 rounded-md p-5  text-center">
 			{/* Comment detail */}
 			<div className=" my-5">
-				{props.commentList.length === 0 ? <div>No comments</div> : props.commentList.data?.map((item)=> <CommentCard key={item._id} commentInfo={item}/>)}
+				{props.commentList.length === 0 ? <div>No comments</div> : showList}
+                {list?.length >= pageInfo.pageSize && <Pagination align="center" defaultCurrent={pageInfo.current} total={list?.length} pageSize={pageInfo.pageSize} onChange={(currentPage)=>{setPageInfo({...pageInfo,current:currentPage}); console.log(showList)}}/>}
 			</div>
 			{/* textarea */}
 			<div>
