@@ -73,11 +73,11 @@ const Comment = (props) => {
                         hideModeSwitch={true}
 						ref={editorRef}
 					/>
-                    <Button type="primary" className="mt-5" onClick={handleClick}>Comment Submit</Button>
+                    <Button type="primary" className="mt-5" onClick={handleClick}>Submit Comment</Button>
                     </>
                     
 				) : (
-					<Button type="primary" >Please login to comment</Button>
+					<Button type="primary" disabled>Please login to comment</Button>
 				)}
 			</div>
             

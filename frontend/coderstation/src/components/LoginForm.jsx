@@ -35,19 +35,13 @@ const LoginForm = (props) => {
 	const regFormRef = useRef();
 
 	const clearRegInfo = () => {
-		console.log("clear reg info");
-
 		setRegInfo({
 			loginId: "",
 			captcha: "",
 			nickname: "",
 		});
-		console.log(regInfo.nickname);
-		console.log(loginInfo);
 	};
 	const clearLoginInfo = () => {
-		console.log("clear login info");
-
 		setLoginInfo({
 			loginId: "",
 			password: "",

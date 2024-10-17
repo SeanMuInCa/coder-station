@@ -22,7 +22,6 @@ const NavHeader = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const loginHandle = () => {
-		console.log("from header");
 		setOpenForm(true);
 	};
 	
@@ -30,7 +29,6 @@ const NavHeader = () => {
 		setOpenForm(false);
 	};
 	const logoutHandle = () => {
-		console.log("logout");
 		localStorage.removeItem('userToken');
 		dispatch(resetUserInfo());
 		dispatch(updateLoginStatus(false));
