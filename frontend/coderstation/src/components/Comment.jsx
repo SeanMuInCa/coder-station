@@ -56,10 +56,10 @@ const Comment = (props) => {
     let list = props.commentList.data?.map((item)=> <CommentCard key={item._id} commentInfo={item}/>)
     let showList = list?.slice((pageInfo.current - 1) * pageInfo.pageSize,pageInfo.current*pageInfo.pageSize)
 	return (
-		<div className=" ml-5 rounded-md p-5  text-center">
+		<div className=" ml-5 rounded-md p-5">
 			{/* Comment detail */}
 			<div className=" my-5">
-				{props.commentList.length === 0 ? <div>No comments</div> : showList}
+				{props.commentList.length === 0 ? <div className="text-center">No comments</div> : showList}
                 {list?.length >= pageInfo.pageSize && <Pagination align="center" defaultCurrent={pageInfo.current} total={list?.length} pageSize={pageInfo.pageSize} onChange={(currentPage)=>setPageInfo({...pageInfo,current:currentPage})}/>}
 			</div>
 			{/* textarea */}

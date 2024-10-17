@@ -51,10 +51,10 @@ const IssueDetail = () => {
           <Card className=' mt-5 ml-10 mr-5' >
             <div className='text-2xl text-black font-bold p-2 my-2'>{issue.issueTitle}</div>
             <div className='flex justify-around w-2/3 items-center text-lg'>
-              <Avatar src={publisher.avatar} />
+              <Avatar size='small' src={publisher.avatar} />
               <p>{publisher.nickname}</p>
               <p>Published at : </p>
-              <p>{format(new Date(parseFloat(issue.issueDate)), 'yyyy-MM-dd EEEE')}</p>
+              <p>{format(new Date(parseFloat(issue.issueDate)), 'yyyy-MM-dd hh:mm:ss EEEE')}</p>
             </div>
           </Card>
           <Card className='ml-10 mt-1 mr-5'>

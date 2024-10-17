@@ -17,10 +17,11 @@ const CommentCard = (props) => {
     }, [])
   return (
     <Card>
-        <p className='text-left' dangerouslySetInnerHTML={{ __html: props.commentInfo.commentContent }} />
-        <Avatar src={publisher.avatar} />
-        <p>{publisher.nickname}</p>
-        <p>{format(new Date(parseFloat(props.commentInfo.commentDate)), 'yyyy-MM-dd EEEE')}</p>
+        <Avatar src={publisher.avatar} className='mr-2'/>
+        <span className='text-gray-400'>{format(new Date(parseFloat(props.commentInfo.commentDate)), 'yyyy-MM-dd hh:mm:ss')}</span>
+        <p className='ml-10 text-gray-400 mb-8'>{publisher.nickname}</p>
+       
+        <p className='text-left px-5' dangerouslySetInnerHTML={{ __html: props.commentInfo.commentContent }} />
     </Card>
   )
 }
