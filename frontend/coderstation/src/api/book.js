@@ -7,3 +7,10 @@ export const getAllBookApi = (params) => {
 		params: { ...params }
 	})
 }
+
+export const getBookByIdApi = (id) => {
+	return request({
+		url: '/api/book/' + id,
+		method: 'get'
+	})
+}
