@@ -15,13 +15,10 @@ const BookDetail = () => {
 		const fetchData = async () => {
 			const res = await getBookByIdApi(id);
 			if (res.code === 0) {
-        console.log(res.data);
-        
 				setBookInfo(res.data);
         if(bookInfo.commentNumber > 0){
           const res = await getCommentsFromBookApi(id)
           if(res.code === 0){
-            console.log(res,'commentList');
             setCommentList(res.data)
           }
         }
@@ -37,7 +34,7 @@ const BookDetail = () => {
 				<div className="flex flex-col items-center">
 					<Image width={400} className="flex-1" src={bookInfo.bookPic} />
 					{user.isLogin && <div className="text-center">
-            <a href={bookInfo.downloadLink} target="_blank" rel="noreferrer"><Button type="primary" className="mt-5">Free Download</Button></a>
+            <a href={bookInfo.downloadLink} target="_blank" rel="noreferrer"><Button type="primary" className="mt-5">Download</Button></a>
             <p className="mt-2">costs {bookInfo.requirePoints} Points</p>
             </div>}
 				</div>
@@ -50,7 +47,7 @@ const BookDetail = () => {
 				</div>
 			</div>
       <div>
-        <Comment commentList={commentList} />
+        <Comment commentList={commentList} commentType='book'/>
       </div>
 		</div>
 	);
