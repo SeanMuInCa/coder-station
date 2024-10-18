@@ -1,11 +1,15 @@
 import React from "react";
 import { Card } from "antd";
+import { useNavigate } from "react-router-dom";
 const { Meta } = Card;
 const BookCard = (props) => {
-	console.log(props.book);
-
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate(props.book._id)
+    }
 	return (
-		<Card
+		<div onClick={handleClick}>
+            <Card
 			className="w-60 box-border p-2 mx-2 my-5 cursor-pointer text-center"
 			cover={
 				<img className="h-72" alt={props.book.bookTitle} src={props.book.bookPic} />
@@ -24,6 +28,7 @@ const BookCard = (props) => {
 				</div>
 			</div>
 		</Card>
+        </div>
 	);
 };
 
