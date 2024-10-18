@@ -23,7 +23,6 @@ const Issues = () => {
       pageSize: pageInfo.pageSize,
       issueStatus: true
     })
-    console.log(res);
     
     setIssueList(res.data.data);
     setPageInfo({
