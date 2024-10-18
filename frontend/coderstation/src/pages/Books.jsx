@@ -31,7 +31,10 @@ const Books = () => {
 	));
 	return (
 		<>
-			<PageHeader hideCategory={true} title="Book List" />
+    <div className='max-w-7xl mx-auto bg-slate-50 pb-10'>
+    <PageHeader hideCategory={true} title="Book List" />
+    </div>
+			
 			<div className="flex max-w-7xl mx-auto bg-slate-50 pb-10 justify-evenly flex-wrap">{list}</div>
 		</>
 	);
