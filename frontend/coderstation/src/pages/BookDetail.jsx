@@ -21,17 +21,19 @@ const BookDetail = () => {
 
         // 使用 res.data.commentNumber 直接判断，而不是 bookInfo
         if (res.data.commentNumber > 0) {
-          const commentRes = await getCommentsFromBookApi(id);
-          if (commentRes.code === 0) {
-            setCommentList(commentRes.data);
-          }
+          await fetchCommentList();
         }
       }
     };
 
     fetchData();
   }, [id]); // Ensure 'id' is in the dependency array
-
+  const fetchCommentList = async ()=>{
+    const commentRes = await getCommentsFromBookApi(id);
+          if (commentRes.code === 0) {
+            setCommentList(commentRes.data);
+          }
+  }
   return (
     <div className="max-w-7xl mx-auto bg-white pb-10">
       <PageHeader title="Book Detail" hideCategory={true} />
@@ -61,7 +63,7 @@ const BookDetail = () => {
         </div>
       </div>
       <div>
-        <Comment commentList={commentList} commentType="book" />
+        <Comment commentList={commentList} commentType="book" fetchCommentList={fetchCommentList}/>
       </div>
     </div>
   );

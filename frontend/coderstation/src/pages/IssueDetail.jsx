@@ -30,12 +30,17 @@ const IssueDetail = () => {
             
             setIssue(res.data)
             if(res.data.commentNumber > 0){
-              const res = await getCommentsFromIssueApi(id)
-              setCommentList(res.data)
+              await fetchCommentList()
             }
         }
         fetchData();
     },[id])
+    const fetchCommentList = async ()=>{
+      const commentRes = await getCommentsFromIssueApi(id);
+            if (commentRes.code === 0) {
+              setCommentList(commentRes.data);
+            }
+    }
     let content = issue.issueContent
   return (
     <div className='max-w-7xl mx-auto bg-slate-50 pb-10'>
@@ -56,7 +61,7 @@ const IssueDetail = () => {
           <Card className='ml-10 mt-1 mr-5'>
             {<div dangerouslySetInnerHTML={{ __html: content }} />}
           </Card>
-          <Comment commentList={commentList} commentType='issue' />
+          <Comment commentList={commentList} commentType='issue' fetchCommentList={fetchCommentList}/>
         </div>}
         {/* right side */}
         <div className='max-w-80 flex-1 mr-10 text-center mt-10'>

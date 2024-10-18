@@ -14,6 +14,8 @@ const Comment = (props) => {
     const {id} = useParams()
 	const editorRef = useRef();
 	const user = useSelector((state) => state.user);
+    console.log(props);
+    
     const [newComment, setNewComment]= useState({
         userId:'',
         typeId:'',
@@ -47,6 +49,9 @@ const Comment = (props) => {
     
                 // 清空编辑器
                 editorRef.current.getInstance().setHTML('');
+                
+                
+                props.fetchCommentList();
             }
         } else {
             message.error("Please input something");
@@ -68,7 +73,6 @@ const Comment = (props) => {
             })
         }else if(props.commentType === 'book'){
             res = await getBookByIdApi(id)
-            console.log(res);
             
             setNewComment({
                 ...newComment,
@@ -76,7 +80,6 @@ const Comment = (props) => {
                 typeId:res?.data.typeId
             })
         }
-        
     }
     let list = props.commentList.data?.map((item)=> <CommentCard key={item._id} commentInfo={item}/>)
     let showList = list?.slice((pageInfo.current - 1) * pageInfo.pageSize,pageInfo.current*pageInfo.pageSize)
