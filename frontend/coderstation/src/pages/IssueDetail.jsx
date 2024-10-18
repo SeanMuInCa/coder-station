@@ -24,22 +24,18 @@ const IssueDetail = () => {
     useEffect(()=>{
         const fetchData = async()=>{
             const res = await getIssueApi(id)
-            console.log(res);
-            
             const resPublisher = await getUserInfo(res.data.userId)
-            console.log(resPublisher);
             
             setPublisher(resPublisher.data)
             
             setIssue(res.data)
             if(res.data.commentNumber > 0){
               const res = await getCommentsFromIssueApi(id)
-              console.log(res,'comment detail');
               setCommentList(res.data)
             }
         }
         fetchData();
-    },[])
+    },[id])
     let content = issue.issueContent
   return (
     <div className='max-w-7xl mx-auto bg-slate-50 pb-10'>
