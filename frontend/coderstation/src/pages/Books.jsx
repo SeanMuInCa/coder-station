@@ -16,23 +16,25 @@ const Books = () => {
 				pageSize: pageInfo.pageSize,
 			});
 			if (res.code === 0) {
-				setBookList(res.data)
-        setPageInfo({
-          current: res.data.currentPage,
-          pageSize: res.data.eachPage,
-          total: res.data.count
-        })
+				setBookList(res.data);
+				setPageInfo({
+					current: res.data.currentPage,
+					pageSize: res.data.eachPage,
+					total: res.data.count,
+				});
 			}
 		};
 		fetchData();
 	}, [pageInfo.currentPage, pageInfo.pageSize]);
-  let list = bookList.data?.map((item)=> <BookCard key={item._id} book={item}/>)
+	let list = bookList.data?.map((item) => (
+		<BookCard key={item._id} book={item} />
+	));
 	return (
-    <>
-    <PageHeader hideCategory={true} title="Book List" />
-    {list}
-    </>
-  );
+		<>
+			<PageHeader hideCategory={true} title="Book List" />
+			<div className="flex max-w-7xl mx-auto bg-slate-50 pb-10 justify-evenly flex-wrap">{list}</div>
+		</>
+	);
 };
 
 export default Books;
