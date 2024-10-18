@@ -8,8 +8,11 @@ import { useParams } from 'react-router-dom';
 import { getIssueApi } from "../api/issue";
 import { addCommentApi } from "../api/comment";
 import { isEmptyHtml } from '../utils/tools'
+import { getBookByIdApi } from "../api/book";
 
 const Comment = (props) => {
+    console.log(props);
+    
     const {id} = useParams()
 	const editorRef = useRef();
 	const user = useSelector((state) => state.user);
@@ -46,11 +49,13 @@ const Comment = (props) => {
             let res = null
             if(props.commentType === 'issue'){
                 res = await getIssueApi(id)
+            }else{
+                res = await getBookByIdApi(id)
             }
             setNewComment({
                 ...newComment,
-                issueId:res.data._id,
-                typeId:res.data.typeId
+                issueId:res?.data._id,
+                typeId:res?.data.typeId
             })
         }
         fetchData();

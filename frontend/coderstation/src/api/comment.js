@@ -14,3 +14,10 @@ export const addCommentApi = (data) => {
 		data
 	});
 };
+
+export const getCommentsFromBookApi = (id) => {
+	return request({
+		url: '/api/comment/bookcomment/'+id,
+		method: "get"
+	});
+};
