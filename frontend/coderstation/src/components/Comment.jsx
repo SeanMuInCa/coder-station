@@ -59,7 +59,6 @@ const Comment = (props) => {
     };
     
 	useEffect(() => {
-        
         fetchData();
     }, []);
     const fetchData =  async () => {
@@ -108,7 +107,6 @@ const Comment = (props) => {
 					<Button type="primary" disabled>Please login to comment</Button>
 				)}
 			</div>
-            
 		</div>
 	);
 };
