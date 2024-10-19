@@ -88,7 +88,7 @@ const Comment = (props) => {
 			{/* Comment detail */}
 			<div className=" my-5">
 				{props.commentList.length === 0 ? <div className="text-center">No comments</div> : showList}
-                {list?.length >= pageInfo.pageSize && <Pagination align="center" defaultCurrent={pageInfo.current} total={list?.length} pageSize={pageInfo.pageSize} onChange={(currentPage)=>setPageInfo({...pageInfo,current:currentPage})}/>}
+                {list?.length >= pageInfo.pageSize && <Pagination className="my-5" align="center" defaultCurrent={pageInfo.current} total={list?.length} pageSize={pageInfo.pageSize} onChange={(currentPage)=>setPageInfo({...pageInfo,current:currentPage})}/>}
 			</div>
 			{/* textarea */}
 			<div>
