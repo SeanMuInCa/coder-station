@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getInterviewApi } from "../api/interviews";
+import PageHeader from "../components/PageHeader";
 const Interviews = () => {
   const [pageInfo, setPageInfo] = useState({
 		current: 1,
@@ -27,7 +28,11 @@ const Interviews = () => {
 		fetchData();
 	}, [pageInfo.current, pageInfo.pageSize]);
   return (
-    <div className="max-w-7xl mx-auto bg-slate-50">Interviews</div>
+    <div className="max-w-7xl mx-auto bg-slate-50">
+      <div >
+				<PageHeader hideCategory={true} title="Interviews List" />
+			</div>
+    </div>
   )
 }
 
