@@ -6,11 +6,12 @@ const InterviewCard = (props) => {
     
   return (
     <Card
+    className='my-5'
         title={props.interview.interviewTitle}
     >
-        <div
+        {/* <div
             dangerouslySetInnerHTML={{ __html: props.interview.interviewContent }}
-          ></div>
+          ></div> */}
     </Card>
   )
 }
