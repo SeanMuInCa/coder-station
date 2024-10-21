@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getInterviewApi } from "../api/interviews";
 import PageHeader from "../components/PageHeader";
 import { Pagination } from "antd";
+import InterviewCard from "../components/InterviewCard";
 const Interviews = () => {
   const [pageInfo, setPageInfo] = useState({
 		current: 1,
@@ -28,11 +29,22 @@ const Interviews = () => {
 		};
 		fetchData();
 	}, [pageInfo.current, pageInfo.pageSize]);
+
+  let list = interviewList.data?.map((item) => (
+		<InterviewCard key={item._id} interview={item} />
+	));
   return (
     <div className="max-w-7xl mx-auto bg-slate-50">
-      <div >
+      <div>
 				<PageHeader hideCategory={true} title="Interviews List" />
 			</div>
+      {list?.length ? (
+					list
+				) : (
+					<div className="text-center text-2xl text-gray-400 mx-auto">
+						No book found
+					</div>
+				)}
       <div>
 				{
 					<Pagination
