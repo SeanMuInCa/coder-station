@@ -27,7 +27,7 @@ const Interviews = () => {
 		fetchData();
 	}, [pageInfo.current, pageInfo.pageSize]);
   return (
-    <div>Interviews</div>
+    <div className="max-w-7xl mx-auto bg-slate-50">Interviews</div>
   )
 }
 
