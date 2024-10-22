@@ -1,9 +1,17 @@
 import React from "react";
 import { Card, Collapse } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const InterviewCard = (props) => {
+    const navigate = useNavigate();
+    const handleClick = ()=>{
+        navigate(props.interview._id)
+    }
 	return (
-		<Card className="my-5" title={props.interview.interviewTitle}>
+		<Card className="my-5" 
+        title={props.interview.interviewTitle}
+        extra={<span className="text-blue-500 font-bold cursor-pointer" onClick={handleClick}>Open in New Tab</span>}
+        >
 			<Collapse
 				size="large"
 				items={[
@@ -12,6 +20,7 @@ const InterviewCard = (props) => {
 						label: "Check the answer",
 						children: (
 							<div
+                                className="max-h-80 overflow-y-auto text-balance ..."
 								dangerouslySetInnerHTML={{ __html: props.interview.interviewContent }}
 							></div>
 						),
