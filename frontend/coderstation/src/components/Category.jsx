@@ -51,7 +51,6 @@ const Category = (props) => {
 			props.backToPage();
 		} else {
 			const temp = tempList.data.filter((item) => item.typeId === tagName._id);
-			console.log(temp);
 			props?.setIssueList(temp);
 		}
 	};
