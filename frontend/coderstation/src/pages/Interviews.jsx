@@ -4,7 +4,7 @@ import PageHeader from "../components/PageHeader";
 import { Pagination } from "antd";
 import InterviewCard from "../components/InterviewCard";
 const Interviews = () => {
-  const [pageInfo, setPageInfo] = useState({
+	const [pageInfo, setPageInfo] = useState({
 		current: 1,
 		pageSize: 10,
 		total: 0,
@@ -28,35 +28,36 @@ const Interviews = () => {
 		fetchData();
 	}, [pageInfo.current, pageInfo.pageSize]);
 
-  let list = interviewList.data?.map((item) => (
+	let list = interviewList.data?.map((item) => (
 		<InterviewCard key={item._id} interview={item} />
 	));
-  return (
-    <div className="max-w-7xl mx-auto bg-slate-50">
-      <div>
+	return (
+		<div className="max-w-7xl mx-auto bg-slate-50">
+			<div>
 				<PageHeader hideCategory={true} title="Interviews List" />
 			</div>
-      {list?.length ? (
-					list
-				) : (
-					<div className="text-center text-2xl text-gray-400 mx-auto">
-						No book found
-					</div>
-				)}
-      <div>
+			{list?.length ? (
+				list
+			) : (
+				<div className="text-center text-2xl text-gray-400 mx-auto">
+					No book found
+				</div>
+			)}
+			<div>
 				{
 					<Pagination
+						className="cursor-pointer"
 						align="center"
 						defaultCurrent={pageInfo.current}
 						total={pageInfo.total}
-						onChange={(currentPage) =>
-							setPageInfo({ ...pageInfo, current: currentPage })
+						onChange={(currentPage, pageSize) =>
+							setPageInfo({ ...pageInfo, current: currentPage, pageSize })
 						}
 					/>
 				}
 			</div>
-    </div>
-  )
-}
+		</div>
+	);
+};
 
-export default Interviews
+export default Interviews;
