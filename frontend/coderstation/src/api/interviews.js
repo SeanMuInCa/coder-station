@@ -7,3 +7,10 @@ export const getInterviewApi = (params) => {
         params: { ...params }
 	});
 };
+
+export const getInterviewByIdApi = (id) => {
+	return request({
+		url: '/api/interview/'+id,
+		method: "get"
+	});
+};
