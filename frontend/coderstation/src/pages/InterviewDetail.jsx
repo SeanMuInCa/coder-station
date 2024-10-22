@@ -9,8 +9,7 @@ const InterviewDetail = () => {
     useEffect(()=>{
         const fetchData = async()=>{
             const res = await getInterviewByIdApi(id);
-            console.log(res);
-            setInterviewInfo(res.data)
+            if(res.code === 0) setInterviewInfo(res.data)
         }
         fetchData()
     },[id])

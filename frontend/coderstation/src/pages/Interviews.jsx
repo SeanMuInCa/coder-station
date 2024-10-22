@@ -17,8 +17,6 @@ const Interviews = () => {
 				pageSize: pageInfo.pageSize,
 			});
 			if (res.code === 0) {
-        console.log(res);
-        
 				setInterviewList(res.data);
 				setPageInfo({
 					current: res.data.currentPage,
