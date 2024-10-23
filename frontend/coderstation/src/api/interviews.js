@@ -14,3 +14,10 @@ export const getInterviewByIdApi = (id) => {
 		method: "get"
 	});
 };
+
+export const getInterviewInTypeApi = ()=>{
+	return request({
+		url: '/api/interview/interviewTitle',
+		method: "get"
+	});
+}

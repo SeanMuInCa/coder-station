@@ -47,7 +47,7 @@ const NavHeader = () => {
 					<NavLink to={"/"}>Issues</NavLink>
 					<NavLink to={"/books"}>Books</NavLink>
 					<NavLink to={"/interviews"}>Interviews</NavLink>
-					<a href="https://www.youtube.com" target="_blank" rel="noreferrer">
+					<a href="https://www.youtube.com/results?search_query=software+development" target="_blank" rel="noreferrer">
 						Videos
 					</a>
 				</div>
