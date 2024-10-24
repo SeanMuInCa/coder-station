@@ -12,6 +12,7 @@ const Interviews = () => {
 	const { type } = useSelector((state) => state.type);
 	const [listByType, setListByType] = useState([]);
 	const dispatch = useDispatch();
+  const [question, setQuestion] = useState({});
 	const onExpand = (newExpandedKeys) => {
 		setExpandedKeys(newExpandedKeys);
 		setAutoExpandParent(false);
@@ -125,8 +126,9 @@ const Interviews = () => {
 		console.log('onCheck', typeof(selectedKeys[0]));
     if(typeof(selectedKeys[0]) === 'string'){
       const res = await getInterviewByIdApi(selectedKeys[0]);
-      console.log(res);
-      
+      if(res.code === 0){
+        setQuestion(res.data)
+      }
     }
 	};
 
