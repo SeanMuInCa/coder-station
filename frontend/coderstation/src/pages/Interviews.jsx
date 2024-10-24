@@ -3,9 +3,13 @@ import { getInterviewApi, getInterviewInTypeApi } from "../api/interviews";
 import PageHeader from "../components/PageHeader";
 import { Pagination, Tabs, Tree  } from "antd";
 import InterviewCard from "../components/InterviewCard";
+import { useSelector } from "react-redux";
 const Interviews = () => {
   const [expandedKeys, setExpandedKeys] = useState([]);
   const [autoExpandParent, setAutoExpandParent] = useState(true);
+  const { type } = useSelector((state) => state.type);
+  const [listByType, setListByType] = useState([]);
+  
   const onExpand = (newExpandedKeys) => {
     setExpandedKeys(newExpandedKeys);
     setAutoExpandParent(false);
@@ -24,8 +28,6 @@ const Interviews = () => {
 			});
 			if (res.code === 0) {
 				setInterviewList(res.data);
-        console.log(res.data);
-        
 				setPageInfo({
 					current: res.data.currentPage,
 					pageSize: res.data.eachPage,
@@ -33,29 +35,29 @@ const Interviews = () => {
 				});
 			}
       const temp = await getInterviewInTypeApi();
-      console.log(temp,'type');
+      console.log(temp.data,'type');
 		};
 		fetchData();
 	}, [pageInfo.current, pageInfo.pageSize]);
 
-  const treeData = useMemo(() => {
-    const loop = (data) =>
-      data.map((item) => {
+  // const treeData = useMemo(() => {
+  //   const loop = (data) =>
+  //     data.map((item) => {
         
-        if (item.children) {
-          return {
-            title,
-            key: item.key,
-            children: loop(item.children),
-          };
-        }
-        return {
-          title,
-          key: item.key,
-        };
-      });
-    return loop(defaultData);
-  }, [searchValue]);
+  //       if (item.children) {
+  //         return {
+  //           title,
+  //           key: item.key,
+  //           children: loop(item.children),
+  //         };
+  //       }
+  //       return {
+  //         title,
+  //         key: item.key,
+  //       };
+  //     });
+  //   return loop(defaultData);
+  // }, []);
 
 	let list = interviewList.data?.map((item) => (
 		<InterviewCard key={item._id} interview={item} />
@@ -89,7 +91,7 @@ const Interviews = () => {
         onExpand={onExpand}
         expandedKeys={expandedKeys}
         autoExpandParent={autoExpandParent}
-        treeData={treeData}
+        // treeData={treeData}
       />
   </>
 	return (
