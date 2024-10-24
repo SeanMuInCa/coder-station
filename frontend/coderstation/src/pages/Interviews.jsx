@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { getInterviewApi, getInterviewInTypeApi } from "../api/interviews";
+import { getInterviewApi, getInterviewInTypeApi, getInterviewByIdApi } from "../api/interviews";
 import PageHeader from "../components/PageHeader";
 import { Pagination, Tabs, Tree } from "antd";
 import InterviewCard from "../components/InterviewCard";
 import { useSelector, useDispatch } from "react-redux";
 import { getTypeList } from "../redux/typeSlice";
+
 const Interviews = () => {
 	const [expandedKeys, setExpandedKeys] = useState([]);
 	const [autoExpandParent, setAutoExpandParent] = useState(true);
@@ -21,12 +22,15 @@ const Interviews = () => {
 		total: 0,
 	});
 	const [interviewList, setInterviewList] = useState([]);
+
+	// Fetch type list from Redux
 	useEffect(() => {
 		if (!type.length) {
-			// not api
 			dispatch(getTypeList());
 		}
-	}, []);
+	}, [dispatch, type.length]);
+
+	// Fetch interview data and interviews in type
 	useEffect(() => {
 		const fetchData = async () => {
 			const res = await getInterviewApi({
@@ -41,16 +45,16 @@ const Interviews = () => {
 					total: res.data.count,
 				});
 			}
-			const temp = await getInterviewInTypeApi();
-			console.log(temp.data, "type");
-			console.log(type);
-			let tempArr = [];
-			for (let index = 0; index < temp.data.length; index++) {
-				let tempObj = {
-					title: type[index]?.typeName,
-					key: index,
-					children:
-						temp.data[index].length > 0
+			
+			// Ensure type data is loaded before making this API call
+			if (type.length) {
+				const temp = await getInterviewInTypeApi();
+				let tempArr = [];
+				for (let index = 0; index < temp.data.length; index++) {
+					let tempObj = {
+						title: type[index]?.typeName,
+						key: index,
+						children: temp.data[index].length > 0
 							? temp.data[index].map((item) => {
 									return {
 										title: item.interviewTitle,
@@ -58,15 +62,16 @@ const Interviews = () => {
 									};
 							  })
 							: [],
-				};
-				tempArr.push(tempObj);
+					};
+					tempArr.push(tempObj);
+				}
+				setListByType(tempArr);
 			}
-			setListByType(tempArr);
-			console.log(listByType, "listByType");
 		};
 		fetchData();
-	}, [pageInfo.current, pageInfo.pageSize]);
+	}, [pageInfo.current, pageInfo.pageSize, type]);
 
+	// Memoize tree data based on listByType
 	const treeData = useMemo(() => {
 		const loop = (data) =>
 			data.map((item) => {
@@ -83,11 +88,12 @@ const Interviews = () => {
 				};
 			});
 		return loop(listByType);
-	}, []);
+	}, [listByType]); // Added listByType as dependency
 
 	let list = interviewList.data?.map((item) => (
 		<InterviewCard key={item._id} interview={item} />
 	));
+
 	let content1 = (
 		<>
 			<div>
@@ -114,18 +120,30 @@ const Interviews = () => {
 			</div>
 		</>
 	);
+
+	const onCheck = async(selectedKeys) => {
+		console.log('onCheck', typeof(selectedKeys[0]));
+    if(typeof(selectedKeys[0]) === 'string'){
+      const res = await getInterviewByIdApi(selectedKeys[0]);
+      console.log(res);
+      
+    }
+	};
+
 	let content2 = (
 		<div className="flex">
 			<Tree
-      className="text-xl max-w-3xl w-1/3 h-lvh"
-        onExpand={onExpand}
-        expandedKeys={expandedKeys}
-        autoExpandParent={autoExpandParent}
-        treeData={treeData}
-      />
+				className="text-xl max-w-3xl w-1/3 h-lvh"
+				onExpand={onExpand}
+				expandedKeys={expandedKeys}
+				autoExpandParent={autoExpandParent}
+				treeData={treeData} // Using the memoized treeData
+				onSelect={onCheck}
+			/>
 			<div>123</div>
 		</div>
 	);
+
 	return (
 		<div className="max-w-7xl mx-auto bg-slate-50">
 			<div>
