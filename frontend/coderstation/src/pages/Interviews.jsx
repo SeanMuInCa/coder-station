@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { getInterviewApi, getInterviewInTypeApi } from "../api/interviews";
 import PageHeader from "../components/PageHeader";
-import { Pagination, Tabs } from "antd";
+import { Pagination, Tabs, Tree  } from "antd";
 import InterviewCard from "../components/InterviewCard";
 const Interviews = () => {
+  const [expandedKeys, setExpandedKeys] = useState([]);
+  const [autoExpandParent, setAutoExpandParent] = useState(true);
+  const onExpand = (newExpandedKeys) => {
+    setExpandedKeys(newExpandedKeys);
+    setAutoExpandParent(false);
+  };
 	const [pageInfo, setPageInfo] = useState({
 		current: 1,
 		pageSize: 10,
@@ -32,6 +38,25 @@ const Interviews = () => {
 		fetchData();
 	}, [pageInfo.current, pageInfo.pageSize]);
 
+  const treeData = useMemo(() => {
+    const loop = (data) =>
+      data.map((item) => {
+        
+        if (item.children) {
+          return {
+            title,
+            key: item.key,
+            children: loop(item.children),
+          };
+        }
+        return {
+          title,
+          key: item.key,
+        };
+      });
+    return loop(defaultData);
+  }, [searchValue]);
+
 	let list = interviewList.data?.map((item) => (
 		<InterviewCard key={item._id} interview={item} />
 	));
@@ -59,7 +84,14 @@ const Interviews = () => {
 				}
 			</div>
   </>
-  let content2 = 'abc'
+  let content2 = <>
+    <Tree
+        onExpand={onExpand}
+        expandedKeys={expandedKeys}
+        autoExpandParent={autoExpandParent}
+        treeData={treeData}
+      />
+  </>
 	return (
 		<div className="max-w-7xl mx-auto bg-slate-50">
 			<div>
