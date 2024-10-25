@@ -9,7 +9,7 @@ import { Pagination, Tabs, Tree, Card } from "antd";
 import InterviewCard from "../components/InterviewCard";
 import { useSelector, useDispatch } from "react-redux";
 import { getTypeList } from "../redux/typeSlice";
-
+import NoData from '../components/NoData'
 const Interviews = () => {
 	const [expandedKeys, setExpandedKeys] = useState([]);
 	const [autoExpandParent, setAutoExpandParent] = useState(true);
@@ -147,12 +147,12 @@ const Interviews = () => {
 				onSelect={onCheck}
 			/>
 			<div className="w-2/3 h-lvh overflow-y-auto">
-      {question && <Card className="" title={question.interviewTitle}>
+      {question !== null ? <Card className="" title={question.interviewTitle}>
 				<div
 					className=" overflow-y-auto text-balance ..."
 					dangerouslySetInnerHTML={{ __html: question.interviewContent }}
 				></div>
-			</Card>}
+			</Card> : <NoData />}
       </div>
 		</div>
 	);
