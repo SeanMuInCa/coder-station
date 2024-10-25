@@ -14,6 +14,7 @@ const Interviews = () => {
 	const [expandedKeys, setExpandedKeys] = useState([]);
 	const [autoExpandParent, setAutoExpandParent] = useState(true);
 	const { type } = useSelector((state) => state.type);
+  const user = useSelector((state) => state.user)
 	const [listByType, setListByType] = useState([]);
 	const dispatch = useDispatch();
 	const [question, setQuestion] = useState(null);
@@ -90,10 +91,11 @@ const Interviews = () => {
 				return {
 					title: item.title,
 					key: item.key,
+          disabled: !user.isLogin,
 				};
 			});
 		return loop(listByType);
-	}, [listByType]); // Added listByType as dependency
+	}, [listByType,user.isLogin]); // Added listByType as dependency
 
 	let list = interviewList.data?.map((item) => (
 		<InterviewCard key={item._id} interview={item} />
