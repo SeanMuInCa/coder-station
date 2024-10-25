@@ -9,10 +9,12 @@ import { resetUserInfo, updateLoginStatus } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 const items = [
 	{
+		value: "issue",
 		label: "Issues",
 		key: "1",
 	},
 	{
+		value: "book",
 		label: "Books",
 		key: "2",
 	},
@@ -21,6 +23,7 @@ const NavHeader = (props) => {
 	const [openForm, setOpenForm] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const [searchType, setSearchType] = useState('issue')
 	const loginHandle = () => {
 		setOpenForm(true);
 	};
@@ -38,11 +41,21 @@ const NavHeader = (props) => {
 		console.log("profile");
 	};
 	const handleKeyWord = (e) => {
-		props.setKeyWord(e.target.value)
+		props.setKeyWord({
+			type: searchType,
+			keyword: e.target.value
+		})
 	};
 	const handleSearch = () => {
 		console.log(props.keyWord,"search");
 	};
+	const changeSelect = (value)=>{
+		setSearchType(value)
+		props.setKeyWord({
+			type: value,
+			keyword: props.keyWord
+		})
+	}
 	return (
 		<>
 			<div className="flex h-full box-border w-3/4 mx-auto justify-between ">
@@ -59,7 +72,7 @@ const NavHeader = (props) => {
 				</div>
 				<div>
 					<Space.Compact>
-						<Select defaultValue={items[0].label} options={items} size="large" />
+						<Select defaultValue={items[0].label} options={items} size="large" onChange={changeSelect}/>
 						<Input placeholder="Enter to search" size="large" onChange={handleKeyWord}/>
 						<Button type="primary" size="large" onClick={handleSearch}>
 							<SearchOutlined />
