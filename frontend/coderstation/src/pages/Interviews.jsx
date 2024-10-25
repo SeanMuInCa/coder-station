@@ -66,8 +66,7 @@ const Interviews = () => {
 											title: item.interviewTitle,
 											key: item._id,
 										};
-								  })
-								: [],
+								}) : [],
 					};
 					tempArr.push(tempObj);
 				}
