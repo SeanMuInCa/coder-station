@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { getInterviewApi, getInterviewInTypeApi, getInterviewByIdApi } from "../api/interviews";
+import {
+	getInterviewApi,
+	getInterviewInTypeApi,
+	getInterviewByIdApi,
+} from "../api/interviews";
 import PageHeader from "../components/PageHeader";
-import { Pagination, Tabs, Tree } from "antd";
+import { Pagination, Tabs, Tree, Card } from "antd";
 import InterviewCard from "../components/InterviewCard";
 import { useSelector, useDispatch } from "react-redux";
 import { getTypeList } from "../redux/typeSlice";
@@ -12,7 +16,7 @@ const Interviews = () => {
 	const { type } = useSelector((state) => state.type);
 	const [listByType, setListByType] = useState([]);
 	const dispatch = useDispatch();
-  const [question, setQuestion] = useState({});
+	const [question, setQuestion] = useState(null);
 	const onExpand = (newExpandedKeys) => {
 		setExpandedKeys(newExpandedKeys);
 		setAutoExpandParent(false);
@@ -46,7 +50,7 @@ const Interviews = () => {
 					total: res.data.count,
 				});
 			}
-			
+
 			// Ensure type data is loaded before making this API call
 			if (type.length) {
 				const temp = await getInterviewInTypeApi();
@@ -55,14 +59,15 @@ const Interviews = () => {
 					let tempObj = {
 						title: type[index]?.typeName,
 						key: index,
-						children: temp.data[index].length > 0
-							? temp.data[index].map((item) => {
-									return {
-										title: item.interviewTitle,
-										key: item._id,
-									};
-							  })
-							: [],
+						children:
+							temp.data[index].length > 0
+								? temp.data[index].map((item) => {
+										return {
+											title: item.interviewTitle,
+											key: item._id,
+										};
+								  })
+								: [],
 					};
 					tempArr.push(tempObj);
 				}
@@ -122,27 +127,34 @@ const Interviews = () => {
 		</>
 	);
 
-	const onCheck = async(selectedKeys) => {
-		console.log('onCheck', typeof(selectedKeys[0]));
-    if(typeof(selectedKeys[0]) === 'string'){
-      const res = await getInterviewByIdApi(selectedKeys[0]);
-      if(res.code === 0){
-        setQuestion(res.data)
-      }
-    }
+	const onCheck = async (selectedKeys) => {
+		console.log("onCheck", typeof selectedKeys[0]);
+		if (typeof selectedKeys[0] === "string") {
+			const res = await getInterviewByIdApi(selectedKeys[0]);
+			if (res.code === 0) {
+				setQuestion(res.data);
+			}
+		}
 	};
 
 	let content2 = (
 		<div className="flex">
 			<Tree
-				className="text-xl max-w-3xl w-1/3 h-lvh"
+				className="text-xl w-1/3 h-lvh overflow-y-auto"
 				onExpand={onExpand}
 				expandedKeys={expandedKeys}
 				autoExpandParent={autoExpandParent}
 				treeData={treeData} // Using the memoized treeData
 				onSelect={onCheck}
 			/>
-			<div>123</div>
+			<div className="w-2/3 h-lvh overflow-y-auto">
+      {question && <Card className="" title={question.interviewTitle}>
+				<div
+					className=" overflow-y-auto text-balance ..."
+					dangerouslySetInnerHTML={{ __html: question.interviewContent }}
+				></div>
+			</Card>}
+      </div>
 		</div>
 	);
 
