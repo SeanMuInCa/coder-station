@@ -37,6 +37,9 @@ const NavHeader = () => {
 	const profileHandle = () => {
 		console.log("profile");
 	};
+	const handleSearch = (e) => {
+		console.log(e.target.value);
+	};
 	return (
 		<>
 			<div className="flex h-full box-border w-3/4 mx-auto justify-between ">
@@ -54,7 +57,7 @@ const NavHeader = () => {
 				<div>
 					<Space.Compact>
 						<Select defaultValue={items[0].label} options={items} size="large" />
-						<Input placeholder="Enter to search" size="large" />
+						<Input placeholder="Enter to search" size="large" onChange={handleSearch}/>
 						<Button type="primary" size="large">
 							<SearchOutlined />
 						</Button>
