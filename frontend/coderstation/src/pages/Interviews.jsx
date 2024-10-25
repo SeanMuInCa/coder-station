@@ -127,8 +127,7 @@ const Interviews = () => {
 		</>
 	);
 
-	const onCheck = async (selectedKeys) => {
-		console.log("onCheck", typeof selectedKeys[0]);
+	const onCheck = async (selectedKeys) => { 
 		if (typeof selectedKeys[0] === "string") {
 			const res = await getInterviewByIdApi(selectedKeys[0]);
 			if (res.code === 0) {
