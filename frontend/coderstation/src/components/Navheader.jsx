@@ -17,7 +17,7 @@ const items = [
 		key: "2",
 	},
 ];
-const NavHeader = () => {
+const NavHeader = (props) => {
 	const [openForm, setOpenForm] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -37,8 +37,11 @@ const NavHeader = () => {
 	const profileHandle = () => {
 		console.log("profile");
 	};
-	const handleSearch = (e) => {
-		console.log(e.target.value);
+	const handleKeyWord = (e) => {
+		props.setKeyWord(e.target.value)
+	};
+	const handleSearch = () => {
+		console.log(props.keyWord,"search");
 	};
 	return (
 		<>
@@ -57,8 +60,8 @@ const NavHeader = () => {
 				<div>
 					<Space.Compact>
 						<Select defaultValue={items[0].label} options={items} size="large" />
-						<Input placeholder="Enter to search" size="large" onChange={handleSearch}/>
-						<Button type="primary" size="large">
+						<Input placeholder="Enter to search" size="large" onChange={handleKeyWord}/>
+						<Button type="primary" size="large" onClick={handleSearch}>
 							<SearchOutlined />
 						</Button>
 					</Space.Compact>

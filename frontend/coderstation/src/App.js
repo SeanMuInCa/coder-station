@@ -2,13 +2,14 @@ import NavHeader from "./components/NavHeader";
 import PageFooter from "./components/PageFooter";
 import { Layout, message } from "antd";
 import RouteConfig from "./router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { keepStatus, getUserInfo } from "./api/user";
 import { useDispatch } from "react-redux";
 import { initUserInfo, updateLoginStatus } from "./redux/userSlice";
 const { Header, Footer, Content } = Layout;
 function App() {
 	const dispatch = useDispatch();
+	const [keyWord, setKeyWord] = useState("");
 	useEffect(() => {
 		const keepLoginStatus = async () => {
 			const token = localStorage.getItem("userToken");
@@ -40,7 +41,7 @@ function App() {
 	return (
 		<div className="App">
 			<Header>
-				<NavHeader />
+				<NavHeader keyWord={keyWord} setKeyWord={setKeyWord} />
 			</Header>
 			<Content className="bg-gray-200">
 				<RouteConfig />
