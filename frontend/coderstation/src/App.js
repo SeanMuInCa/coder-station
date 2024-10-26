@@ -13,6 +13,7 @@ function App() {
 		type:'',
 		keyWord:'',
 	});
+	console.log(keyWord,'app');
 	
 	useEffect(() => {
 		const keepLoginStatus = async () => {
@@ -47,8 +48,8 @@ function App() {
 			<Header>
 				<NavHeader keyWord={keyWord} setKeyWord={setKeyWord} />
 			</Header>
-			<Content className="bg-gray-200">
-				<RouteConfig />
+			<Content className="bg-gray-200" >
+				<RouteConfig keyWord={keyWord}/>
 			</Content>
 			<Footer className="pt-5">
 				<PageFooter />

@@ -4,9 +4,11 @@ import { SearchOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import LoginOrAvatar from "./LoginOrAvatar";
 import LoginForm from "./LoginForm";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetUserInfo, updateLoginStatus } from "../redux/userSlice";
+import { initSearchType, initSearchWord, resetSearchInfo } from "../redux/searchSlice";
 import { useNavigate } from "react-router-dom";
+//todo: 搜索框的搜索功能
 const items = [
 	{
 		value: "issue",
@@ -20,6 +22,9 @@ const items = [
 	},
 ];
 const NavHeader = (props) => {
+	const search = useSelector((state) => state.search);
+	console.log(search);
+	
 	const [openForm, setOpenForm] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -41,20 +46,20 @@ const NavHeader = (props) => {
 		console.log("profile");
 	};
 	const handleKeyWord = (e) => {
-		props.setKeyWord({
-			type: searchType,
-			keyword: e.target.value
-		})
+		if(e.target.value.trim()){
+			dispatch(initSearchWord(e.target.value))
+		}
 	};
 	const handleSearch = () => {
 		console.log(props.keyWord,"search");
+		if(search.SearchInfo?.searchType === ''){
+			dispatch(initSearchType('issue'))
+		}
+		console.log(search.SearchInfo,'result');
+		
 	};
 	const changeSelect = (value)=>{
-		setSearchType(value)
-		props.setKeyWord({
-			type: value,
-			keyword: props.keyWord
-		})
+		dispatch(initSearchType(value))
 	}
 	return (
 		<>

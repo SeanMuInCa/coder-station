@@ -8,8 +8,8 @@ import Recommendation from '../components/Recommendation'
 import TopTen from '../components/TopTen'
 
 
-
-const Issues = () => {
+const Issues = (props) => {
+  console.log(props);
   const [issueList, setIssueList] = useState([]);
   const [pageInfo, setPageInfo] = useState({
     current:1,//current page
@@ -32,9 +32,9 @@ const Issues = () => {
     })
   };
   useEffect(() => {
-    
+    console.log('abc');
     getIssueList();
-  }, [pageInfo.pageSize, pageInfo.current])
+  }, [pageInfo.pageSize, pageInfo.current, props.keyWord])
   
   let list = issueList.map(item => (
     <IssueCard info={item} key={item._id}/>
