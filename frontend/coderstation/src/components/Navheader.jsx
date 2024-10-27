@@ -6,7 +6,11 @@ import LoginOrAvatar from "./LoginOrAvatar";
 import LoginForm from "./LoginForm";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUserInfo, updateLoginStatus } from "../redux/userSlice";
-import { initSearchType, initSearchWord, resetSearchInfo } from "../redux/searchSlice";
+import {
+	initSearchType,
+	initSearchWord,
+	resetSearchInfo,
+} from "../redux/searchSlice";
 import { useNavigate } from "react-router-dom";
 //todo: 搜索框的搜索功能
 const items = [
@@ -24,43 +28,47 @@ const items = [
 const NavHeader = (props) => {
 	const search = useSelector((state) => state.search);
 	console.log(search);
-	
+
 	const [openForm, setOpenForm] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [searchType, setSearchType] = useState('issue')
+	const [searchType, setSearchType] = useState("issue");
 	const loginHandle = () => {
 		setOpenForm(true);
 	};
-	
+
 	const closeForm = () => {
 		setOpenForm(false);
 	};
 	const logoutHandle = () => {
-		localStorage.removeItem('userToken');
+		localStorage.removeItem("userToken");
 		dispatch(resetUserInfo());
 		dispatch(updateLoginStatus(false));
-		navigate('/');
+		navigate("/");
 	};
 	const profileHandle = () => {
 		console.log("profile");
 	};
 	const handleKeyWord = (e) => {
-		if(e.target.value.trim()){
-			dispatch(initSearchWord(e.target.value))
+		if (e.target.value.trim()) {
+			dispatch(initSearchWord(e.target.value));
 		}
 	};
 	const handleSearch = () => {
-		console.log(props.keyWord,"search");
-		if(search.SearchInfo?.searchType === ''){
-			dispatch(initSearchType('issue'))
+		if(search.SearchInfo.keyWord.trim() === '') return
+		if (search.SearchInfo?.searchType === "") {
+			dispatch(initSearchType("issue"));
 		}
-		console.log(search.SearchInfo,'result');
-		
+		console.log(search.SearchInfo, "result");
+		if (search.SearchInfo.searchType === "book") {
+			navigate("/books");
+		} else {
+			navigate("/issues");
+		}
 	};
-	const changeSelect = (value)=>{
-		dispatch(initSearchType(value))
-	}
+	const changeSelect = (value) => {
+		dispatch(initSearchType(value));
+	};
 	return (
 		<>
 			<div className="flex h-full box-border w-3/4 mx-auto justify-between ">
@@ -71,21 +79,38 @@ const NavHeader = (props) => {
 					<NavLink to={"/"}>Issues</NavLink>
 					<NavLink to={"/books"}>Books</NavLink>
 					<NavLink to={"/interviews"}>Interviews</NavLink>
-					<a href="https://www.youtube.com/results?search_query=software+development" target="_blank" rel="noreferrer">
+					<a
+						href="https://www.youtube.com/results?search_query=software+development"
+						target="_blank"
+						rel="noreferrer"
+					>
 						Videos
 					</a>
 				</div>
 				<div>
 					<Space.Compact>
-						<Select defaultValue={items[0].label} options={items} size="large" onChange={changeSelect}/>
-						<Input placeholder="Enter to search" size="large" onChange={handleKeyWord}/>
+						<Select
+							defaultValue={items[0].label}
+							options={items}
+							size="large"
+							onChange={changeSelect}
+						/>
+						<Input
+							placeholder="Enter to search"
+							size="large"
+							onChange={handleKeyWord}
+						/>
 						<Button type="primary" size="large" onClick={handleSearch}>
 							<SearchOutlined />
 						</Button>
 					</Space.Compact>
 				</div>
 				<div className=" w-40 flex justify-center items-center">
-					<LoginOrAvatar loginHandle={loginHandle} logoutHandle={logoutHandle} profileHandle={profileHandle} />
+					<LoginOrAvatar
+						loginHandle={loginHandle}
+						logoutHandle={logoutHandle}
+						profileHandle={profileHandle}
+					/>
 				</div>
 			</div>
 			<LoginForm openForm={openForm} closeForm={closeForm} />
