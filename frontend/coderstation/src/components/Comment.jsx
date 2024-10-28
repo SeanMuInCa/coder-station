@@ -9,6 +9,7 @@ import { getIssueApi, updateIssueApi } from "../api/issue";
 import { addCommentApi } from "../api/comment";
 import { isEmptyHtml } from "../utils/tools";
 import { getBookByIdApi, updateBookApi } from "../api/book";
+import { updateUserInfoApi } from "../api/user";
 
 
 const Comment = (props) => {
@@ -46,7 +47,7 @@ const Comment = (props) => {
 			// 发送评论数据到 API
 			const res = await addCommentApi(updatedComment);
 			if (res.code === 0) {
-				message.success("Comment successfully");
+				message.success("Comment successfully, get 4 more points");
 
 				// 清空编辑器
 				editorRef.current.getInstance().setHTML("");
@@ -62,9 +63,14 @@ const Comment = (props) => {
 						commentNumber: props.info.commentNumber + 1,
 					})
                 }
+				updateUserInfoApi(user.userInfo._id, {
+					points: user.userInfo.points + 4,
+				})
 			}
 		} else {
 			message.error("Please input something");
+			console.log(user);
+			
 		}
 	};
 
