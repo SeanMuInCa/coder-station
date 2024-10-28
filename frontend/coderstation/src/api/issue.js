@@ -22,3 +22,11 @@ export const addIssueApi = (data) =>{
 		data
 	});
 }
+
+export const updateIssueApi = (id, data) =>{
+	return request({
+		url: '/api/issue/' + id,
+		method: "patch",
+		data
+	});
+}
