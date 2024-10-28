@@ -50,3 +50,11 @@ export const getTopTenUserApi = ()=>{
 		method: "get",
 	});
 }
+
+export const updateUserInfoApi = (id,data)=>{
+	return request({
+		url: "/api/user/" + id,
+		method: "patch",
+		data
+	})
+}
