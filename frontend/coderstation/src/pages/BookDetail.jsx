@@ -63,7 +63,7 @@ const BookDetail = () => {
         </div>
       </div>
       <div>
-        <Comment commentList={commentList} commentType="book" fetchCommentList={fetchCommentList}/>
+        <Comment commentList={commentList} commentType="book" fetchCommentList={fetchCommentList} info={bookInfo}/>
       </div>
     </div>
   );
