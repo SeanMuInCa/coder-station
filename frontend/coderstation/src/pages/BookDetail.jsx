@@ -6,6 +6,7 @@ import { Image, Button } from "antd";
 import { useSelector } from "react-redux";
 import { getCommentsFromBookApi } from "../api/comment";
 import Comment from "../components/Comment";
+import { updateBookApi } from "../api/book";
 
 const BookDetail = () => {
   const { id } = useParams();
@@ -23,6 +24,9 @@ const BookDetail = () => {
         if (res.data.commentNumber > 0) {
           await fetchCommentList();
         }
+        updateBookApi(id, {
+          scanNumber: res.data.scanNumber + 1
+        })
       }
     };
 

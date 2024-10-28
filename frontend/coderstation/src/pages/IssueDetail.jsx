@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getIssueApi } from '../api/issue';
+import { getIssueApi, updateIssueApi } from '../api/issue';
 import { getCommentsFromIssueApi } from '../api/comment';
 import Recommendation from '../components/Recommendation';
 import TopTen from '../components/TopTen';
@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import { getUserInfo } from '../api/user';
 import PageHeader from '../components/PageHeader';
 import Comment from '../components/Comment';
+
 const IssueDetail = () => {
     const {id} = useParams()
     const user = useSelector(state=>state.user);
@@ -32,6 +33,9 @@ const IssueDetail = () => {
             if(res.data.commentNumber > 0){
               await fetchCommentList()
             }
+            updateIssueApi(id, {
+              scanNumber: res.data.scanNumber + 1
+            })
         }
         fetchData();
     },[id])
