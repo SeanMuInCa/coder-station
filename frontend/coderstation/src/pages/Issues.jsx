@@ -7,6 +7,7 @@ import AskButton from '../components/AskButton'
 import Recommendation from '../components/Recommendation'
 import TopTen from '../components/TopTen'
 import { useSelector } from 'react-redux'
+import Category from '../components/Category'
 
 const Issues = (props) => {
   const [issueList, setIssueList] = useState([]);
@@ -66,7 +67,9 @@ const Issues = (props) => {
 
   return (
     <div className='max-w-7xl mx-auto bg-slate-50 pb-10'>
-      <PageHeader title="Issue List" setIssueList={setIssueList} backToPage={getIssueList}/>
+      <PageHeader title="Issue List" >
+        <Category setIssueList={setIssueList} backToPage={getIssueList}/>
+      </PageHeader>
       {/* body */}
       <div className='flex'>
         {/* left list */}
