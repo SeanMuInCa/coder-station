@@ -10,12 +10,14 @@ import { format } from 'date-fns';
 import { getUserInfo } from '../api/user';
 import PageHeader from '../components/PageHeader';
 import Comment from '../components/Comment';
-
+import { useDispatch } from 'react-redux';
+import { initSearchMode } from '../redux/searchSlice'
 const IssueDetail = () => {
     const {id} = useParams()
     const user = useSelector(state=>state.user);
     const [publisher, setPublisher] = useState({})
     const [commentList, setCommentList] = useState([]);
+    const dispatch = useDispatch();
     const [issue, setIssue] = useState({
       commentNumber: 0,
       issueTitle: "",
@@ -38,6 +40,7 @@ const IssueDetail = () => {
             })
         }
         fetchData();
+        dispatch(initSearchMode(false))
     },[id])
     const fetchCommentList = async ()=>{
       const commentRes = await getCommentsFromIssueApi(id);
