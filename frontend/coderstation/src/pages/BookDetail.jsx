@@ -49,7 +49,7 @@ const BookDetail = () => {
 			const res1 = await updateUserInfoApi(res.data._id, {
 				points: res.data.points - bookInfo.requirePoints,
 			});
-      if(res1.code === 0) window.open(bookInfo.downloadLink, "_blank");
+			if (res1.code === 0) window.open(bookInfo.downloadLink, "_blank");
 		}
 	};
 	return (
@@ -62,8 +62,6 @@ const BookDetail = () => {
 					{user.isLogin && (
 						<div className="text-center">
 							<p className="mt-5">Spend {bookInfo.requirePoints} Points To</p>
-							{/* <a href={bookInfo.downloadLink} target="_blank" rel="noreferrer"> */}
-
 							<Popconfirm
 								title="Download Confirmation"
 								description="Are you sure to spend your points for this book?"
