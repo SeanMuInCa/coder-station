@@ -14,7 +14,7 @@ function App() {
 		keyWord:'',
 	});
 	console.log(keyWord,'app');
-	
+	const [search, setSearch] = useState(false);
 	useEffect(() => {
 		const keepLoginStatus = async () => {
 			const token = localStorage.getItem("userToken");
@@ -46,10 +46,10 @@ function App() {
 	return (
 		<div className="App">
 			<Header>
-				<NavHeader keyWord={keyWord} setKeyWord={setKeyWord} />
+				<NavHeader search={search} setSearch={setSearch} />
 			</Header>
 			<Content className="bg-gray-200" >
-				<RouteConfig keyWord={keyWord}/>
+				<RouteConfig search={search}/>
 			</Content>
 			<Footer className="pt-5">
 				<PageFooter />

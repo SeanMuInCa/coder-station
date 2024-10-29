@@ -5,9 +5,10 @@ const searchSlice = createSlice({
 	initialState: {
 		SearchInfo: {
 			keyWord: "",
-			searchType: "",
+			searchType: "issue",
 		},
         searchResult: [],
+		searchMode: false,
 	},
 	reducers: {
 		initSearchType: (state, action) => {
@@ -17,17 +18,21 @@ const searchSlice = createSlice({
 			state.SearchInfo.keyWord = action.payload;
 		},
 		resetSearchInfo: (state) => {
-			state.SearchInfo = { keyWord: "", searchType: "" };
+			state.SearchInfo = { keyWord: "", searchType: "issue" };
 		},
         initSearchResult: (state, action) => {
             state.searchResult = action.payload
-        }
+        },
+		initSearchMode: (state, action) => {
+			state.searchMode = action.payload;
+		},
 	},
 });
 export const {
 	initSearchType,
 	initSearchWord,
 	resetSearchInfo,
-    initSearchResult
+    initSearchResult,
+	initSearchMode,
 } = searchSlice.actions;
 export default searchSlice.reducer;

@@ -10,6 +10,7 @@ import {
 	initSearchType,
 	initSearchWord,
 	resetSearchInfo,
+	initSearchMode
 } from "../redux/searchSlice";
 import { useNavigate } from "react-router-dom";
 //todo: 搜索框的搜索功能
@@ -60,11 +61,15 @@ const NavHeader = (props) => {
 			dispatch(initSearchType("issue"));
 		}
 		console.log(search.SearchInfo, "result");
+		dispatch(initSearchMode(true))
+		
 		if (search.SearchInfo.searchType === "book") {
 			navigate("/books");
 		} else {
 			navigate("/issues");
 		}
+		// dispatch(initSearchMode(false))
+		dispatch(resetSearchInfo());
 	};
 	const changeSelect = (value) => {
 		dispatch(initSearchType(value));

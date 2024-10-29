@@ -6,16 +6,18 @@ import { Pagination  } from 'antd'
 import AskButton from '../components/AskButton'
 import Recommendation from '../components/Recommendation'
 import TopTen from '../components/TopTen'
-
+import { useSelector } from 'react-redux'
 
 const Issues = (props) => {
-  console.log(props);
   const [issueList, setIssueList] = useState([]);
+  const [list, setList] = useState([]);
   const [pageInfo, setPageInfo] = useState({
     current:1,//current page
     pageSize:10,// how many in one page
     total: 0//total amount
   });
+  const search = useSelector(state => state.search);
+  console.log(search);
   
   const getIssueList = async () => {
     const res = await getIssueListApi({
@@ -34,10 +36,34 @@ const Issues = (props) => {
   useEffect(() => {
     getIssueList();
   }, [pageInfo.pageSize, pageInfo.current, props.keyWord])
+
   
-  let list = issueList.map(item => (
-    <IssueCard info={item} key={item._id}/>
-  ))
+  useEffect(() => {
+    const filteredList = search.searchMode
+      ? issueList
+          .filter((item) => item.issueTitle.includes(search.SearchInfo?.keyWord)) // 根据关键词过滤
+          .map((item) => <IssueCard info={item} key={item._id} />)
+      : issueList.map((item) => <IssueCard info={item} key={item._id} />);
+    
+    setList(filteredList);  // 设置新的列表
+  }, [search.searchMode, search.SearchInfo?.keyWord, issueList]); // 监听search.searchMode和关键词变化
+  
+  // let list = search.searchMode ? issueList.filter(item => item.issueTitle.includes(search.SearchInfo?.keyWord).map(item => (
+  //   <IssueCard info={item} key={item._id}/>
+  // ))
+  // ):issueList.map(item => (
+  //   <IssueCard info={item} key={item._id}/>
+  // ))
+  // let list = search.searchMode 
+  // ? issueList
+  //     .filter(item => item.issueTitle.includes(search.SearchInfo?.keyWord))  // 过滤符合条件的项
+  //     .map(item => (
+  //       <IssueCard info={item} key={item._id} />  // 映射出组件
+  //     ))
+  // : issueList.map(item => (
+  //     <IssueCard info={item} key={item._id} />  // 没有过滤时直接映射
+  // ));
+
   return (
     <div className='max-w-7xl mx-auto bg-slate-50 pb-10'>
       <PageHeader title="Issue List" setIssueList={setIssueList} backToPage={getIssueList}/>
