@@ -32,7 +32,6 @@ const Issues = (props) => {
     })
   };
   useEffect(() => {
-    console.log('abc');
     getIssueList();
   }, [pageInfo.pageSize, pageInfo.current, props.keyWord])
   

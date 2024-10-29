@@ -13,9 +13,7 @@ const BookDetail = () => {
 	const { id } = useParams();
 	const [bookInfo, setBookInfo] = useState({});
 	const [commentList, setCommentList] = useState([]);
-	const [affordable, setAffordable] = useState(false);
 	const user = useSelector((state) => state.user);
-	console.log(user);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -43,14 +41,14 @@ const BookDetail = () => {
 	};
 	const handleDownload = async () => {
 		const res = await getUserInfo(user.userInfo._id);
-		console.log(res, "res");
 		if (res.data.points >= bookInfo.requirePoints) {
-			setAffordable(true);
 			const res1 = await updateUserInfoApi(res.data._id, {
 				points: res.data.points - bookInfo.requirePoints,
 			});
 			if (res1.code === 0) window.open(bookInfo.downloadLink, "_blank");
-		}
+		}else{
+      message.error('you do not have enough points');
+    }
 	};
 	return (
 		<div className="max-w-7xl mx-auto bg-white pb-10">
