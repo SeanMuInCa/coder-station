@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Select, Input, Space, Button } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
@@ -33,6 +33,7 @@ const NavHeader = (props) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [searchType, setSearchType] = useState("issue");
+	const [defaultValue, setDefaultValue] = useState('Issue')
 	const loginHandle = () => {
 		setOpenForm(true);
 	};
@@ -73,6 +74,13 @@ const NavHeader = (props) => {
 	const handleClear = () => {
 		dispatch(initSearchMode(false));
 	};
+	
+	useEffect(()=>{
+		if(window.location.pathname === '/books'){
+			setDefaultValue('Books')
+		}else setDefaultValue('Issues')
+	},[window.location.pathname])
+	
 	return (
 		<>
 			<div className="flex h-full box-border w-3/4 mx-auto justify-between ">
@@ -94,7 +102,7 @@ const NavHeader = (props) => {
 				<div>
 					<Space.Compact>
 						<Select
-							defaultValue={items[0].label}
+							value={defaultValue}
 							options={items}
 							size="large"
 							onChange={changeSelect}
