@@ -28,7 +28,6 @@ const items = [
 ];
 const NavHeader = (props) => {
 	const search = useSelector((state) => state.search);
-	console.log(search);
 
 	const [openForm, setOpenForm] = useState(false);
 	const dispatch = useDispatch();
@@ -58,7 +57,6 @@ const NavHeader = (props) => {
 		if (search.SearchInfo?.searchType === "") {
 			dispatch(initSearchType("issue"));
 		}
-		console.log(search.SearchInfo, "result");
 		dispatch(initSearchMode(true));
 
 		if (search.SearchInfo.searchType === "book") {

@@ -9,11 +9,7 @@ import { initUserInfo, updateLoginStatus } from "./redux/userSlice";
 const { Header, Footer, Content } = Layout;
 function App() {
 	const dispatch = useDispatch();
-	const [keyWord, setKeyWord] = useState({
-		type:'',
-		keyWord:'',
-	});
-	console.log(keyWord,'app');
+
 	const [search, setSearch] = useState(false);
 	useEffect(() => {
 		const keepLoginStatus = async () => {

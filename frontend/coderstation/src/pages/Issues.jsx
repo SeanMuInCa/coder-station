@@ -18,7 +18,7 @@ const Issues = (props) => {
     total: 0//total amount
   });
   const search = useSelector(state => state.search);
-  console.log(search);
+
   
   const getIssueList = async () => {
     const res = await getIssueListApi({
