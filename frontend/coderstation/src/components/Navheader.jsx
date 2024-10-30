@@ -70,6 +70,9 @@ const NavHeader = (props) => {
 	const changeSelect = (value) => {
 		dispatch(initSearchType(value));
 	};
+	const handleClear = () => {
+		dispatch(initSearchMode(false));
+	};
 	return (
 		<>
 			<div className="flex h-full box-border w-3/4 mx-auto justify-between ">
@@ -99,7 +102,9 @@ const NavHeader = (props) => {
 						<Input
 							placeholder="Enter to search"
 							size="large"
+							allowClear
 							onChange={handleKeyWord}
+							onClear={handleClear}
 						/>
 						<Button type="primary" size="large" onClick={handleSearch}>
 							<SearchOutlined />
