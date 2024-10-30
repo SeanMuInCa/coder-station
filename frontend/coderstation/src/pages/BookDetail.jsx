@@ -8,13 +8,15 @@ import { getCommentsFromBookApi } from "../api/comment";
 import Comment from "../components/Comment";
 import { updateBookApi } from "../api/book";
 import { getUserInfo, updateUserInfoApi } from "../api/user";
+import { useDispatch } from 'react-redux';
+import { initSearchMode } from '../redux/searchSlice'
 
 const BookDetail = () => {
 	const { id } = useParams();
 	const [bookInfo, setBookInfo] = useState({});
 	const [commentList, setCommentList] = useState([]);
 	const user = useSelector((state) => state.user);
-
+	const dispatch = useDispatch();
 	useEffect(() => {
 		const fetchData = async () => {
 			const res = await getBookByIdApi(id);
@@ -32,6 +34,7 @@ const BookDetail = () => {
 		};
 
 		fetchData();
+		dispatch(initSearchMode(false))
 	}, [id]); // Ensure 'id' is in the dependency array
 	const fetchCommentList = async () => {
 		const commentRes = await getCommentsFromBookApi(id);

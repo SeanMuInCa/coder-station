@@ -61,11 +61,11 @@ const NavHeader = (props) => {
 		console.log(search.SearchInfo, "result");
 		dispatch(initSearchMode(true));
 
-		// if (search.SearchInfo.searchType === "book") {
-		// 	navigate("/books");
-		// } else {
-		// 	navigate("/issues");
-		// }
+		if (search.SearchInfo.searchType === "book") {
+			navigate("/books");
+		} else {
+			navigate("/issues");
+		}
 		
 		// dispatch(resetSearchInfo());
 	};
