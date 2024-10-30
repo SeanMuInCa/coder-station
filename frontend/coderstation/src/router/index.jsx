@@ -6,6 +6,7 @@ import IssueDetail from "../pages/IssueDetail";
 import AskQuestion from "../pages/AskQuestion";
 import BookDetail from '../pages/BookDetail';
 import InterviewDetail from "../pages/InterviewDetail";
+import Profile from '../pages/Profile'
 export default function RouteConfig(props){
     return (
         <Routes>
@@ -16,6 +17,7 @@ export default function RouteConfig(props){
             <Route path="/books/:id" element={<BookDetail />}/>
             <Route path="/interviews" element={<Interviews />} />
             <Route path="/interviews/:id" element={<InterviewDetail />} />
+            <Route path="/profile/:id" element={<Profile />} />
             <Route path="*" element={<Navigate replace to="/issues" />} />
         </Routes>
     );

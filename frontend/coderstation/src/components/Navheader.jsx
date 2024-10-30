@@ -28,6 +28,7 @@ const items = [
 ];
 const NavHeader = (props) => {
 	const search = useSelector((state) => state.search);
+	const user = useSelector((state) => state.user);
 
 	const [openForm, setOpenForm] = useState(false);
 	const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const NavHeader = (props) => {
 		navigate("/");
 	};
 	const profileHandle = () => {
-		console.log("profile");
+		navigate("/profile/" + user.userInfo._id);
 	};
 	const handleKeyWord = (e) => {
 		dispatch(initSearchWord(e.target.value));
