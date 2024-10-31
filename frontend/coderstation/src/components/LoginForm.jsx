@@ -11,7 +11,7 @@ import {
 	Button,
 	message,
 } from "antd";
-import { getCaptcha, checkExists, register, login, getUserInfo } from "../api/user";
+import { getCaptcha, checkExists, register, login, getUserInfo,updateUserInfoApi } from "../api/user";
 import { useDispatch } from "react-redux";
 import { initUserInfo, updateLoginStatus } from "../redux/userSlice";
 
@@ -97,6 +97,9 @@ const LoginForm = (props) => {
 				dispatch(updateLoginStatus(true));
 				props.closeForm();
 				clearRegInfo();
+				clearLoginInfo();
+				
+				updateUserInfoApi(data.data._id,{lastLoginDate: new Date().getTime()})
 			}
 		}else{
 			message.error('wrong captcha');
