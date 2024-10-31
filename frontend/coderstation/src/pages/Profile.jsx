@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux';
 import { getUserInfo } from '../api/user'; 
 import PageHeader from '../components/PageHeader'
+import { format } from 'date-fns';
 const Profile = () => {
   const {id} = useParams();
   const [user, setUser] = useState({})
@@ -25,8 +25,8 @@ const Profile = () => {
         <div className='p-10 text-xl flex flex-col gap-5'>
           <div><span>User Nickname: </span>{user.nickname}</div>
           <div><span>User Points: </span>{user.points}</div>
-          <div><span>Last Login Date: </span></div>
-          <div><span>Register Date: </span></div>
+          <div><span>Last Login Date: </span>{format(new Date(parseFloat(user.lastLoginDate)), 'yyyy-MM-dd')}</div>
+          <div><span>Register Date: </span>{format(new Date(parseFloat(user.registerDate)), 'yyyy-MM-dd')}</div>
         </div>
       </div>
     </div>
