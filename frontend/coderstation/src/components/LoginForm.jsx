@@ -49,9 +49,14 @@ const LoginForm = (props) => {
 			captcha: "",
 		});
 	};
+	const clearCaptcha = () => {
+		setLoginInfo({ ...loginInfo, captcha: "" });
+		setRegInfo({...regInfo, captcha: ""})
+	};
 	const fetchCaptcha = async () => {
 		const res = await getCaptcha();
 		setCaptcha(res);
+		clearCaptcha();
 	};
 	useEffect(() => {
 		fetchCaptcha();
@@ -73,6 +78,8 @@ const LoginForm = (props) => {
 		// login logic
 		loginInfo.loginPwd = loginInfo.password;
 		const res = await login(loginInfo);
+		console.log(loginInfo, "loginInfo");
+		
 		console.log(res);
 		if(res.data){
 			//wrong pwd, frozen account, normal
@@ -89,6 +96,7 @@ const LoginForm = (props) => {
 				dispatch(initUserInfo(res.data));
 				dispatch(updateLoginStatus(true));
 				props.closeForm();
+				clearRegInfo();
 			}
 		}else{
 			message.error('wrong captcha');
