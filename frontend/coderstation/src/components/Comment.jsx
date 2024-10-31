@@ -16,7 +16,7 @@ const Comment = (props) => {
 	const { id } = useParams();
 	const editorRef = useRef();
 	const user = useSelector((state) => state.user);
-	console.log(props, "props");
+
 
 	const [newComment, setNewComment] = useState({
 		userId: "",
@@ -69,7 +69,7 @@ const Comment = (props) => {
 			}
 		} else {
 			message.error("Please input something");
-			console.log(user);
+
 			
 		}
 	};
@@ -81,7 +81,7 @@ const Comment = (props) => {
 		let res = null;
 		if (props.commentType === "issue") {
 			res = await getIssueApi(id);
-			console.log(res, "res");
+
 
 			setNewComment({
 				...newComment,

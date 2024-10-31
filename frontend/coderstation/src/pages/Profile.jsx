@@ -10,7 +10,6 @@ const Profile = () => {
   useEffect(()=>{
     const fetchData = async()=>{
       const res = await getUserInfo(id);
-      console.log(res)
       setUser(res.data)
     }
     fetchData();

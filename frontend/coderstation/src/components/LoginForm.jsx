@@ -78,9 +78,7 @@ const LoginForm = (props) => {
 		// login logic
 		loginInfo.loginPwd = loginInfo.password;
 		const res = await login(loginInfo);
-		console.log(loginInfo, "loginInfo");
-		
-		console.log(res);
+
 		if(res.data){
 			//wrong pwd, frozen account, normal
 			const data = res.data
@@ -108,7 +106,6 @@ const LoginForm = (props) => {
 	};
 	const regConfirmHandle = async () => {
 		//register logic
-		console.log("reg confirm handle");
 		const res = await register(regInfo);
 		//failed
 		if (res.code === 406) {
