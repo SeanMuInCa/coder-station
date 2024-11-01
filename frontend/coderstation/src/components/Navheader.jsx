@@ -13,6 +13,7 @@ import {
 	initSearchMode,
 } from "../redux/searchSlice";
 import { useNavigate } from "react-router-dom";
+import { set } from "date-fns";
 //todo: 搜索框的搜索功能
 const items = [
 	{
@@ -71,6 +72,7 @@ const NavHeader = (props) => {
 	};
 	const changeSelect = (value) => {
 		dispatch(initSearchType(value));
+		setDefaultValue(value)
 	};
 	const handleClear = () => {
 		dispatch(initSearchMode(false));
@@ -79,7 +81,9 @@ const NavHeader = (props) => {
 	useEffect(()=>{
 		if(window.location.pathname === '/books'){
 			setDefaultValue('Books')
-		}else setDefaultValue('Issues')
+		}else if(window.location.pathname === '/issues'){
+			setDefaultValue('Issues')
+		}
 	},[window.location.pathname])
 	
 	return (
