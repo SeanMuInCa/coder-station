@@ -68,7 +68,7 @@ const Issues = (props) => {
   return (
     <div className='max-w-7xl mx-auto bg-slate-50 pb-10'>
       <PageHeader title="Issue List" >
-        <Category setIssueList={setIssueList} backToPage={getIssueList}/>
+        <Category setList={setIssueList} backToPage={getIssueList}/>
       </PageHeader>
       {/* body */}
       <div className='flex'>

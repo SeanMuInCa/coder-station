@@ -55,7 +55,7 @@ const Books = () => {
 		<>
 			<div className="max-w-7xl mx-auto bg-slate-50">
 				<PageHeader title="Book List">
-					<Category setIssueList={setBookList} backToPage={fetchData} />
+					<Category setList={setBookList} backToPage={fetchData} type='1'/>
 				</PageHeader>
 			</div>
 			<div className="flex max-w-7xl mx-auto bg-slate-50 pb-10 justify-evenly flex-wrap">

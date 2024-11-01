@@ -2,6 +2,7 @@ import { Tag, Flex } from "antd";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getIssueListApi } from "../api/issue";
+import { getAllBookApi } from '../api/book'
 const Category = (props) => {
 	const { type } = useSelector((state) => state.type);
 	const tagList = [{ typeName: "All" }, ...type];
@@ -41,7 +42,13 @@ const Category = (props) => {
 	const [tempList, setTempList] = useState([]);
 	useEffect(() => {
 		const fetchData = async () => {
-			const res = await getIssueListApi();
+			let res = null;
+			if(props.type === '1'){
+				res = await getAllBookApi()
+			}else{
+				res = await getIssueListApi();
+			
+			}
 			setTempList(res.data);
 		};
 		fetchData();
@@ -51,7 +58,7 @@ const Category = (props) => {
 			props.backToPage();
 		} else {
 			const temp = tempList.data.filter((item) => item.typeId === tagName._id);
-			props?.setIssueList(temp);
+			props?.setList(temp);
 		}
 	};
 	return (
