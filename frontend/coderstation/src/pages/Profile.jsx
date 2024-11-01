@@ -23,7 +23,7 @@ const Profile = () => {
       <div className='flex'>
         <div className='w-1/5 p-5 border-r'>
           {/* <img src={user.avatar} alt="" /> */}
-          {previewImage && (
+          {/* {previewImage && (
         <Image
           wrapperStyle={{
             display: 'none',
@@ -35,7 +35,17 @@ const Profile = () => {
           }}
           src={user.avatar}
         />
-      )}
+        
+      )} */}
+      <Upload
+        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+        listType="picture-circle"
+        // fileList={fileList}
+        // onPreview={handlePreview}
+        // onChange={handleChange}
+      >
+        {/* {fileList.length >= 8 ? null : uploadButton} */}
+      </Upload>
         </div>
         <div className='p-10 text-xl flex flex-col gap-5'>
           <div><span>User Nickname: </span>{user.nickname}</div>
