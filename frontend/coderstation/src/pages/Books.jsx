@@ -3,33 +3,43 @@ import { getAllBookApi } from "../api/book";
 import PageHeader from "../components/PageHeader";
 import BookCard from "../components/BookCard";
 import { Pagination } from "antd";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import Category from "../components/Category";
+import { getTypeList } from '../redux/typeSlice';
 const Books = () => {
 	const [pageInfo, setPageInfo] = useState({
 		current: 1,
 		pageSize: 10,
 		total: 0,
 	});
+	const typeInfo = useSelector(state=>state.type);
 	const [bookList, setBookList] = useState([]);
 	const [list, setList] = useState([]);
 	const search = useSelector((state) => state.search);
-	useEffect(() => {
-		const fetchData = async () => {
-			const res = await getAllBookApi({
-				current: pageInfo.current,
-				pageSize: pageInfo.pageSize,
+	const dispatch = useDispatch();
+	const fetchData = async () => {
+		const res = await getAllBookApi({
+			current: pageInfo.current,
+			pageSize: pageInfo.pageSize,
+		});
+		if (res.code === 0) {
+			setBookList(res.data.data);
+			setPageInfo({
+				current: res.data.currentPage,
+				pageSize: res.data.eachPage,
+				total: res.data.count,
 			});
-			if (res.code === 0) {
-				setBookList(res.data.data);
-				setPageInfo({
-					current: res.data.currentPage,
-					pageSize: res.data.eachPage,
-					total: res.data.count,
-				});
-			}
-		};
+		}
+	};
+	useEffect(() => {
 		fetchData();
 	}, [pageInfo.current, pageInfo.pageSize]);
+	useEffect(()=>{
+        if(!typeInfo.type.length){
+            
+            dispatch(getTypeList());
+        }
+    },[dispatch, typeInfo.type]);
 
 	useEffect(() => {
 		const filteredList = search.searchMode
@@ -40,10 +50,13 @@ const Books = () => {
 
 		setList(filteredList); // 设置新的列表
 	}, [search.searchMode, search.SearchInfo?.keyWord, bookList]); // 监听search.searchMode和关键词变化
+
 	return (
 		<>
 			<div className="max-w-7xl mx-auto bg-slate-50">
-				<PageHeader hideCategory={true} title="Book List" />
+				<PageHeader title="Book List">
+					<Category setIssueList={setBookList} backToPage={fetchData} />
+				</PageHeader>
 			</div>
 			<div className="flex max-w-7xl mx-auto bg-slate-50 pb-10 justify-evenly flex-wrap">
 				{list?.length ? (
