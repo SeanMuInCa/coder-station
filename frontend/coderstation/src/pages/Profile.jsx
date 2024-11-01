@@ -3,9 +3,12 @@ import { useParams } from 'react-router-dom'
 import { getUserInfo } from '../api/user'; 
 import PageHeader from '../components/PageHeader'
 import { format } from 'date-fns';
+import { Image, Upload } from 'antd';
 const Profile = () => {
   const {id} = useParams();
   const [user, setUser] = useState({})
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
   
   useEffect(()=>{
     const fetchData = async()=>{
@@ -19,7 +22,20 @@ const Profile = () => {
       <PageHeader title='Profile Info' />
       <div className='flex'>
         <div className='w-1/5 p-5 border-r'>
-          <img src={user.avatar} alt="" />
+          {/* <img src={user.avatar} alt="" /> */}
+          {previewImage && (
+        <Image
+          wrapperStyle={{
+            display: 'none',
+          }}
+          preview={{
+            visible: previewOpen,
+            onVisibleChange: (visible) => setPreviewOpen(visible),
+            afterOpenChange: (visible) => !visible && setPreviewImage(''),
+          }}
+          src={user.avatar}
+        />
+      )}
         </div>
         <div className='p-10 text-xl flex flex-col gap-5'>
           <div><span>User Nickname: </span>{user.nickname}</div>
