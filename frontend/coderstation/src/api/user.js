@@ -62,6 +62,7 @@ export const uploadAvatarApi = (data)=>{
 	return request({
 		url: "/api/upload",
 		method: "post",
-		data
+		data,
+		
 	})
 }
