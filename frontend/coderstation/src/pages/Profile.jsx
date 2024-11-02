@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUserInfo, uploadAvatarApi } from "../api/user";
+import { getUserInfo, uploadAvatarApi, updateUserInfoApi } from "../api/user";
 import PageHeader from "../components/PageHeader";
 import { format } from "date-fns";
 import { Image, Upload, Button } from "antd";
@@ -9,8 +9,6 @@ const Profile = () => {
 	const { id } = useParams();
 	const [user, setUser] = useState({});
 	const [url, setUrl] = useState("");
-
-	const [fileList, setFileList] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -30,7 +28,10 @@ const Profile = () => {
 		try {
 			const res = await uploadAvatarApi(formData);
 			console.log("Upload response: ", res);
-			if (res.code === 0) setUrl(res.data);
+			if (res.code === 0) {
+        setUrl(res.data);
+        updateUserInfoApi(user._id, {avatar:res.data})
+      }
 		} catch (error) {
 			console.error("Upload failed: ", error);
 		}
@@ -40,7 +41,6 @@ const Profile = () => {
 			<PageHeader title="Profile Info" />
 			<div className="flex">
 				<div className="w-1/5 p-5 border-r flex flex-col items-center">
-					{/* <img src={user.avatar} alt="" /> */}
 					<div className="w-32 h-32 mb-5">
 						<Image src={url}  width='100%' height='100%'/>
 					</div>
@@ -48,8 +48,6 @@ const Profile = () => {
 						listType="picture"
 						maxCount={1}
 						showUploadList={false}
-						fileList={fileList}
-						// onPreview={handlePreview}
 						onChange={handleChange}
 						headers={{ "Content-Type": "multipart/form-data" }}
 					>
