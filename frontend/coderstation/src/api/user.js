@@ -58,3 +58,10 @@ export const updateUserInfoApi = (id,data)=>{
 		data
 	})
 }
+export const uploadAvatarApi = (data)=>{
+	return request({
+		url: "/api/upload",
+		method: "post",
+		data
+	})
+}

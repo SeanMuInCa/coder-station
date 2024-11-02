@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getUserInfo } from '../api/user'; 
+import { getUserInfo, uploadAvatarApi } from '../api/user'; 
 import PageHeader from '../components/PageHeader'
 import { format } from 'date-fns';
-import { Image, Upload } from 'antd';
+import { Image, Upload, Button } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 const Profile = () => {
   const {id} = useParams();
   const [user, setUser] = useState({})
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
+  const [fileList, setFileList] = useState([]);
   
   useEffect(()=>{
     const fetchData = async()=>{
@@ -17,34 +19,32 @@ const Profile = () => {
     }
     fetchData();
   },[id])
+  const uploadButton = (
+    <Button icon={<UploadOutlined />}>Upload</Button>
+  );
+  const handleChange = async({ fileList: newFileList }) => {
+    // setFileList(newFileList);
+    // const res = await uploadAvatarApi(newFileList[0]);
+    console.log(newFileList[0]);
+    
+  };
   return (
     <div className="max-w-7xl mx-auto bg-white pb-10">
       <PageHeader title='Profile Info' />
       <div className='flex'>
-        <div className='w-1/5 p-5 border-r'>
+        <div className='w-1/5 p-5 border-r flex flex-col items-center'>
           {/* <img src={user.avatar} alt="" /> */}
-          {/* {previewImage && (
-        <Image
-          wrapperStyle={{
-            display: 'none',
-          }}
-          preview={{
-            visible: previewOpen,
-            onVisibleChange: (visible) => setPreviewOpen(visible),
-            afterOpenChange: (visible) => !visible && setPreviewImage(''),
-          }}
-          src={user.avatar}
-        />
-        
-      )} */}
+          <Image src={user.avatar} className='w-32 h-32 mb-5'/>
       <Upload
-        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-        listType="picture-circle"
-        // fileList={fileList}
+        // action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+        listType="picture"
+        maxCount={1}
+        showUploadList={false}
+        fileList={fileList}
         // onPreview={handlePreview}
-        // onChange={handleChange}
+        onChange={handleChange}
       >
-        {/* {fileList.length >= 8 ? null : uploadButton} */}
+        {uploadButton}
       </Upload>
         </div>
         <div className='p-10 text-xl flex flex-col gap-5'>
