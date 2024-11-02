@@ -27,14 +27,13 @@ const items = [
 		key: "2",
 	},
 ];
-const NavHeader = (props) => {
+const NavHeader = () => {
 	const search = useSelector((state) => state.search);
 	const user = useSelector((state) => state.user);
 
 	const [openForm, setOpenForm] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [searchType, setSearchType] = useState("issue");
 	const [defaultValue, setDefaultValue] = useState('Issue')
 	const loginHandle = () => {
 		setOpenForm(true);
@@ -68,7 +67,7 @@ const NavHeader = (props) => {
 			navigate("/issues");
 		}
 		
-		// dispatch(resetSearchInfo());
+		
 	};
 	const changeSelect = (value) => {
 		dispatch(initSearchType(value));
