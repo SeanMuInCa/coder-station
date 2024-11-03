@@ -3,20 +3,22 @@ import { useParams } from "react-router-dom";
 import { getUserInfo, uploadAvatarApi, updateUserInfoApi } from "../api/user";
 import PageHeader from "../components/PageHeader";
 import { format } from "date-fns";
-import { Image, Upload, Button } from "antd";
+import { Image, Upload, Button, Input } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 const Profile = () => {
 	const { id } = useParams();
 	const [user, setUser] = useState({});
 	const [url, setUrl] = useState("");
 	const [editMode, setEditMode] = useState(false);
+  const [nickname, setNickname] = useState("");
 
+  const fetchData = async () => {
+    const res = await getUserInfo(id);
+    setUser(res.data);
+    setUrl(res.data.avatar);
+  };
 	useEffect(() => {
-		const fetchData = async () => {
-			const res = await getUserInfo(id);
-			setUser(res.data);
-			setUrl(res.data.avatar);
-		};
+		
 		fetchData();
 	}, [id]);
 	const uploadButton = <Button icon={<UploadOutlined />}>Upload</Button>;
@@ -43,6 +45,18 @@ const Profile = () => {
   const handleCancel = () => {
 		setEditMode(false);
 	};
+  const handleChangeNickname = (e) => {
+		// updateUserInfoApi(user._id, { nickname: e.target.value });
+    // console.log(e.target.value);
+    setNickname(e.target.value);
+    
+	};
+  const handleSave = async () => {
+		updateUserInfoApi(user._id, { nickname: nickname });
+    console.log(nickname);
+    setEditMode(false);
+    fetchData();
+	};
 	return (
 		<div className="max-w-7xl mx-auto bg-white pb-10">
 			<PageHeader title="Profile Info" />
@@ -62,9 +76,9 @@ const Profile = () => {
 					</Upload>}
 				</div>
 				<div className="p-10 text-xl flex-1 flex flex-col gap-5">
-					<div>
+					<div className="flex">
 						<span>User Nickname: </span>
-						{user.nickname}
+						{editMode ? <Input defaultValue={user.nickname} className="flex-1" onChange={handleChangeNickname}/>:user.nickname}
 					</div>
 					<div>
 						<span>User Points: </span>
@@ -88,7 +102,7 @@ const Profile = () => {
 					</div>
 					{editMode ? (
 						<div className="m-auto flex gap-5">
-							<Button type="primary" size="large" className="w-32">
+							<Button type="primary" size="large" className="w-32" onClick={handleSave}>
 								Save
 							</Button>
 							<Button  size="large" className="w-32" onClick={handleCancel}>
