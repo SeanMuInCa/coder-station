@@ -9,7 +9,7 @@ const Profile = () => {
 	const { id } = useParams();
 	const [user, setUser] = useState({});
 	const [url, setUrl] = useState("");
-  const [editMode, setEditMode] = useState(false);
+	const [editMode, setEditMode] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -30,12 +30,18 @@ const Profile = () => {
 			const res = await uploadAvatarApi(formData);
 			console.log("Upload response: ", res);
 			if (res.code === 0) {
-        setUrl(res.data);
-        updateUserInfoApi(user._id, {avatar:res.data})
-      }
+				setUrl(res.data);
+				updateUserInfoApi(user._id, { avatar: res.data });
+			}
 		} catch (error) {
 			console.error("Upload failed: ", error);
 		}
+	};
+  const handleClick = () => {
+		setEditMode(true);
+	};
+  const handleCancel = () => {
+		setEditMode(false);
 	};
 	return (
 		<div className="max-w-7xl mx-auto bg-white pb-10">
@@ -43,9 +49,9 @@ const Profile = () => {
 			<div className="flex">
 				<div className="w-1/5 p-5 border-r flex flex-col items-center">
 					<div className="w-32 h-32 mb-5">
-						<Image src={url}  width='100%' height='100%'/>
+						<Image src={url} width="100%" height="100%" />
 					</div>
-					<Upload
+					{editMode && <Upload
 						listType="picture"
 						maxCount={1}
 						showUploadList={false}
@@ -53,7 +59,7 @@ const Profile = () => {
 						headers={{ "Content-Type": "multipart/form-data" }}
 					>
 						{uploadButton}
-					</Upload>
+					</Upload>}
 				</div>
 				<div className="p-10 text-xl flex-1 flex flex-col gap-5">
 					<div>
@@ -80,7 +86,20 @@ const Profile = () => {
 							? format(new Date(parseFloat(user.registerDate)), "yyyy-MM-dd")
 							: "N/A"}
 					</div>
-          <Button type="primary" size="large" className="w-1/4 m-auto">Edit Profile</Button>
+					{editMode ? (
+						<div className="m-auto flex gap-5">
+							<Button type="primary" size="large" className="w-32">
+								Save
+							</Button>
+							<Button  size="large" className="w-32" onClick={handleCancel}>
+								Cancel
+							</Button>
+						</div>
+					) : (
+						<Button type="primary" size="large" className="w-1/4 m-auto" onClick={handleClick}>
+							Edit Profile
+						</Button>
+					)}
 				</div>
 			</div>
 		</div>
