@@ -9,6 +9,7 @@ const Profile = () => {
 	const { id } = useParams();
 	const [user, setUser] = useState({});
 	const [url, setUrl] = useState("");
+  const [editMode, setEditMode] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -54,7 +55,7 @@ const Profile = () => {
 						{uploadButton}
 					</Upload>
 				</div>
-				<div className="p-10 text-xl flex flex-col gap-5">
+				<div className="p-10 text-xl flex-1 flex flex-col gap-5">
 					<div>
 						<span>User Nickname: </span>
 						{user.nickname}
@@ -79,6 +80,7 @@ const Profile = () => {
 							? format(new Date(parseFloat(user.registerDate)), "yyyy-MM-dd")
 							: "N/A"}
 					</div>
+          <Button type="primary" size="large" className="w-1/4 m-auto">Edit Profile</Button>
 				</div>
 			</div>
 		</div>
