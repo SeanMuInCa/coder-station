@@ -9,12 +9,12 @@ import { Pagination, Tabs, Tree, Card } from "antd";
 import InterviewCard from "../components/InterviewCard";
 import { useSelector, useDispatch } from "react-redux";
 import { getTypeList } from "../redux/typeSlice";
-import NoData from '../components/NoData'
+import NoData from "../components/NoData";
 const Interviews = () => {
 	const [expandedKeys, setExpandedKeys] = useState([]);
 	const [autoExpandParent, setAutoExpandParent] = useState(true);
 	const { type } = useSelector((state) => state.type);
-  const user = useSelector((state) => state.user)
+	const user = useSelector((state) => state.user);
 	const [listByType, setListByType] = useState([]);
 	const dispatch = useDispatch();
 	const [question, setQuestion] = useState(null);
@@ -67,7 +67,8 @@ const Interviews = () => {
 											title: item.interviewTitle,
 											key: item._id,
 										};
-								}) : [],
+								  })
+								: [],
 					};
 					tempArr.push(tempObj);
 				}
@@ -91,11 +92,11 @@ const Interviews = () => {
 				return {
 					title: item.title,
 					key: item.key,
-          disabled: !user.isLogin,
+					disabled: !user.isLogin,
 				};
 			});
 		return loop(listByType);
-	}, [listByType,user.isLogin]); // Added listByType as dependency
+	}, [listByType, user.isLogin]); // Added listByType as dependency
 
 	let list = interviewList.data?.map((item) => (
 		<InterviewCard key={item._id} interview={item} />
@@ -128,7 +129,7 @@ const Interviews = () => {
 		</>
 	);
 
-	const onCheck = async (selectedKeys) => { 
+	const onCheck = async (selectedKeys) => {
 		if (typeof selectedKeys[0] === "string") {
 			const res = await getInterviewByIdApi(selectedKeys[0]);
 			if (res.code === 0) {
@@ -148,13 +149,19 @@ const Interviews = () => {
 				onSelect={onCheck}
 			/>
 			<div className="w-2/3 h-lvh overflow-y-auto">
-      {question !== null ? <Card className="" title={question.interviewTitle}>
-				<div
-					className=" overflow-y-auto text-balance ..."
-					dangerouslySetInnerHTML={{ __html: question.interviewContent }}
-				></div>
-			</Card> : <NoData />}
-      </div>
+				{question !== null ? (
+					<Card className="" title={question.interviewTitle}>
+						<div
+							className=" overflow-y-auto text-balance ..."
+							dangerouslySetInnerHTML={{ __html: question.interviewContent }}
+						></div>
+					</Card>
+				) : (
+					<div className="flex flex-col justify-center h-full">
+						<NoData />
+					</div>
+				)}
+			</div>
 		</div>
 	);
 
