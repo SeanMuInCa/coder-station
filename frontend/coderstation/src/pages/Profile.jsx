@@ -30,7 +30,6 @@ const Profile = () => {
 
 		try {
 			const res = await uploadAvatarApi(formData);
-			console.log("Upload response: ", res);
 			if (res.code === 0) {
 				setUrl(res.data);
 				updateUserInfoApi(user._id, { avatar: res.data });
@@ -46,14 +45,11 @@ const Profile = () => {
 		setEditMode(false);
 	};
   const handleChangeNickname = (e) => {
-		// updateUserInfoApi(user._id, { nickname: e.target.value });
-    // console.log(e.target.value);
     setNickname(e.target.value);
     
 	};
   const handleSave = async () => {
 		updateUserInfoApi(user._id, { nickname: nickname });
-    console.log(nickname);
     setEditMode(false);
     fetchData();
 	};
