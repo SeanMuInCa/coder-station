@@ -5,7 +5,7 @@ import {
 	getInterviewByIdApi,
 } from "../api/interviews";
 import PageHeader from "../components/PageHeader";
-import { Pagination, Tabs, Tree, Card } from "antd";
+import { Pagination, Tabs, Tree, Card, BackTop } from "antd";
 import InterviewCard from "../components/InterviewCard";
 import { useSelector, useDispatch } from "react-redux";
 import { getTypeList } from "../redux/typeSlice";
@@ -182,6 +182,7 @@ const Interviews = () => {
 						};
 					})}
 				/>
+				<BackTop />
 			</div>
 		</div>
 	);
