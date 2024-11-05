@@ -11,13 +11,13 @@ import RouteBefore from "./RouteBefore";
 import config from './routeBeforeConfig'; // 引入配置文件
 export default function RouteConfig(){
     const getObj = (path) => {
-        return config[config.findIndex(item => item.path === path)]
+        return config.find(item => item.path === path) || { requireLogin: false }; // 默认不需要登录
     }
     return (
         <Routes>
             <Route path={getObj('/issues').path} element={<RouteBefore requireLogin={getObj('/issues').requireLogin}><Issues/></RouteBefore>} />
             <Route path="/issues/:id" element={<IssueDetail />}/>
-            <Route path={getObj("/issues/add").path} element={<RouteBefore requireLogin={getObj("/issues/add").requireLogin}><AskQuestion/></RouteBefore>} />
+            <Route path={getObj("/issues/add").path} element={<RouteBefore requireLogin={getObj("/issues/add").requireLogin}><AskQuestion /></RouteBefore>} />
             <Route path="/books" element={<Books />}/>
             <Route path="/books/:id" element={<BookDetail />}/>
             <Route path="/interviews" element={<Interviews />} />
