@@ -8,14 +8,14 @@ import BookDetail from '../pages/BookDetail';
 import InterviewDetail from "../pages/InterviewDetail";
 import Profile from '../pages/Profile';
 import RouteBefore from "./RouteBefore";
-import config from './routeBeforeConfig'; // 引入配置文件
+import config from './routeBeforeConfig'; 
 export default function RouteConfig(){
     const getObj = (path) => {
         return config.find(item => item.path === path) || { requireLogin: false }; // 默认不需要登录
     }
     return (
         <Routes>
-            <Route path={getObj('/issues').path} element={<RouteBefore requireLogin={getObj('/issues').requireLogin}><Issues/></RouteBefore>} />
+            <Route path='/issues' element={<Issues/>} />
             <Route path="/issues/:id" element={<IssueDetail />}/>
             <Route path={getObj("/issues/add").path} element={<RouteBefore requireLogin={getObj("/issues/add").requireLogin}><AskQuestion /></RouteBefore>} />
             <Route path="/books" element={<Books />}/>
