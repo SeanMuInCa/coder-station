@@ -13,7 +13,6 @@ import {
 	initSearchMode,
 } from "../redux/searchSlice";
 import { useNavigate } from "react-router-dom";
-import { set } from "date-fns";
 //todo: 搜索框的搜索功能
 const items = [
 	{

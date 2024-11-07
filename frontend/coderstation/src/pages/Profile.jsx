@@ -10,15 +10,14 @@ const Profile = () => {
 	const [user, setUser] = useState({});
 	const [url, setUrl] = useState("");
 	const [editMode, setEditMode] = useState(false);
-  const [nickname, setNickname] = useState("");
+	const [nickname, setNickname] = useState("");
 
-  const fetchData = async () => {
-    const res = await getUserInfo(id);
-    setUser(res.data);
-    setUrl(res.data.avatar);
-  };
+	const fetchData = async () => {
+		const res = await getUserInfo(id);
+		setUser(res.data);
+		setUrl(res.data.avatar);
+	};
 	useEffect(() => {
-		
 		fetchData();
 	}, [id]);
 	const uploadButton = <Button icon={<UploadOutlined />}>Upload</Button>;
@@ -38,20 +37,20 @@ const Profile = () => {
 			console.error("Upload failed: ", error);
 		}
 	};
-  const handleClick = () => {
+	const handleClick = () => {
 		setEditMode(true);
 	};
-  const handleCancel = () => {
+	const handleCancel = () => {
 		setEditMode(false);
 	};
-  const handleChangeNickname = (e) => {
-    setNickname(e.target.value);
-    
+	const handleChangeNickname = (e) => {
+		setNickname(e.target.value);
 	};
-  const handleSave = async () => {
+	const handleSave = async () => {
 		updateUserInfoApi(user._id, { nickname: nickname });
-    setEditMode(false);
-    fetchData();
+		setEditMode(false);
+		fetchData();
+		window.location.reload();
 	};
 	return (
 		<div className="max-w-7xl mx-auto bg-white pb-10">
@@ -61,20 +60,31 @@ const Profile = () => {
 					<div className="w-32 h-32 mb-5">
 						<Image src={url} width="100%" height="100%" />
 					</div>
-					{editMode && <Upload
-						listType="picture"
-						maxCount={1}
-						showUploadList={false}
-						onChange={handleChange}
-						headers={{ "Content-Type": "multipart/form-data" }}
-					>
-						{uploadButton}
-					</Upload>}
+					{editMode && (
+						<Upload
+							action="api/upload"
+							listType="picture"
+							maxCount={1}
+							showUploadList={false}
+							onChange={handleChange}
+							headers={{ "Content-Type": "multipart/form-data" }}
+						>
+							{uploadButton}
+						</Upload>
+					)}
 				</div>
 				<div className="p-10 text-xl flex-1 flex flex-col gap-5">
 					<div className="flex">
 						<span>User Nickname: </span>
-						{editMode ? <Input defaultValue={user.nickname} className="flex-1" onChange={handleChangeNickname}/>:user.nickname}
+						{editMode ? (
+							<Input
+								defaultValue={user.nickname}
+								className="flex-1"
+								onChange={handleChangeNickname}
+							/>
+						) : (
+							user.nickname
+						)}
 					</div>
 					<div>
 						<span>User Points: </span>
@@ -98,15 +108,25 @@ const Profile = () => {
 					</div>
 					{editMode ? (
 						<div className="m-auto flex gap-5">
-							<Button type="primary" size="large" className="w-32" onClick={handleSave}>
+							<Button
+								type="primary"
+								size="large"
+								className="w-32"
+								onClick={handleSave}
+							>
 								Save
 							</Button>
-							<Button  size="large" className="w-32" onClick={handleCancel}>
+							<Button size="large" className="w-32" onClick={handleCancel}>
 								Cancel
 							</Button>
 						</div>
 					) : (
-						<Button type="primary" size="large" className="w-1/4 m-auto" onClick={handleClick}>
+						<Button
+							type="primary"
+							size="large"
+							className="w-1/4 m-auto"
+							onClick={handleClick}
+						>
 							Edit Profile
 						</Button>
 					)}
