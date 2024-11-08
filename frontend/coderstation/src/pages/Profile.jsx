@@ -5,13 +5,15 @@ import PageHeader from "../components/PageHeader";
 import { format } from "date-fns";
 import { Image, Upload, Button, Input } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { updateUserInfoAsync } from "../redux/userSlice";
 const Profile = () => {
 	const { id } = useParams();
 	const [user, setUser] = useState({});
 	const [url, setUrl] = useState("");
 	const [editMode, setEditMode] = useState(false);
 	const [nickname, setNickname] = useState("");
-
+	const dispatch = useDispatch();
 	const fetchData = async () => {
 		const res = await getUserInfo(id);
 		setUser(res.data);
@@ -32,6 +34,7 @@ const Profile = () => {
 			if (res.code === 0) {
 				setUrl(res.data);
 				updateUserInfoApi(user._id, { avatar: res.data });
+				// dispatch(updateUserInfoAsync(user._id, { avatar: res.data }));
 			}
 		} catch (error) {
 			console.error("Upload failed: ", error);

@@ -105,6 +105,8 @@ const LoginForm = (props) => {
 		}
 	};
 	const regConfirmHandle = async () => {
+		console.log(regInfo);
+		
 		//register logic
 		const res = await register(regInfo);
 		//failed
@@ -117,7 +119,7 @@ const LoginForm = (props) => {
 			//save data to redux
 			dispatch(initUserInfo(res.data));
 			//change login status
-			dispatch(updateLoginStatus(true));
+			// dispatch(updateLoginStatus(true));
 			closeModal();
 		}
 	};
