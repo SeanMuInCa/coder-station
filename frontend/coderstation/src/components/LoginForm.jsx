@@ -105,8 +105,6 @@ const LoginForm = (props) => {
 		}
 	};
 	const regConfirmHandle = async () => {
-		console.log(regInfo);
-		
 		//register logic
 		const res = await register(regInfo);
 		//failed
