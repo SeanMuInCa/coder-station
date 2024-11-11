@@ -49,22 +49,6 @@ const Issues = (props) => {
     setList(filteredList);  // 设置新的列表
   }, [search.searchMode, search.SearchInfo?.keyWord, issueList]); // 监听search.searchMode和关键词变化
   
-  // let list = search.searchMode ? issueList.filter(item => item.issueTitle.includes(search.SearchInfo?.keyWord).map(item => (
-  //   <IssueCard info={item} key={item._id}/>
-  // ))
-  // ):issueList.map(item => (
-  //   <IssueCard info={item} key={item._id}/>
-  // ))
-  // let list = search.searchMode 
-  // ? issueList
-  //     .filter(item => item.issueTitle.includes(search.SearchInfo?.keyWord))  // 过滤符合条件的项
-  //     .map(item => (
-  //       <IssueCard info={item} key={item._id} />  // 映射出组件
-  //     ))
-  // : issueList.map(item => (
-  //     <IssueCard info={item} key={item._id} />  // 没有过滤时直接映射
-  // ));
-
   return (
     <div className='max-w-7xl mx-auto bg-slate-50 pb-10'>
       <PageHeader title="Issue List" >
