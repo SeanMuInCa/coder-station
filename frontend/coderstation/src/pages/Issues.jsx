@@ -36,7 +36,7 @@ const Issues = (props) => {
   };
   useEffect(() => {
     getIssueList();
-  }, [pageInfo.pageSize, pageInfo.current, props.keyWord])
+  }, [pageInfo.pageSize, pageInfo.current])
 
   
   useEffect(() => {
